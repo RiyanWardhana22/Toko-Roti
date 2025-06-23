@@ -39,7 +39,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                             <?php if (isset($_SESSION['user_id'])): ?>
                                                                         <li class="nav-item dropdown">
                                                                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                                                Halo, <?= htmlspecialchars($_SESSION['user_name']) ?>
+                                                                                                <?= htmlspecialchars($_SESSION['user_name']) ?>
                                                                                     </a>
                                                                                     <ul class="dropdown-menu">
                                                                                                 <li><a class="dropdown-item" href="<?= BASE_URL ?>akun">Akun Saya</a></li>

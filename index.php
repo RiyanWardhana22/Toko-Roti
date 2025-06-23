@@ -12,23 +12,21 @@ $allowed_pages = [
   'checkout',
   'login',
   'register',
-  'akun'
+  'akun',
+  'order_success',
+  'admin'
 ];
 
-$page_file = 'pages/' . $page . '.php';
-
-include 'pages/parts/header.php';
-
-if (in_array($page, $allowed_pages) && file_exists($page_file)) {
-  include $page_file;
+if ($page == 'admin') {
+  include 'pages/admin/index_admin.php';
+} elseif (in_array($page, $allowed_pages) && file_exists('pages/' . $page . '.php')) {
+  include 'pages/parts/header.php';
+  include 'pages/' . $page . '.php';
+  include 'pages/parts/footer.php';
 } else {
-  echo '<div class="container text-center py-5">
-            <h1>404 - Halaman Tidak Ditemukan</h1>
-            <p>Maaf, halaman yang Anda cari tidak ada.</p>
-            <a href="' . BASE_URL . '" class="btn btn-primary">Kembali ke Beranda</a>
-          </div>';
+  include 'pages/parts/header.php';
+  echo '<div class="container text-center py-5"><h1>404 - Halaman Tidak Ditemukan</h1></div>';
+  include 'pages/parts/footer.php';
 }
-
-include 'pages/parts/footer.php';
 
 mysqli_close($conn);
