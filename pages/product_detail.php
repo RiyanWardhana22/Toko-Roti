@@ -18,15 +18,7 @@ if (!$product) {
             </div>
 
             <div class="col-md-6">
-                        <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>produk">Produk</a></li>
-                                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>produk?kategori=<?= $product['category_slug'] ?? '' ?>"><?= htmlspecialchars($product['category_name']) ?></a></li>
-                                                <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($product['name']) ?></li>
-                                    </ol>
-                        </nav>
-
-                        <h2><?= htmlspecialchars($product['name']) ?></h2>
+                        <h2 class="mt-3"><?= htmlspecialchars($product['name']) ?></h2>
                         <p class="text-muted"><?= htmlspecialchars($product['description']) ?></p>
 
                         <h3 class="text-danger my-3">Rp <?= number_format($product['price'], 0, ',', '.') ?></h3>
