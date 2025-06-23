@@ -30,7 +30,7 @@ if ($action == 'add' && isset($_POST['product_id']) && isset($_POST['quantity'])
                                     ];
                         }
             }
-            header('Location: ' . BASE_URL . 'keranjang');
+            header('Location: ' . BASE_URL . 'cart');
             exit();
 } elseif ($action == 'update' && isset($_POST['product_id']) && isset($_POST['quantity'])) {
             $product_id = (int)$_POST['product_id'];
@@ -41,12 +41,12 @@ if ($action == 'add' && isset($_POST['product_id']) && isset($_POST['quantity'])
             } else {
                         unset($_SESSION['cart'][$product_id]);
             }
-            header('Location: ' . BASE_URL . 'keranjang');
+            header('Location: ' . BASE_URL . 'cart');
             exit();
 } elseif ($action == 'remove' && isset($_POST['product_id'])) {
             $product_id = (int)$_POST['product_id'];
             unset($_SESSION['cart'][$product_id]);
-            header('Location: ' . BASE_URL . 'keranjang');
+            header('Location: ' . BASE_URL . 'cart');
             exit();
 } else {
             header('Location: ' . BASE_URL);

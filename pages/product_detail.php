@@ -1,6 +1,6 @@
 <?php
 global $conn, $product_id;
-$stmt = mysqli_prepare($conn, "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?");
+$stmt = mysqli_prepare($conn, "SELECT p.*, c.name as category_name, c.slug as category_slug FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?");
 mysqli_stmt_bind_param($stmt, "i", $product_id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
@@ -43,19 +43,31 @@ if (!$product) {
                                     (<?= $product['stock'] ?>)
                         </p>
 
-                        <form action="<?= BASE_URL ?>app/cart_action.php" method="POST">
-                                    <input type="hidden" name="action" value="add">
-                                    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                        <hr>
 
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                                    <form action="<?= BASE_URL ?>app/cart_action.php" method="POST">
+                                                <input type="hidden" name="action" value="add">
+                                                <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+
+                                                <div class="input-group mb-3" style="max-width: 200px;">
+                                                            <label class="input-group-text" for="quantity">Jumlah</label>
+                                                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary btn-lg" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
+                                                            <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                                                </button>
+                                    </form>
+                        <?php else: ?>
                                     <div class="input-group mb-3" style="max-width: 200px;">
                                                 <label class="input-group-text" for="quantity">Jumlah</label>
                                                 <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
                                     </div>
-
-                                    <button type="submit" class="btn btn-primary btn-lg" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
+                                    <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
                                                 <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
-                                    </button>
-                        </form>
+                                    </a>
+                        <?php endif; ?>
 
                         <div class="mt-5">
                                     <h4>Ulasan Pelanggan</h4>
