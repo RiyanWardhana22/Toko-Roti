@@ -8,7 +8,7 @@ $page = $url_parts[0];
 $allowed_pages = [
   'home',
   'produk',
-  'keranjang',
+  'cart',
   'checkout',
   'login',
   'register',

@@ -29,7 +29,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                         <a class="nav-link" href="<?= BASE_URL ?>produk">Produk</a>
                                                             </li>
                                                             <li class="nav-item">
-                                                                        <a class="nav-link" href="<?= BASE_URL ?>keranjang">
+                                                                        <a class="nav-link" href="<?= BASE_URL ?>cart">
                                                                                     Keranjang <span class="badge bg-danger"><?= $cart_count ?></span>
                                                                         </a>
                                                             </li>
