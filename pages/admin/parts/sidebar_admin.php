@@ -1,28 +1,37 @@
+<?php
+$current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+?>
+
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3 sidebar-sticky">
                         <ul class="nav flex-column">
                                     <li class="nav-item">
-                                                <a class="nav-link" href="<?= BASE_URL ?>admin?page=dashboard">
+                                                <a class="nav-link <?= ($current_page == 'dashboard') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=dashboard">
                                                             Dashboard
                                                 </a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link" href="<?= BASE_URL ?>admin?page=orders">
+                                                <a class="nav-link <?= ($current_page == 'orders') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=orders">
                                                             Manajemen Pesanan
                                                 </a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link" href="<?= BASE_URL ?>admin/products">
+                                                <a class="nav-link <?= ($current_page == 'products') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=products">
                                                             Manajemen Produk
                                                 </a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link" href="#">
+                                                <a class="nav-link <?= ($current_page == 'customers') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=customers">
                                                             Manajemen Pelanggan
                                                 </a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link" href="#">
+                                                <a class="nav-link <?= ($current_page == 'categories') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=categories">
+                                                            Manajemen Kategori
+                                                </a>
+                                    </li>
+                                    <li class="nav-item">
+                                                <a class="nav-link <?= ($current_page == 'reports') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reports">
                                                             Laporan
                                                 </a>
                                     </li>
