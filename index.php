@@ -1,69 +1,34 @@
 <?php
-// Start session
-session_start();
+require_once 'app/config.php';
 
-// Set default timezone
-date_default_timezone_set('Asia/Jakarta');
+$request_uri = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'home';
+$url_parts = explode('/', $request_uri);
+$page = $url_parts[0];
 
-// Define base path
-define('BASE_PATH', __DIR__);
-
-// Load configuration
-require_once __DIR__ . '/config/database.php';
-
-// Load functions
-require_once __DIR__ . '/includes/functions.php';
-
-// Determine requested page
-$page = isset($_GET['page']) ? strtolower($_GET['page']) : 'home';
 $allowed_pages = [
             'home',
-            'products',
-            'product-detail',
-            'cart',
+            'produk',
+            'keranjang',
             'checkout',
-            'account',
             'login',
             'register',
-            'about',
-            'contact',
-            'search'
+            'akun'
 ];
 
-// Validate page request
-if (!in_array($page, $allowed_pages)) {
-            $page = 'home';
-}
+$page_file = 'pages/' . $page . '.php';
 
-// Handle admin pages separately
-if (strpos($page, 'admin/') === 0 && isAdmin()) {
-            require_once __DIR__ . '/admin.php';
-            exit;
-}
+include 'pages/parts/header.php';
 
-// Load header
-require_once __DIR__ . '/includes/header.php';
-
-// Load the requested page
-$page_file = __DIR__ . '/pages/' . $page . '.php';
-
-if (file_exists($page_file)) {
-            // Check authentication for protected pages
-            $protected_pages = ['account', 'checkout', 'cart'];
-            if (in_array($page, $protected_pages) && !isLoggedIn()) {
-                        redirect('/pages/auth/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
-            }
-
-            require_once $page_file;
+if (in_array($page, $allowed_pages) && file_exists($page_file)) {
+            include $page_file;
 } else {
-            // Page not found - load 404
-            require_once __DIR__ . '/pages/404.php';
+            echo '<div class="container text-center py-5">
+            <h1>404 - Halaman Tidak Ditemukan</h1>
+            <p>Maaf, halaman yang Anda cari tidak ada.</p>
+            <a href="' . BASE_URL . '" class="btn btn-primary">Kembali ke Beranda</a>
+          </div>';
 }
 
-// Load footer
-require_once __DIR__ . '/includes/footer.php';
+include 'pages/parts/footer.php';
 
-// Close any open database connections
-if (function_exists('close_all_db_connections')) {
-            close_all_db_connections();
-}
+mysqli_close($conn);
