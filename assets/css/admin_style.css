@@ -1,15 +1,10 @@
-body {
-  font-size: 0.875rem;
-}
-
-/* === Sidebar === */
 .sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Dibelakang navbar */
-  padding: 48px 0 0; /* Padding untuk navbar atas */
+  z-index: 100;
+  padding: 48px 0 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -28,10 +23,9 @@ body {
 }
 
 .sidebar .nav-link.active {
-  color: #0d6efd; /* Warna biru bootstrap */
+  color: #0d6efd;
 }
 
-/* === Navbar (Header Atas) === */
 .navbar-brand {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -39,7 +33,6 @@ body {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
 }
 
-/* Menghapus styling posisi absolut dari toggler */
 .navbar .navbar-toggler {
   padding: 0.25rem 0.75rem;
   border: none;
