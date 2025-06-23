@@ -13,7 +13,7 @@ if (!$user || $user['role'] !== 'admin') {
             exit();
 }
 $admin_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-$allowed_admin_pages = ['dashboard', 'products', 'orders', 'customers', 'categories', 'reports'];
+$allowed_admin_pages = ['dashboard', 'products', 'orders', 'customers', 'categories', 'reports', 'invoice'];
 
 include 'parts/header_admin.php';
 include 'parts/sidebar_admin.php';
