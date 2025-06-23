@@ -7,7 +7,7 @@ $total_produk = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as tota
 
 $result_pesanan_terbaru = mysqli_query($conn, "SELECT id, user_id, total_amount, status, created_at FROM orders ORDER BY created_at DESC LIMIT 5");
 
-$result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products WHERE stock < 10 AND stock > 0");
+$result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products WHERE stock < 5 AND stock > 0");
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

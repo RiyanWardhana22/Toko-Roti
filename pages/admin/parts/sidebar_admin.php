@@ -12,7 +12,7 @@
                                                 </a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link" href="<?= BASE_URL ?>admin?page=products">
+                                                <a class="nav-link" href="<?= BASE_URL ?>admin/products">
                                                             Manajemen Produk
                                                 </a>
                                     </li>
