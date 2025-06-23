@@ -33,9 +33,24 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                     Keranjang <span class="badge bg-danger"><?= $cart_count ?></span>
                                                                         </a>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                        <a class="nav-link" href="<?= BASE_URL ?>akun">Akun Saya</a>
-                                                            </li>
+                                                            <?php if (isset($_SESSION['user_id'])): ?>
+                                                                        <li class="nav-item dropdown">
+                                                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                                Halo, <?= htmlspecialchars($_SESSION['user_name']) ?>
+                                                                                    </a>
+                                                                                    <ul class="dropdown-menu">
+                                                                                                <li><a class="dropdown-item" href="<?= BASE_URL ?>akun">Akun Saya</a></li>
+                                                                                                <li>
+                                                                                                            <hr class="dropdown-divider">
+                                                                                                </li>
+                                                                                                <li><a class="dropdown-item" href="<?= BASE_URL ?>app/logout.php">Logout</a></li>
+                                                                                    </ul>
+                                                                        </li>
+                                                            <?php else: ?>
+                                                                        <li class="nav-item">
+                                                                                    <a class="nav-link" href="<?= BASE_URL ?>login">Login/Register</a>
+                                                                        </li>
+                                                            <?php endif; ?>
                                                 </ul>
                                     </div>
                         </div>
