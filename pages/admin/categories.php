@@ -87,16 +87,18 @@ $all_categories_result = mysqli_query($conn, "SELECT * FROM categories ORDER BY 
                                     <table class="table table-striped table-sm">
                                                 <thead>
                                                             <tr>
-                                                                        <th>#ID</th>
+                                                                        <th>No</th>
                                                                         <th>Nama Kategori</th>
                                                                         <th>Slug</th>
                                                                         <th>Aksi</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
-                                                            <?php while ($cat = mysqli_fetch_assoc($all_categories_result)): ?>
+                                                            <?php
+                                                            $no = 1;
+                                                            while ($cat = mysqli_fetch_assoc($all_categories_result)): ?>
                                                                         <tr>
-                                                                                    <td><?= $cat['id'] ?></td>
+                                                                                    <td><?= $no++ ?></td>
                                                                                     <td><?= htmlspecialchars($cat['name']) ?></td>
                                                                                     <td><?= htmlspecialchars($cat['slug']) ?></td>
                                                                                     <td>

@@ -12,6 +12,7 @@ if (!$user || $user['role'] !== 'admin') {
             header('Location: ' . BASE_URL);
             exit();
 }
+
 $admin_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 $allowed_admin_pages = [
             'dashboard',
@@ -23,10 +24,9 @@ $allowed_admin_pages = [
             'invoice',
             'settings_about',
             'settings_slider',
-            'settings_users'
+            'settings_users',
+            'settings_website'
 ];
-
-$page_path = __DIR__ . '/' . $admin_page . '.php';
 
 include 'parts/header_admin.php';
 include 'parts/sidebar_admin.php';

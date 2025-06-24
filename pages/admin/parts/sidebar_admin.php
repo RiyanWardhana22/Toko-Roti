@@ -40,6 +40,12 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_contact
                                                 <div class="collapse <?= $is_settings_page ? 'show' : '' ?>" id="submenu-settings">
                                                             <ul class="nav flex-column ms-3">
                                                                         <li class="nav-item">
+                                                                                    <a class="nav-link <?= $current_page == 'settings_slider' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_website">Website</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                                    <a class="nav-link <?= $current_page == 'settings_slider' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_slider"> Slider Homepage </a>
+                                                                        </li>
+                                                                        <li class="nav-item">
                                                                                     <a class="nav-link <?= $current_page == 'settings_about' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_about">
                                                                                                 Tentang Kami
                                                                                     </a>
@@ -48,9 +54,6 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_contact
                                                                                     <a class="nav-link <?= $current_page == 'settings_users' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_users">
                                                                                                 User
                                                                                     </a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                                    <a class="nav-link <?= $current_page == 'settings_slider' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_slider"> Slider Homepage </a>
                                                                         </li>
                                                             </ul>
                                                 </div>

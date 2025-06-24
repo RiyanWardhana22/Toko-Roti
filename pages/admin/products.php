@@ -36,7 +36,7 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
             <table class="table table-striped table-sm">
                         <thead>
                                     <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col">No</th>
                                                 <th scope="col">Gambar</th>
                                                 <th scope="col">Nama Produk</th>
                                                 <th scope="col">Kategori</th>
@@ -46,10 +46,12 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
                                     </tr>
                         </thead>
                         <tbody>
-                                    <?php if (mysqli_num_rows($all_products_result) > 0): ?>
+                                    <?php
+                                    $no = 1;
+                                    if (mysqli_num_rows($all_products_result) > 0): ?>
                                                 <?php while ($product_row = mysqli_fetch_assoc($all_products_result)): ?>
                                                             <tr>
-                                                                        <td><?= $product_row['id'] ?></td>
+                                                                        <td><?= $no++ ?></td>
                                                                         <td>
                                                                                     <?php if (!empty($product_row['image_url'])): ?>
                                                                                                 <img src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($product_row['image_url']) ?>" alt="Gambar Produk" width="50" height="50" style="object-fit: cover;">
