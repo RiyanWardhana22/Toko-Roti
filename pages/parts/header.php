@@ -26,6 +26,9 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                         <a class="nav-link" href="<?= BASE_URL ?>">Beranda</a>
                                                             </li>
                                                             <li class="nav-item">
+                                                                        <a class="nav-link" href="<?= BASE_URL ?>about">Tentang Kami</a>
+                                                            </li>
+                                                            <li class="nav-item">
                                                                         <a class="nav-link" href="<?= BASE_URL ?>produk">Produk</a>
                                                             </li>
                                                             <li class="nav-item">
@@ -33,7 +36,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                         $cart_link = isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login';
                                                                         ?>
                                                                         <a class="nav-link" href="<?= $cart_link ?>">
-                                                                                    Keranjang <span class="badge bg-danger"><?= $cart_count ?></span>
+                                                                                    <i class="fa-solid fa-cart-shopping"></i> <span class="badge bg-danger"><?= $cart_count ?></span>
                                                                         </a>
                                                             </li>
                                                             <?php if (isset($_SESSION['user_id'])): ?>

@@ -18,16 +18,16 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_contact
                                                 <a class="nav-link <?= ($current_page == 'dashboard') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=dashboard">Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link <?= ($current_page == 'orders') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=orders">Manajemen Pesanan</a>
+                                                <a class="nav-link <?= ($current_page == 'orders') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=orders">Pesanan</a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link <?= ($current_page == 'products') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=products">Manajemen Produk</a>
+                                                <a class="nav-link <?= ($current_page == 'products') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=products">Produk</a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link <?= ($current_page == 'customers') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=customers">Manajemen Pelanggan</a>
+                                                <a class="nav-link <?= ($current_page == 'customers') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=customers">Pelanggan</a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link <?= ($current_page == 'categories') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=categories">Manajemen Kategori</a>
+                                                <a class="nav-link <?= ($current_page == 'categories') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=categories">Kategori</a>
                                     </li>
                                     <li class="nav-item">
                                                 <a class="nav-link <?= ($current_page == 'reports') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reports">Laporan</a>
