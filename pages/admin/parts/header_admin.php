@@ -1,10 +1,21 @@
+<?php
+$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings");
+$site_settings = [];
+while ($row = mysqli_fetch_assoc($settings_res)) {
+            $site_settings[$row['setting_key']] = $row['setting_value'];
+}
+?>
+
 <!doctype html>
 <html lang="id">
 
 <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Dashboard Admin - Toko Roti</title>
+            <title>Dashboard - <?= htmlspecialchars($site_settings['website_title']) ?></title>
+            <?php if (!empty($site_settings['website_favicon'])): ?>
+                        <link rel="icon" href="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($site_settings['website_favicon']) ?>">
+            <?php endif; ?>
             <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
             <link href="<?= BASE_URL ?>assets/css/admin_style.css" rel="stylesheet">
 </head>

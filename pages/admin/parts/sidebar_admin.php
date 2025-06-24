@@ -1,16 +1,25 @@
 <?php
-// Ambil halaman saat ini dari URL untuk menandai link/menu yang aktif
 $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$is_settings_page = in_array($current_page, ['settings_about', 'settings_contact', 'settings_slider', 'settings_users', 'settings_website']);
 
-// Cek apakah halaman saat ini adalah bagian dari menu settings
-// Ini digunakan untuk menjaga dropdown tetap terbuka saat salah satu submenu-nya aktif
-$is_settings_page = in_array($current_page, ['settings_about', 'settings_contact', 'settings_slider']);
+$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings");
+$site_settings = [];
+while ($row = mysqli_fetch_assoc($settings_res)) {
+            $site_settings[$row['setting_key']] = $row['setting_value'];
+}
 ?>
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3 sidebar-sticky">
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-2 text-muted text-uppercase">
-                                    <span>Toko Roti Admin</span>
+                                    <?php
+                                    $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
+                                    if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
+                                                echo '<a class="navbar-brand" href="' . BASE_URL . '"><img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" style="height: 40px;"></a>';
+                                    } else {
+                                                echo '<a class="navbar-brand" href="' . BASE_URL . '">' . htmlspecialchars($site_settings['navbar_brand_text'] ?? 'Toko Roti') . '</a>';
+                                    }
+                                    ?>
                         </h6>
 
                         <ul class="nav flex-column">
