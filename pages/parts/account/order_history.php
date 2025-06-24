@@ -26,8 +26,9 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                                                                         <td><span class="badge bg-primary"><?= htmlspecialchars($order['status']) ?></span></td>
                                                                         <td>
                                                                                     <a href="<?= BASE_URL ?>order_detail_customer?id=<?= $order['id'] ?>" class="btn btn-info btn-sm">Detail</a>
+
                                                                                     <?php if ($order['status'] == 'Menunggu Pembayaran'): ?>
-                                                                                                <a href="<?= BASE_URL ?>payment_confirmation?order_id=<?= $order['id'] ?>" class="btn btn-success btn-sm">Konfirmasi Pembayaran</a>
+                                                                                                <a href="<?= BASE_URL ?>payment_confirmation?id=<?= $order['id'] ?>" class="btn btn-success btn-sm">Konfirmasi Pembayaran</a>
                                                                                     <?php endif; ?>
                                                                         </td>
                                                             </tr>
