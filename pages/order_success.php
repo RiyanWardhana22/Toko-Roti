@@ -10,10 +10,7 @@ $order_id = (int)$_GET['order_id'];
             <h2>Pesanan Anda Berhasil Dibuat.</h2>
             <p>Nomor Pesanan Anda adalah: <strong>#<?= $order_id ?></strong></p>
             <hr>
-            <h4>Instruksi Pembayaran</h4>
-            <p>Silakan lakukan pembayaran sejumlah total pesanan Anda ke rekening berikut:</p>
-            <p><strong>Bank BCA: 123-456-7890</strong> a/n Toko Roti Lezat</p>
-            <p><strong>Bank Mandiri: 098-765-4321</strong> a/n Toko Roti Lezat</p>
-            <p class="mt-4">Setelah melakukan pembayaran, status pesanan Anda akan kami proses. Anda dapat melihat status pesanan di halaman "Akun Saya".</p>
-            <a href="<?= BASE_URL ?>produk" class="btn btn-primary mt-3">Lanjut Belanja</a>
+            <h4>Silahkan Konfirmasi Pembayaran</h4>
+            <p class="mt-2">Setelah melakukan pembayaran, status pesanan Anda akan kami proses. Anda dapat melihat status pesanan di halaman "Akun Saya".</p>
+            <a href="<?= BASE_URL ?>akun?tab=riwayat_pesanan" class="btn btn-primary mt-3">Konfirmasi Pembayaran</a>
 </div>

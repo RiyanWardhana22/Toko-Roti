@@ -57,7 +57,7 @@ foreach ($_SESSION['cart'] as $item) {
                                     <h4>Opsi Pembayaran</h4>
                                     <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="payment_method" id="transfer" value="Transfer Bank Manual" checked required>
-                                                [cite_start]<label class="form-check-label" for="transfer">Transfer Bank Manual [cite: 39]</label>
+                                                <label class="form-check-label" for="transfer">Transfer Bank Manual</label>
                                     </div>
                         </div>
 
