@@ -1,5 +1,6 @@
 <?php
 global $conn, $product_id;
+
 $stmt = mysqli_prepare($conn, "SELECT p.*, c.name as category_name, c.slug as category_slug FROM products p JOIN categories c ON p.category_id = c.id WHERE p.id = ?");
 mysqli_stmt_bind_param($stmt, "i", $product_id);
 mysqli_stmt_execute($stmt);
@@ -10,6 +11,13 @@ if (!$product) {
             echo '<div class="alert alert-danger">Produk tidak ditemukan.</div>';
             return;
 }
+
+$sold_stmt = mysqli_prepare($conn, "SELECT SUM(oi.quantity) as total_sold FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE oi.product_id = ? AND o.status = 'Selesai'");
+mysqli_stmt_bind_param($sold_stmt, "i", $product_id);
+mysqli_stmt_execute($sold_stmt);
+$sold_result = mysqli_stmt_get_result($sold_stmt);
+$sold_data = mysqli_fetch_assoc($sold_result);
+$total_terjual = $sold_data['total_sold'] ?? 0;
 ?>
 
 <div class="row">
@@ -20,7 +28,6 @@ if (!$product) {
             <div class="col-md-6">
                         <h2 class="mt-3"><?= htmlspecialchars($product['name']) ?></h2>
                         <p class="text-muted"><?= htmlspecialchars($product['description']) ?></p>
-
                         <h3 class="text-danger my-3">Rp <?= number_format($product['price'], 0, ',', '.') ?></h3>
 
                         <p>
@@ -32,9 +39,14 @@ if (!$product) {
                                     <?php else: ?>
                                                 <span class="badge bg-danger">Habis</span>
                                     <?php endif; ?>
-                                    (<?= $product['stock'] ?>)
+                                    (Sisa: <?= $product['stock'] ?>)
                         </p>
 
+                        <?php if ($total_terjual > 0): ?>
+                                    <p class="text-success fw-bold">
+                                                <i class="fas fa-check-circle"></i> Terjual <?= $total_terjual ?>
+                                    </p>
+                        <?php endif; ?>
                         <hr>
 
                         <?php if (isset($_SESSION['user_id'])): ?>
@@ -54,10 +66,10 @@ if (!$product) {
                         <?php else: ?>
                                     <div class="input-group mb-3" style="max-width: 200px;">
                                                 <label class="input-group-text" for="quantity">Jumlah</label>
-                                                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
+                                                <input type="number" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>" disabled>
                                     </div>
                                     <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
-                                                <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
+                                                <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
                                     </a>
                         <?php endif; ?>
 
