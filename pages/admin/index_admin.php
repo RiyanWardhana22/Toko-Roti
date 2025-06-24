@@ -22,7 +22,8 @@ $allowed_admin_pages = [
             'reports',
             'invoice',
             'settings_about',
-            'settings_slider'
+            'settings_slider',
+            'settings_users'
 ];
 
 $page_path = __DIR__ . '/' . $admin_page . '.php';

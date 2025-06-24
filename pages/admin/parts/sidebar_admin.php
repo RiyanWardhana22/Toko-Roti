@@ -45,8 +45,8 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_contact
                                                                                     </a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                                    <a class="nav-link" href="#">
-                                                                                                Kontak
+                                                                                    <a class="nav-link <?= $current_page == 'settings_users' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_users">
+                                                                                                User
                                                                                     </a>
                                                                         </li>
                                                                         <li class="nav-item">
