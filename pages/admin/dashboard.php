@@ -1,4 +1,7 @@
 <?php
+$verification_res = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
+$verification_count = mysqli_fetch_assoc($verification_res)['total'];
+
 $today = date('Y-m-d');
 $pendapatan_hari_ini = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_amount) as total FROM orders WHERE status = 'Selesai' AND DATE(created_at) = '$today'"))['total'] ?? 0;
 $pesanan_baru = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE DATE(created_at) = '$today'"))['total'];
@@ -13,6 +16,14 @@ $result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard Utama</h1>
 </div>
+<?php if ($verification_count > 0): ?>
+            <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Ada Konfirmasi Pembayaran Baru!</h4>
+                        <p>Anda memiliki <strong><?= $verification_count ?> pesanan</strong> yang menunggu untuk diverifikasi pembayarannya. Segera periksa dan proses pesanan tersebut.</p>
+                        <hr>
+                        <a href="<?= BASE_URL ?>admin?page=orders&status=Menunggu+Verifikasi" class="btn btn-primary mb-0">Lihat Pesanan Sekarang</a>
+            </div>
+<?php endif; ?>
 
 <div class="row">
             <div class="col-md-3">

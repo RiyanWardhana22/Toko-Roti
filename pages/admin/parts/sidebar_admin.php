@@ -29,7 +29,12 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_users',
                                                 <a class="nav-link <?= ($current_page == 'dashboard') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=dashboard">Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                                <a class="nav-link <?= ($current_page == 'orders') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=orders">Pesanan</a>
+                                                <a class="nav-link <?= ($current_page == 'orders') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=orders">
+                                                            Pesanan
+                                                            <?php if (isset($verification_count_sidebar) && $verification_count_sidebar > 0): ?>
+                                                                        <span class="badge rounded-pill text-bg-danger ms-1"><?= $verification_count_sidebar ?></span>
+                                                            <?php endif; ?>
+                                                </a>
                                     </li>
                                     <li class="nav-item">
                                                 <a class="nav-link <?= ($current_page == 'products') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=products">Produk</a>

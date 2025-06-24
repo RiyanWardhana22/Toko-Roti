@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
 
 $order_res = mysqli_query($conn, "SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = $order_id");
 $order = mysqli_fetch_assoc($order_res);
-
 $items_res = mysqli_query($conn, "SELECT oi.*, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
+$confirmation_res = mysqli_query($conn, "SELECT * FROM payment_confirmations WHERE order_id = $order_id LIMIT 1");
+$confirmation_data = mysqli_fetch_assoc($confirmation_res);
 
-$statuses = ['Menunggu Pembayaran', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan'];
+$statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan'];
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -43,6 +44,26 @@ $statuses = ['Menunggu Pembayaran', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalka
 
                         <h4>Alamat Pengiriman</h4>
                         <p><?= nl2br(htmlspecialchars($order['shipping_address'])) ?></p>
+
+                        <?php if ($confirmation_data): ?>
+                                    <div class="card mt-4">
+                                                <div class="card-header bg-success text-white">
+                                                            <strong>Detail Konfirmasi Pembayaran</strong>
+                                                </div>
+                                                <div class="card-body">
+                                                            <p>
+                                                                        <strong>Bank Pengirim:</strong> <?= htmlspecialchars($confirmation_data['bank_name']) ?><br>
+                                                                        <strong>Pemilik Rekening:</strong> <?= htmlspecialchars($confirmation_data['account_holder']) ?><br>
+                                                                        <strong>Jumlah Transfer:</strong> Rp <?= number_format($confirmation_data['transfer_amount'], 0, ',', '.') ?><br>
+                                                                        <strong>Tanggal Transfer:</strong> <?= date('d M Y', strtotime($confirmation_data['transfer_date'])) ?>
+                                                            </p>
+                                                            <h6>Bukti Transfer:</h6>
+                                                            <a href="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" target="_blank">
+                                                                        <img src="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" class="img-fluid rounded" alt="Bukti Transfer">
+                                                            </a>
+                                                </div>
+                                    </div>
+                        <?php endif; ?>
             </div>
             <div class="col-md-8">
                         <h4>Detail Pesanan</h4>
@@ -66,7 +87,6 @@ $statuses = ['Menunggu Pembayaran', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalka
                                                 </form>
                                     </div>
                         </div>
-
                         <h4 class="mt-4">Item yang Dipesan</h4>
                         <table class="table">
                                     <thead>

@@ -28,6 +28,9 @@ $allowed_admin_pages = [
             'settings_website'
 ];
 
+$verification_res_sidebar = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
+$verification_count_sidebar = mysqli_fetch_assoc($verification_res_sidebar)['total'];
+
 include 'parts/header_admin.php';
 include 'parts/sidebar_admin.php';
 
