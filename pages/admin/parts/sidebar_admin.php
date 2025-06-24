@@ -50,9 +50,7 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_contact
                                                                                     </a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                                    <a class="nav-link" href="#">
-                                                                                                Slider Homepage
-                                                                                    </a>
+                                                                                    <a class="nav-link <?= $current_page == 'settings_slider' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=settings_slider"> Slider Homepage </a>
                                                                         </li>
                                                             </ul>
                                                 </div>
