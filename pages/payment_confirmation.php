@@ -76,7 +76,7 @@ include 'parts/header.php';
 
                                                                         <form action="<?= BASE_URL ?>app/payment_action.php" method="POST" enctype="multipart/form-data">
                                                                                     <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                                                                                    <div class="mb-3"><label class="form-label">Transfer dari Bank</label><input type="text" class="form-control" name="bank_name" required></div>
+                                                                                    <div class="mb-3"><label class="form-label">Transfer dari Bank/E-Wallet</label><input type="text" class="form-control" name="bank_name" placeholder="Cth: BCA/GoPay" required></div>
                                                                                     <div class="mb-3"><label class="form-label">Nama Pemilik Rekening</label><input type="text" class="form-control" name="account_holder" required></div>
                                                                                     <div class="mb-3"><label class="form-label">Jumlah Transfer</label><input type="number" class="form-control" name="transfer_amount" value="<?= (int)$order['total_amount'] ?>" required></div>
                                                                                     <div class="mb-3"><label class="form-label">Tanggal Transfer</label><input type="date" class="form-control" name="transfer_date" required></div>

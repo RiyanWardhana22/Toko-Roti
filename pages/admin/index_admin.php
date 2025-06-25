@@ -29,20 +29,28 @@ $allowed_admin_pages = [
             'settings_payment'
 ];
 
-$verification_res_sidebar = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
-$verification_count_sidebar = mysqli_fetch_assoc($verification_res_sidebar)['total'];
-
-include 'parts/header_admin.php';
-include 'parts/sidebar_admin.php';
-
-echo '<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">';
-$page_path = __DIR__ . '/' . $admin_page . '.php';
-
-if (in_array($admin_page, $allowed_admin_pages) && file_exists($page_path)) {
-            include $page_path;
+$admin_standalone_pages = ['invoice'];
+if (in_array($admin_page, $admin_standalone_pages)) {
+            if (file_exists(__DIR__ . '/' . $admin_page . '.php')) {
+                        include __DIR__ . '/' . $admin_page . '.php';
+            } else {
+                        echo "404 - Halaman tidak ditemukan";
+            }
 } else {
-            include __DIR__ . '/dashboard.php';
-}
+            $verification_res_sidebar = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
+            $verification_count_sidebar = mysqli_fetch_assoc($verification_res_sidebar)['total'];
+            include 'parts/header_admin.php';
+            include 'parts/sidebar_admin.php';
 
-echo '</div>';
-include 'parts/footer_admin.php';
+            echo '<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">';
+            $page_path = __DIR__ . '/' . $admin_page . '.php';
+
+            if (in_array($admin_page, $allowed_admin_pages) && file_exists($page_path)) {
+                        include $page_path;
+            } else {
+                        include __DIR__ . '/dashboard.php';
+            }
+
+            echo '</div>';
+            include 'parts/footer_admin.php';
+}

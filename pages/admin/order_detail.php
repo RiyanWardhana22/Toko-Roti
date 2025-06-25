@@ -27,7 +27,7 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Detail Pesanan #<?= $order['id'] ?></h1>
             <div>
-                        <a href="<?= BASE_URL ?>admin?page=orders&action=invoice&id=<?= $order['id'] ?>" target="_blank" class="btn btn-secondary">Cetak Faktur</a>
+                        <a href="<?= BASE_URL ?>admin?page=invoice&id=<?= $order['id'] ?>" target="_blank" class="btn btn-secondary">Cetak Faktur</a>
                         <a href="<?= BASE_URL ?>admin?page=orders" class="btn btn-primary">Kembali ke Daftar Pesanan</a>
             </div>
 </div>

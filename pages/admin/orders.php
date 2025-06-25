@@ -3,10 +3,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'view' && isset($_GET['id'])) {
             include 'order_detail.php';
             return;
 }
-if (isset($_GET['action']) && $_GET['action'] == 'invoice' && isset($_GET['id'])) {
-            include 'invoice.php';
-            return;
-}
 
 $status_filter = isset($_GET['status']) ? mysqli_real_escape_string($conn, $_GET['status']) : '';
 $where_clause = '';
