@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Datang di {{website_name}}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .header {
+        background-color: #f4f4f4;
+        padding: 10px;
+        text-align: center;
+      }
+      .content {
+        padding: 20px 0;
+      }
+      .footer {
+        font-size: 0.9em;
+        text-align: center;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Selamat Datang di {{website_name}}!</h2>
+      </div>
+      <div class="content">
+        <p>Halo, <strong>{{customer_name}}</strong>,</p>
+        <p>
+          Terima kasih telah mendaftar. Akun Anda telah berhasil dibuat.
+          Sekarang Anda dapat mulai berbelanja aneka roti dan kue lezat kami.
+        </p>
+        <p>Jelajahi koleksi produk kami dengan mengunjungi website kami.</p>
+        <p style="text-align: center; margin-top: 30px">
+          <a
+            href="{{base_url}}"
+            style="
+              background-color: #0d6efd;
+              color: white;
+              padding: 10px 20px;
+              text-decoration: none;
+              border-radius: 5px;
+            "
+            >Kunjungi Toko</a
+          >
+        </p>
+      </div>
+      <div class="footer">
+        <p>&copy; {{current_year}} {{website_name}}. All Rights Reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
