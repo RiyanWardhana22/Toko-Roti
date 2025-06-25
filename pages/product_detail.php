@@ -41,7 +41,7 @@ $total_terjual = $sold_data['total_sold'] ?? 0;
                                     (Sisa: <?= $product['stock'] ?>)
                         </p>
                         <?php if ($total_terjual > 0): ?>
-                                    <p class="text-success fw-bold"><i class="fas fa-check-circle"></i> Telah terjual <?= $total_terjual ?> buah</p>
+                                    <p class="text-success fw-bold"><i class="fas fa-check-circle"></i> Terjual <?= $total_terjual ?></p>
                         <?php endif; ?>
                         <hr>
 
