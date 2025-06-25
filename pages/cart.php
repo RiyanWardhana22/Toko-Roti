@@ -1,8 +1,4 @@
-<?php
-?>
-
-<h2>Keranjang Belanja Anda</h2>
-
+<h3 class="mb-4">Keranjang Belanja Anda</h3>
 <?php if (!empty($_SESSION['cart'])): ?>
             <table class="table table-bordered">
                         <thead>
@@ -17,17 +13,22 @@
                         <tbody>
                                     <?php
                                     $total_harga = 0;
-                                    foreach ($_SESSION['cart'] as $product_id => $item):
+                                    foreach ($_SESSION['cart'] as $key => $item):
                                                 $subtotal = $item['price'] * $item['quantity'];
                                                 $total_harga += $subtotal;
                                     ?>
                                                 <tr>
-                                                            <td><?= htmlspecialchars($item['name']) ?></td>
+                                                            <td>
+                                                                        <?= htmlspecialchars($item['name']) ?>
+                                                                        <?php if (!empty($item['customization'])): ?>
+                                                                                    <br><small class="text-muted"><i>"<?= htmlspecialchars($item['customization']) ?>"</i></small>
+                                                                        <?php endif; ?>
+                                                            </td>
                                                             <td>Rp <?= number_format($item['price'], 0, ',', '.') ?></td>
                                                             <td>
                                                                         <form action="<?= BASE_URL ?>app/cart_action.php" method="POST" class="d-flex">
                                                                                     <input type="hidden" name="action" value="update">
-                                                                                    <input type="hidden" name="product_id" value="<?= $product_id ?>">
+                                                                                    <input type="hidden" name="cart_key" value="<?= $key ?>">
                                                                                     <input type="number" name="quantity" value="<?= $item['quantity'] ?>" class="form-control form-control-sm" min="1" onchange="this.form.submit()">
                                                                         </form>
                                                             </td>
@@ -35,7 +36,7 @@
                                                             <td>
                                                                         <form action="<?= BASE_URL ?>app/cart_action.php" method="POST">
                                                                                     <input type="hidden" name="action" value="remove">
-                                                                                    <input type="hidden" name="product_id" value="<?= $product_id ?>">
+                                                                                    <input type="hidden" name="cart_key" value="<?= $key ?>">
                                                                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                                                         </form>
                                                             </td>

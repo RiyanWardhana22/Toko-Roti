@@ -100,7 +100,12 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                     <tbody>
                                                 <?php while ($item = mysqli_fetch_assoc($items_res)): ?>
                                                             <tr>
-                                                                        <td><?= htmlspecialchars($item['product_name']) ?></td>
+                                                                        <td>
+                                                                                    <strong><?= htmlspecialchars($item['product_name']) ?></strong>
+                                                                                    <?php if (!empty($item['customization_details'])): ?>
+                                                                                                <p class="mb-0 mt-1"><small class="text-muted"><em>Catatan: "<?= htmlspecialchars($item['customization_details']) ?>"</em></small></p>
+                                                                                    <?php endif; ?>
+                                                                        </td>
                                                                         <td><?= $item['quantity'] ?></td>
                                                                         <td>Rp <?= number_format($item['price'], 0, ',', '.') ?></td>
                                                                         <td>Rp <?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?></td>

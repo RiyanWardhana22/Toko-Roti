@@ -29,7 +29,6 @@ $total_terjual = $sold_data['total_sold'] ?? 0;
                         <h2 class="mt-3"><?= htmlspecialchars($product['name']) ?></h2>
                         <p class="text-muted"><?= htmlspecialchars($product['description']) ?></p>
                         <h3 class="text-danger my-3">Rp <?= number_format($product['price'], 0, ',', '.') ?></h3>
-
                         <p>
                                     Status Stok:
                                     <?php if ($product['stock'] > 10): ?>
@@ -41,37 +40,35 @@ $total_terjual = $sold_data['total_sold'] ?? 0;
                                     <?php endif; ?>
                                     (Sisa: <?= $product['stock'] ?>)
                         </p>
-
                         <?php if ($total_terjual > 0): ?>
-                                    <p class="text-success fw-bold">
-                                                <i class="fas fa-check-circle"></i> Terjual <?= $total_terjual ?>
-                                    </p>
+                                    <p class="text-success fw-bold"><i class="fas fa-check-circle"></i> Telah terjual <?= $total_terjual ?> buah</p>
                         <?php endif; ?>
                         <hr>
 
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                                    <form action="<?= BASE_URL ?>app/cart_action.php" method="POST">
-                                                <input type="hidden" name="action" value="add">
-                                                <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                        <form action="<?= BASE_URL ?>app/cart_action.php" method="POST">
+                                    <input type="hidden" name="action" value="add">
+                                    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
 
-                                                <div class="input-group mb-3" style="max-width: 200px;">
-                                                            <label class="input-group-text" for="quantity">Jumlah</label>
-                                                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
-                                                </div>
+                                    <div class="input-group mb-3" style="max-width: 200px;">
+                                                <label class="input-group-text" for="quantity">Jumlah</label>
+                                                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
+                                    </div>
 
+                                    <div class="mb-3">
+                                                <label for="custom_text" class="form-label">Catatan untuk Penjual (Opsional)</label>
+                                                <textarea class="form-control" name="customization_details" id="custom_text" rows="2"></textarea>
+                                    </div>
+
+                                    <?php if (isset($_SESSION['user_id'])): ?>
                                                 <button type="submit" class="btn btn-primary btn-lg" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
                                                             <i class="fas fa-shopping-cart"></i> Tambah ke Keranjang
                                                 </button>
-                                    </form>
-                        <?php else: ?>
-                                    <div class="input-group mb-3" style="max-width: 200px;">
-                                                <label class="input-group-text" for="quantity">Jumlah</label>
-                                                <input type="number" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>" disabled>
-                                    </div>
-                                    <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
-                                                <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
-                                    </a>
-                        <?php endif; ?>
+                                    <?php else: ?>
+                                                <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
+                                                            <i class="fas fa-sign-in-alt"></i> Login untuk Membeli
+                                                </a>
+                                    <?php endif; ?>
+                        </form>
 
                         <div class="mt-5">
                                     <h4>Ulasan Pelanggan</h4>
