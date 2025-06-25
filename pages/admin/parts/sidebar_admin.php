@@ -16,7 +16,7 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_users',
                                     <?php
                                     $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
                                     if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
-                                                echo '<a href="' . BASE_URL . 'admin"><img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" style="height: 40px; max-width: 100%;"></a>';
+                                                echo '<a href="' . BASE_URL . '"><img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" style="height: 40px; max-width: 100%;"></a>';
                                     } else {
                                                 $brand_text = $site_settings['navbar_brand_text'] ?? 'Toko Roti';
                                                 echo '<a class="navbar-brand fs-6 text-dark text-uppercase" href="' . BASE_URL . 'admin">' . htmlspecialchars($brand_text) . '</a>';

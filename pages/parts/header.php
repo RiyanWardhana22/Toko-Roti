@@ -51,8 +51,14 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                             <?php if (isset($_SESSION['user_id'])): ?>
                                                                         <li class="nav-item dropdown">
                                                                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><?= htmlspecialchars($_SESSION['user_name']) ?></a>
-                                                                                    <ul class="dropdown-menu">
+                                                                                    <ul class="dropdown-menu dropdown-menu-end">
                                                                                                 <li><a class="dropdown-item" href="<?= BASE_URL ?>akun">Akun Saya</a></li>
+                                                                                                <li>
+                                                                                                            <hr class="dropdown-divider">
+                                                                                                </li>
+                                                                                                <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
+                                                                                                            <li><a class="dropdown-item" href="<?= BASE_URL ?>admin">Dashboard</a></li>
+                                                                                                <?php endif; ?>
                                                                                                 <li>
                                                                                                             <hr class="dropdown-divider">
                                                                                                 </li>

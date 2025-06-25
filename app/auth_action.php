@@ -26,6 +26,7 @@ if ($action == 'register') {
                         $user_id = mysqli_insert_id($conn);
                         $_SESSION['user_id'] = $user_id;
                         $_SESSION['user_name'] = $name;
+                        $_SESSION['user_role'] = 'customer';
                         header('Location: ' . BASE_URL . 'akun');
                         exit();
             }
@@ -39,6 +40,7 @@ if ($action == 'register') {
                         if (password_verify($password, $user['password'])) {
                                     $_SESSION['user_id'] = $user['id'];
                                     $_SESSION['user_name'] = $user['name'];
+                                    $_SESSION['user_role'] = $user['role'];
                                     header('Location: ' . BASE_URL);
                                     exit();
                         }
