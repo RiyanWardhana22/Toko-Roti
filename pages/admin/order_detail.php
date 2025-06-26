@@ -14,8 +14,13 @@ $website_name = mysqli_fetch_assoc($settings_res)['setting_value'] ?? 'Toko Roti
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             $new_status = mysqli_real_escape_string($conn, $_POST['status']);
 
-            $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ? WHERE id = ?");
-            mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
+            if ($new_status == 'Dikirim') {
+                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ?, shipped_at = NOW() WHERE id = ?");
+                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
+            } else {
+                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ? WHERE id = ?");
+                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
+            }
 
             if (mysqli_stmt_execute($stmt)) {
                         $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui dan notifikasi email telah dikirim.</div>";
