@@ -32,17 +32,25 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
 
 <main>
             <div class="container my-5 py-5">
-                        <div class="section-title text-center">
-                                    <h2>Kategori Pilihan</h2>
-                                    <p>Temukan kelezatan dalam setiap kategori yang kami tawarkan.</p>
+                        <div class="section-title text-center mb-5">
+                                    <h2 class="display-5 fw-bold text-gradient">Jelajahi Kategori Kami</h2>
+                                    <p class="lead text-muted">Temukan kelezatan tak terbatas dalam setiap petualangan kuliner</p>
                         </div>
-                        <div class="row text-center g-4">
+                        <div class="row g-4">
                                     <?php mysqli_data_seek($result_categories, 0);
                                     while ($category = mysqli_fetch_assoc($result_categories)): ?>
-                                                <div class="col-md-4">
-                                                            <a href="<?= BASE_URL ?>produk?kategori=<?= $category['slug'] ?>" class="text-decoration-none text-dark">
-                                                                        <img src="<?= BASE_URL ?>assets/images/kategori-<?= $category['slug'] ?>.jpg" class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
-                                                                        <h4 class="mt-3"><?= htmlspecialchars($category['name']) ?></h4>
+                                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <a href="<?= BASE_URL ?>produk?kategori=<?= $category['slug'] ?>" class="text-decoration-none">
+                                                                        <div class="category-card" data-category="<?= htmlspecialchars($category['name']) ?>">
+                                                                                    <div class="category-bg"></div>
+                                                                                    <div class="category-content">
+                                                                                                <div class="category-icon">
+                                                                                                            <i class="fas fa-utensils"></i>
+                                                                                                </div>
+                                                                                                <h4><?= htmlspecialchars($category['name']) ?></h4>
+                                                                                                <span class="explore-btn">Jelajahi <i class="fas fa-arrow-right"></i></span>
+                                                                                    </div>
+                                                                        </div>
                                                             </a>
                                                 </div>
                                     <?php endwhile; ?>
