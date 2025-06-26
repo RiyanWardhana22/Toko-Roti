@@ -1,23 +1,16 @@
 <?php
-// Pastikan ID Pesanan ada di URL dan valid
 if (!isset($_GET['id'])) {
             echo "<div class='alert alert-danger'>ID Pesanan tidak ditemukan.</div>";
             return;
 }
 $order_id = (int)$_GET['id'];
 $message = '';
-
-// === PENGAMBILAN SEMUA DATA DI AWAL ===
-// 1. Ambil data pesanan utama & data pelanggan
 $order_res = mysqli_query($conn, "SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = $order_id");
 $order = mysqli_fetch_assoc($order_res);
 
-// 2. Ambil nama website dari settings
 $settings_res = mysqli_query($conn, "SELECT setting_value FROM settings WHERE setting_key = 'website_title'");
 $website_name = mysqli_fetch_assoc($settings_res)['setting_value'] ?? 'Toko Roti Anda';
-// =====================================
 
-// Jika admin mengupdate status (Blok ini sekarang lebih rapi)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             $new_status = mysqli_real_escape_string($conn, $_POST['status']);
 
@@ -27,10 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             if (mysqli_stmt_execute($stmt)) {
                         $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui dan notifikasi email telah dikirim.</div>";
 
-                        // --- Kirim Email Notifikasi Status ---
                         require_once __DIR__ . '/../../app/mailer.php';
 
-                        // Gunakan data yang SUDAH DIAMBIL di atas, tidak perlu query lagi
                         $customer_name = $order['customer_name'];
                         $customer_email = $order['customer_email'];
 
@@ -48,12 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                     $subject = "Update Status Pesanan #" . $order_id;
                                     send_email($customer_email, $customer_name, $subject, $email_body);
                         }
-                        // Perbarui data $order setelah status diubah agar tampilan di halaman ikut berubah
                         $order['status'] = $new_status;
             }
 }
 
-// --- Sisa file untuk menampilkan data ---
 $items_res = mysqli_query($conn, "SELECT oi.*, p.name as product_name, oi.customization_details FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
 $confirmation_res = mysqli_query($conn, "SELECT * FROM payment_confirmations WHERE order_id = $order_id LIMIT 1");
 $confirmation_data = mysqli_fetch_assoc($confirmation_res);
