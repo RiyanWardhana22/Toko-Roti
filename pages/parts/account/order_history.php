@@ -1,6 +1,14 @@
 <?php
 $user_id = $_SESSION['user_id'];
-$orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status FROM orders WHERE user_id = $user_id ORDER BY created_at DESC");
+
+$limit = 8;
+$page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+$offset = ($page - 1) * $limit;
+
+$total_res = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE user_id = $user_id");
+$total_results = mysqli_fetch_assoc($total_res)['total'];
+$total_pages = ceil($total_results / $limit);
+$orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status FROM orders WHERE user_id = $user_id ORDER BY created_at DESC LIMIT $limit OFFSET $offset");
 ?>
 
 <h3 class="card-title">Riwayat Pesanan</h3>
@@ -43,3 +51,23 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                         </tbody>
             </table>
 </div>
+
+<?php if ($total_pages > 1): ?>
+            <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                                    <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                                                <a class="page-link" href="<?= BASE_URL ?>akun?tab=riwayat_pesanan&p=<?= $page - 1 ?>">Previous</a>
+                                    </li>
+
+                                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                                <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                                                            <a class="page-link" href="<?= BASE_URL ?>akun?tab=riwayat_pesanan&p=<?= $i ?>"><?= $i ?></a>
+                                                </li>
+                                    <?php endfor; ?>
+
+                                    <li class="page-item <?= ($page >= $total_pages) ? 'disabled' : '' ?>">
+                                                <a class="page-link" href="<?= BASE_URL ?>akun?tab=riwayat_pesanan&p=<?= $page + 1 ?>">Next</a>
+                                    </li>
+                        </ul>
+            </nav>
+<?php endif; ?>
