@@ -62,7 +62,7 @@ foreach ($_SESSION['cart'] as $item) {
                                                                         <p id="shipping-cost-text">Rp 0</p>
                                                             </div>
                                                             <div class="d-flex justify-content-between text-success" id="discount-row" style="display: none;">
-                                                                        <p>Diskon (<span id="voucher-code-text"></span>)</p>
+                                                                        <p id="discount-label">Diskon</p>
                                                                         <p id="discount-text">- Rp 0</p>
                                                             </div>
                                                             <hr>
@@ -101,6 +101,7 @@ foreach ($_SESSION['cart'] as $item) {
                                     const voucherMessageDiv = document.getElementById('voucher-message');
                                     const shippingCostText = document.getElementById('shipping-cost-text');
                                     const discountRow = document.getElementById('discount-row');
+                                    const discountLabel = document.getElementById('discount-label');
                                     const discountText = document.getElementById('discount-text');
                                     const voucherCodeText = document.getElementById('voucher-code-text');
                                     const totalCostText = document.getElementById('total-cost-text');
@@ -148,11 +149,14 @@ foreach ($_SESSION['cart'] as $item) {
                                                                         if (data.status === 'success') {
                                                                                     voucherMessageDiv.innerHTML = `<div class="text-success small">${data.message}</div>`;
                                                                                     discountAmount = parseFloat(data.discount_amount);
+                                                                                    if (data.voucher_type === 'percentage') {
+                                                                                                discountLabel.innerText = `Diskon (${data.voucher_value}%)`;
+                                                                                    } else {
+                                                                                                discountLabel.innerText = 'Diskon';
+                                                                                    }
 
                                                                                     discountText.innerText = '- Rp ' + discountAmount.toLocaleString('id-ID');
-                                                                                    voucherCodeText.innerText = voucherCode.toUpperCase();
                                                                                     discountRow.style.display = 'flex';
-
                                                                         } else {
                                                                                     voucherMessageDiv.innerHTML = `<div class="text-danger small">${data.message}</div>`;
                                                                                     discountAmount = 0;

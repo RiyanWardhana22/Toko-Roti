@@ -51,7 +51,9 @@ if ($_POST['action'] == 'apply_voucher') {
             echo json_encode([
                         'status' => 'success',
                         'message' => 'Voucher berhasil diterapkan!',
-                        'discount_amount' => $discount_amount
+                        'discount_amount' => $discount_amount,
+                        'voucher_type' => $voucher['type'],
+                        'voucher_value' => $voucher['value']
             ]);
             exit();
 }
