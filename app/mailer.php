@@ -20,6 +20,8 @@ function send_email($to, $recipient_name, $subject, $body)
             $mail = new PHPMailer(true);
 
             try {
+                        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
                         // PENGATURAN SERVER (SMTP - Simple Mail Transfer Protocol)
                         // ----------------------------------------------------
                         // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Aktifkan ini untuk melihat proses debug detail

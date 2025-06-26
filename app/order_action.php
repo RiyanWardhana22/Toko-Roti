@@ -22,20 +22,16 @@ try {
 
             $stmt2 = mysqli_prepare($conn, "INSERT INTO order_items (order_id, product_id, quantity, price, customization_details) VALUES (?, ?, ?, ?, ?)");
             $stmt3 = mysqli_prepare($conn, "UPDATE products SET stock = stock - ? WHERE id = ?");
+
             foreach ($_SESSION['cart'] as $item) {
-                        $product_id = $item['id'];
-                        $quantity = $item['quantity'];
-                        $price = $item['price'];
-                        $customization = $item['customization'];
-
-                        mysqli_stmt_bind_param($stmt2, "iiids", $order_id, $product_id, $quantity, $price, $customization);
+                        mysqli_stmt_bind_param($stmt2, "iiids", $order_id, $item['id'], $item['quantity'], $item['price'], $item['customization']);
                         mysqli_stmt_execute($stmt2);
-
-                        mysqli_stmt_bind_param($stmt3, "ii", $quantity, $product_id);
+                        mysqli_stmt_bind_param($stmt3, "ii", $item['quantity'], $item['id']);
                         mysqli_stmt_execute($stmt3);
             }
 
             mysqli_commit($conn);
+
             unset($_SESSION['cart']);
             header('Location: ' . BASE_URL . 'order_success?order_id=' . $order_id);
             exit();
