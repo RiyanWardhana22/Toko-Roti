@@ -6,6 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id']) || emp
             exit();
 }
 
+$voucher_code = $_SESSION['voucher']['code'] ?? null;
+$discount_amount = $_SESSION['voucher']['discount_amount'] ?? 0;
+
 $user_id = $_SESSION['user_id'];
 $shipping_address = mysqli_real_escape_string($conn, $_POST['address']);
 $shipping_method = mysqli_real_escape_string($conn, $_POST['shipping_method']);
@@ -15,8 +18,8 @@ $total_amount = (float)$_POST['total_amount'];
 mysqli_begin_transaction($conn);
 
 try {
-            $stmt1 = mysqli_prepare($conn, "INSERT INTO orders (user_id, total_amount, status, shipping_address, shipping_method, shipping_cost) VALUES (?, ?, 'Menunggu Pembayaran', ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt1, "idssd", $user_id, $total_amount, $shipping_address, $shipping_method, $shipping_cost);
+            $stmt1 = mysqli_prepare($conn, "INSERT INTO orders (user_id, total_amount, status, shipping_address, shipping_method, shipping_cost, voucher_code, discount_amount) VALUES (?, ?, 'Menunggu Pembayaran', ?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmt1, "idssdsd", $user_id, $total_amount, $shipping_address, $shipping_method, $shipping_cost, $voucher_code, $discount_amount);
             mysqli_stmt_execute($stmt1);
             $order_id = mysqli_insert_id($conn);
 
@@ -30,9 +33,14 @@ try {
                         mysqli_stmt_execute($stmt3);
             }
 
+            if ($voucher_code) {
+                        mysqli_query($conn, "UPDATE vouchers SET usage_count = usage_count + 1 WHERE code = '$voucher_code'");
+            }
             mysqli_commit($conn);
 
             unset($_SESSION['cart']);
+            unset($_SESSION['voucher']);
+
             header('Location: ' . BASE_URL . 'order_success?order_id=' . $order_id);
             exit();
 } catch (mysqli_sql_exception $exception) {

@@ -138,15 +138,24 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                     <tfoot>
                                                 <tr>
                                                             <th colspan="3" class="text-end">Subtotal Produk</th>
-                                                            <th>Rp <?= number_format($order['total_amount'] - $order['shipping_cost'], 0, ',', '.') ?></th>
+                                                            <th>Rp <?= number_format($order['total_amount'] + $order['discount_amount'] - $order['shipping_cost'], 0, ',', '.') ?></th>
                                                 </tr>
+
+                                                <?php if ($order['discount_amount'] > 0): ?>
+                                                            <tr class="text-success">
+                                                                        <th colspan="3" class="text-end">
+                                                                                    Diskon (<?= htmlspecialchars($order['voucher_code']) ?>)
+                                                                        </th>
+                                                                        <th>- Rp <?= number_format($order['discount_amount'], 0, ',', '.') ?></th>
+                                                            </tr>
+                                                <?php endif; ?>
                                                 <tr>
                                                             <th colspan="3" class="text-end">Ongkos Kirim</th>
                                                             <th>Rp <?= number_format($order['shipping_cost'], 0, ',', '.') ?></th>
                                                 </tr>
-                                                <tr>
-                                                            <th colspan="3" class="text-end">Total Akhir</th>
-                                                            <th>Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></th>
+                                                <tr class="table-light">
+                                                            <th colspan="3" class="text-end fs-5">Total Akhir</th>
+                                                            <th class="fs-5">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></th>
                                                 </tr>
                                     </tfoot>
                         </table>
