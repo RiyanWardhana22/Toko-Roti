@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
+
+:root {
+  --primary-color: #a1623b; /* Cokelat hangat */
+  --secondary-color: #f5eadd; /* Krem lembut */
+  --dark-color: #3d2b24; /* Cokelat tua untuk teks */
+  --accent-color: #e8b4b8; /* Pink lembut sebagai aksen */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #8a5331;
+  border-color: #8a5331;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Redesign Header/Navbar --- */
+.navbar {
+  background-color: #fff !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+.navbar-brand:hover img {
+  transform: scale(1.05);
+}
+.navbar .nav-link {
+  font-weight: 500;
+  color: var(--dark-color);
+  position: relative;
+  transition: color 0.3s ease;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--primary-color);
+}
+.navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+  width: 100%;
+}
+
+/* --- Redesign Hero Carousel --- */
+#heroCarousel .carousel-item {
+  height: 70vh;
+  min-height: 500px;
+}
+#heroCarousel .carousel-item > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#heroCarousel .carousel-caption-custom {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+#heroCarousel .carousel-caption-custom h1 {
+  text-shadow: none;
+  color: var(--primary-color);
+}
+#heroCarousel .carousel-caption-custom p {
+  text-shadow: none;
+  color: var(--dark-color);
+}
+
+/* --- Redesign Section Titles --- */
+.section-title {
+  margin-bottom: 50px;
+}
+.section-title h2 {
+  font-size: 2.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent-color);
+}
+.section-title p {
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+  color: #6c757d;
+}
+
+/* --- Redesign Product Card --- */
+.product-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+.product-card .card-img-top {
+  border-radius: 15px 15px 0 0;
+}
+.product-card .card-body {
+  background-color: #fff;
+}
+.product-card .card-title {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+.product-card .card-subtitle {
+  font-weight: 700;
+}
+
+/* --- Redesign Footer --- */
+.main-footer {
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
+}
+.main-footer h5 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+.main-footer a {
+  color: var(--dark-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.main-footer a:hover {
+  color: var(--primary-color);
+}
+.main-footer .social-icons a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

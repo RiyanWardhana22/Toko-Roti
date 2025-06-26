@@ -11,13 +11,13 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
                         <div class="carousel-inner">
                                     <?php $first = true;
                                     while ($slide = mysqli_fetch_assoc($result_sliders)): ?>
-                                                <div class="carousel-item <?= $first ? 'active' : '' ?>">
-                                                            <div class="p-5 mb-4 rounded-3 text-center" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<?= BASE_URL ?>assets/images/sliders/<?= $slide['image_url'] ?>'); background-size: cover; background-position: center; color: white; text-shadow: 2px 2px 4px #000000;">
-                                                                        <div class="container-fluid py-5">
-                                                                                    <h1 class="display-5 fw-bold"><?= htmlspecialchars($slide['title']) ?></h1>
-                                                                                    <p class="fs-4"><?= htmlspecialchars($slide['subtitle']) ?></p>
+                                                <div class="carousel-item <?= $first ? 'active' : '' ?>" style="background-image: url('<?= BASE_URL ?>assets/images/sliders/<?= $slide['image_url'] ?>'); background-size: cover; background-position: center;">
+                                                            <div class="container-fluid">
+                                                                        <div class="carousel-caption-custom text-center">
+                                                                                    <h1 class="display-4 fw-bold"><?= htmlspecialchars($slide['title']) ?></h1>
+                                                                                    <p class="fs-5 lead"><?= htmlspecialchars($slide['subtitle']) ?></p>
                                                                                     <?php if (!empty($slide['button_text']) && !empty($slide['button_link'])): ?>
-                                                                                                <a href="<?= htmlspecialchars($slide['button_link']) ?>" class="btn btn-primary btn-lg"><?= htmlspecialchars($slide['button_text']) ?></a>
+                                                                                                <a href="<?= htmlspecialchars($slide['button_link']) ?>" class="btn btn-primary btn-lg mt-3"><?= htmlspecialchars($slide['button_text']) ?></a>
                                                                                     <?php endif; ?>
                                                                         </div>
                                                             </div>
@@ -25,63 +25,57 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
                                     <?php $first = false;
                                     endwhile; ?>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                        </button>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
             </div>
 <?php endif; ?>
 
-<div class="container my-5">
-            <h2 class="text-center mb-4">Produk Terbaru</h2>
-            <div class="row">
-                        <?php mysqli_data_seek($result_new, 0);
-                        while ($product = mysqli_fetch_assoc($result_new)) : ?>
-                                    <?php include 'parts/product_card.php'; ?>
-                        <?php endwhile; ?>
+<main>
+            <div class="container my-5 py-5">
+                        <div class="section-title text-center">
+                                    <h2>Kategori Pilihan</h2>
+                                    <p>Temukan kelezatan dalam setiap kategori yang kami tawarkan.</p>
+                        </div>
+                        <div class="row text-center g-4">
+                                    <?php mysqli_data_seek($result_categories, 0);
+                                    while ($category = mysqli_fetch_assoc($result_categories)): ?>
+                                                <div class="col-md-4">
+                                                            <a href="<?= BASE_URL ?>produk?kategori=<?= $category['slug'] ?>" class="text-decoration-none text-dark">
+                                                                        <img src="<?= BASE_URL ?>assets/images/kategori-<?= $category['slug'] ?>.jpg" class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
+                                                                        <h4 class="mt-3"><?= htmlspecialchars($category['name']) ?></h4>
+                                                            </a>
+                                                </div>
+                                    <?php endwhile; ?>
+                        </div>
             </div>
-</div>
-<div class="container my-5">
-            <h2 class="text-center mb-4">Kategori Populer</h2>
-            <div class="row text-center">
-                        <?php mysqli_data_seek($result_categories, 0);
-                        while ($category = mysqli_fetch_assoc($result_categories)): ?>
-                                    <div class="col-md-4">
-                                                <a href="<?= BASE_URL ?>produk?kategori=<?= $category['slug'] ?>" class="text-decoration-none text-dark">
-                                                            <img src="<?= BASE_URL ?>assets/images/kategori-<?= $category['slug'] ?>.jpg" class="img-fluid rounded-circle mb-3" style="width: 200px; height: 200px; object-fit: cover;">
-                                                            <h4><?= htmlspecialchars($category['name']) ?></h4>
-                                                </a>
+
+            <div class="py-5" style="background-color: var(--secondary-color);">
+                        <div class="container">
+                                    <div class="section-title text-center">
+                                                <h2>Produk Unggulan Kami</h2>
+                                                <p>Roti dan kue terbaik yang menjadi favorit pelanggan setia kami.</p>
                                     </div>
-                        <?php endwhile; ?>
-            </div>
-</div>
-<div class="container my-5">
-            <h2 class="text-center mb-4">Produk Unggulan</h2>
-            <div class="row">
-                        <?php mysqli_data_seek($result_featured, 0);
-                        while ($product = mysqli_fetch_assoc($result_featured)) : ?>
-                                    <?php include 'parts/product_card.php'; ?>
-                        <?php endwhile; ?>
-            </div>
-</div>
-<div class="container my-5 bg-light p-5 rounded">
-            <h2 class="text-center mb-4">Apa Kata Mereka?</h2>
-            <div class="row">
-                        <div class="col-md-4 text-center">
-                                    <p class="fst-italic">"Rotinya lembut banget, anak-anak suka. Pasti pesan lagi!"</p>
-                                    <strong>- Ibu Siti -</strong>
-                        </div>
-                        <div class="col-md-4 text-center">
-                                    <p class="fst-italic">"Kue ulang tahunnya juara! Desainnya cantik, rasanya enak."</p>
-                                    <strong>- Bapak Budi -</strong>
-                        </div>
-                        <div class="col-md-4 text-center">
-                                    <p class="fst-italic">"Nastar di sini paling the best, kejunya berasa banget."</p>
-                                    <strong>- Kak Rina -</strong>
+                                    <div class="row g-4">
+                                                <?php mysqli_data_seek($result_featured, 0);
+                                                while ($product = mysqli_fetch_assoc($result_featured)) : ?>
+                                                            <?php include 'parts/product_card.php'; ?>
+                                                <?php endwhile; ?>
+                                    </div>
                         </div>
             </div>
-</div>
+
+            <div class="container my-5 py-5">
+                        <div class="section-title text-center">
+                                    <h2>Apa Kata Mereka?</h2>
+                                    <p>Kepuasan Anda adalah prioritas utama kami.</p>
+                        </div>
+                        <div class="row g-4">
+                                    <div class="col-md-4 text-center">
+                                                <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+                                                <p class="fst-italic">"Rotinya lembut banget, anak-anak suka. Pasti pesan lagi!"</p>
+                                                <strong>- Ibu Siti -</strong>
+                                    </div>
+                        </div>
+            </div>
+
+</main>
