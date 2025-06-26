@@ -20,6 +20,7 @@ $allowed_admin_pages = [
             'orders',
             'customers',
             'categories',
+            'vouchers',
             'reports',
             'invoice',
             'settings_about',

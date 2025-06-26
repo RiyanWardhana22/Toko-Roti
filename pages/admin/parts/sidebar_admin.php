@@ -46,6 +46,9 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_users',
                                                 <a class="nav-link <?= ($current_page == 'categories') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=categories">Kategori</a>
                                     </li>
                                     <li class="nav-item">
+                                                <a class="nav-link <?= ($current_page == 'vouchers') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=vouchers">Voucher</a>
+                                    </li>
+                                    <li class="nav-item">
                                                 <a class="nav-link <?= ($current_page == 'reports') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reports">Laporan</a>
                                     </li>
                                     <li class="nav-item">

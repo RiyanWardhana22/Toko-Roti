@@ -45,7 +45,7 @@ $orders_result = mysqli_stmt_get_result($orders_stmt);
             </div>
 
             <div class="col-md-8">
-                        [cite_start]<h3>Riwayat Belanja [cite: 76]</h3>
+                        <h3>Riwayat Belanja</h3>
                         <div class="table-responsive">
                                     <table class="table table-striped table-sm">
                                                 <thead>
