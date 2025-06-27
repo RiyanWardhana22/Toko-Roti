@@ -1,6 +1,5 @@
 <?php
 $user_id = $_SESSION['user_id'];
-$message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
             $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -27,7 +26,7 @@ $user = mysqli_fetch_assoc($user_res);
 
 <h3 class="card-title">Profil Saya</h3>
 <p>Kelola informasi profil Anda untuk mempercepat proses checkout.</p>
-<?= $message ?>
+<hr>
 <form method="POST" action="<?= BASE_URL ?>akun?tab=profil">
             <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>

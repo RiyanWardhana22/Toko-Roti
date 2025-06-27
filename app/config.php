@@ -16,3 +16,4 @@ if (!$conn) {
 define('BASE_URL', 'http://localhost/toko-roti/');
 $auto_complete_query = "UPDATE orders SET status = 'Selesai' WHERE status = 'Dikirim' AND shipped_at IS NOT NULL AND shipped_at < NOW() - INTERVAL 1 DAY";
 mysqli_query($conn, $auto_complete_query);
+date_default_timezone_set('Asia/Jakarta');

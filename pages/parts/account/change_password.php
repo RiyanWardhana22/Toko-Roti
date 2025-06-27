@@ -1,6 +1,5 @@
 <?php
 $user_id = $_SESSION['user_id'];
-$message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
             $old_pass = $_POST['old_password'];
@@ -28,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_password'])) {
 ?>
 
 <h3 class="card-title">Ubah Password</h3>
-<?= $message ?>
 <form method="POST" action="<?= BASE_URL ?>akun?tab=ubah_password">
             <div class="mb-3">
                         <label for="old_password" class="form-label">Password Lama</label>
