@@ -415,3 +415,62 @@ h6 {
   border-radius: 10px;
   padding: 12px 15px;
 }
+
+/* --- Redesign Cart Page --- */
+.cart-item {
+  border-bottom: 1px solid #dee2e6;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-details h5 {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.cart-item-details .text-muted {
+  font-size: 0.9rem;
+}
+
+.cart-item-actions .form-control {
+  max-width: 70px;
+  text-align: center;
+}
+
+.cart-item-actions .btn-remove {
+  height: 35px;
+  width: 35px;
+  border-radius: 8px;
+  border: 1px solid #dc3545;
+  font-size: 0.9rem;
+  color: #dc3545;
+  background: none;
+  padding: 0;
+}
+
+.cart-item-actions .btn-remove:hover {
+  background: #dc3545;
+  color: var(--secondary-color);
+}
+
+.cart-summary-card {
+  position: sticky;
+  top: 100px;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
