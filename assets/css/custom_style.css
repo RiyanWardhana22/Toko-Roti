@@ -294,3 +294,45 @@ h6 {
   margin-right: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* --- Redesign Catalog Page --- */
+.page-header-banner {
+  padding: 4rem 0;
+  background-color: var(--secondary-color);
+  margin-bottom: 50px;
+}
+
+.filter-sidebar {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.filter-sidebar h5 {
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.filter-sidebar .list-group-item {
+  border: none;
+  padding: 10px 15px;
+  font-weight: 500;
+  border-radius: 8px !important;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+}
+
+.filter-sidebar .list-group-item:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.filter-sidebar .list-group-item.active {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
