@@ -51,7 +51,7 @@
                                                                         </div>
                                                                         <p class="text-muted small">Ongkos kirim dan diskon akan dihitung di halaman checkout.</p>
                                                                         <div class="d-grid">
-                                                                                    <a href="<?= BASE_URL ?>checkout" class="btn btn-primary btn-lg">Lanjut ke Checkout</a>
+                                                                                    <a href="<?= BASE_URL ?>checkout" class="btn btn-primary btn-lg">Checkout</a>
                                                                         </div>
                                                             </div>
                                                 </div>

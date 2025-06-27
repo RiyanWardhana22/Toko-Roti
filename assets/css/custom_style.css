@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Playfair+Display:wght@700&display=swap");
 
 :root {
-  --primary-color: #a1623b; /* Cokelat hangat */
-  --secondary-color: #f5eadd; /* Krem lembut */
-  --dark-color: #3d2b24; /* Cokelat tua untuk teks */
-  --accent-color: #e8b4b8; /* Pink lembut sebagai aksen */
+  --primary-color: #a1623b;
+  --secondary-color: #f5eadd;
+  --dark-color: #3d2b24;
+  --accent-color: #e8b4b8;
   --font-heading: "Playfair Display", serif;
   --font-body: "Poppins", sans-serif;
 }
@@ -83,6 +83,7 @@ h6 {
   height: 70vh;
   min-height: 500px;
 }
+
 #heroCarousel .carousel-item > div {
   height: 100%;
   display: flex;
@@ -473,4 +474,12 @@ h6 {
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Redesign Checkout Page --- */
+.checkout-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
 }
