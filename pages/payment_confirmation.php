@@ -41,7 +41,7 @@ include 'parts/header.php';
                                                             <h5 class="mb-3">Detail Pesanan #<?= $order['id'] ?></h5>
                                                             <div class="mt-2">
                                                                         <span class="text-muted">Total Tagihan:</span>
-                                                                        <span class="fs-6 fw-bold text-danger ms-2">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></span>
+                                                                        <span class="fs-6 fw-bold text-success">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></span>
                                                             </div>
                                                 </div>
 
@@ -73,12 +73,11 @@ include 'parts/header.php';
                                                                                                                         <?php if ($method['logo_url']): ?>
                                                                                                                                     <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" class="payment-method-logo">
                                                                                                                         <?php endif; ?>
-                                                                                                                        <div class="flex-grow-1">
+                                                                                                                        <div class="payment-method-name flex-grow-1">
                                                                                                                                     <h6 class="mb-0"><?= htmlspecialchars($method['method_name']) ?></h6>
                                                                                                                         </div>
                                                                                                                         <i class="fas fa-chevron-down"></i>
                                                                                                             </div>
-
                                                                                                             <div id="collapse-<?= $method['id'] ?>" class="collapse" data-bs-parent="#paymentMethodsAccordion">
                                                                                                                         <div class="payment-method-details">
                                                                                                                                     <?= nl2br(htmlspecialchars($method['account_details'])) ?>

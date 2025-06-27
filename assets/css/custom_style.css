@@ -567,8 +567,9 @@ h6 {
   }
 }
 
-/* PAYMENT CONFIRMATION */
+/* PAYMENT CONFIRMATION PAGE STYLES */
 .payment-confirmation-container {
+  display: block !important;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -584,16 +585,10 @@ h6 {
   margin-bottom: 30px;
 }
 
-.order-number {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-}
-
 .payment-method-card {
   border: 1px solid #eee;
   border-radius: 10px;
-  padding: 15px;
+  padding: 3px 10px;
   margin-bottom: 15px;
   transition: all 0.3s ease;
 }
@@ -618,11 +613,10 @@ h6 {
 }
 
 .payment-method-details {
-  padding: 15px 0 0 55px;
+  padding: 15px 10px;
   font-size: 0.9rem;
   line-height: 1.6;
 }
-
 .form-label {
   font-weight: 500;
   margin-bottom: 8px;
@@ -695,13 +689,12 @@ h6 {
     font-size: 1.5rem;
   }
 
-  .payment-confirmation-container {
-    padding: 25px 20px;
+  .payment-method-header {
+    align-items: flex-start;
   }
 
-  .payment-method-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .payment-method-name {
+    padding: 8px 10px;
   }
 
   .payment-method-logo {
