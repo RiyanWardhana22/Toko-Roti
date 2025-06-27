@@ -1,6 +1,5 @@
 <?php
 $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name ASC");
-
 $current_category_name = "Semua Produk";
 if (!empty($_GET['kategori'])) {
             $slug = $_GET['kategori'];
@@ -14,23 +13,19 @@ $base_query = "SELECT p.*, c.name as category_name, c.slug as category_slug FROM
 $conditions = [];
 $params = [];
 $types = '';
-
 if (!empty($_GET['kategori'])) {
             $conditions[] = 'c.slug = ?';
             $params[] = $_GET['kategori'];
             $types .= 's';
 }
-
 if (!empty($_GET['q'])) {
             $conditions[] = 'p.name LIKE ?';
             $params[] = '%' . $_GET['q'] . '%';
             $types .= 's';
 }
-
 if (count($conditions) > 0) {
             $base_query .= " WHERE " . implode(' AND ', $conditions);
 }
-
 $order_by = " ORDER BY p.created_at DESC";
 if (!empty($_GET['urutkan'])) {
             switch ($_GET['urutkan']) {
@@ -46,7 +41,6 @@ if (!empty($_GET['urutkan'])) {
             }
 }
 $base_query .= $order_by;
-
 $stmt = mysqli_prepare($conn, $base_query);
 if ($types) {
             mysqli_stmt_bind_param($stmt, $types, ...$params);
@@ -57,22 +51,29 @@ $result_products = mysqli_stmt_get_result($stmt);
 
 <main>
             <div class="container">
-                        <div class="row mt-3">
+                        <div class="row">
                                     <div class="col-lg-3">
                                                 <div class="filter-sidebar">
                                                             <h5>Kategori Produk</h5>
-                                                            <ul class="list-group">
-                                                                        <a href="<?= BASE_URL ?>produk" class="list-group-item list-group-item-action <?= empty($_GET['kategori']) ? 'active' : '' ?>">Semua Kategori</a>
-                                                                        <?php mysqli_data_seek($categories, 0);
-                                                                        while ($category = mysqli_fetch_assoc($categories)): ?>
-                                                                                    <a href="<?= BASE_URL ?>produk?kategori=<?= $category['slug'] ?>" class="list-group-item list-group-item-action <?= (isset($_GET['kategori']) && $_GET['kategori'] == $category['slug']) ? 'active' : '' ?>">
-                                                                                                <?= htmlspecialchars($category['name']) ?>
-                                                                                    </a>
-                                                                        <?php endwhile; ?>
-                                                            </ul>
+                                                            <form action="<?= BASE_URL ?>produk" method="GET" id="form-kategori">
+                                                                        <?php if (!empty($_GET['q'])): ?><input type="hidden" name="q" value="<?= htmlspecialchars($_GET['q']) ?>"><?php endif; ?>
+                                                                        <?php if (!empty($_GET['urutkan'])): ?><input type="hidden" name="urutkan" value="<?= $_GET['urutkan'] ?>"><?php endif; ?>
+
+                                                                        <select name="kategori" class="form-select" onchange="document.getElementById('form-kategori').submit()">
+                                                                                    <option value="">Semua Kategori</option>
+                                                                                    <?php
+                                                                                    $current_slug = $_GET['kategori'] ?? '';
+                                                                                    mysqli_data_seek($categories, 0);
+                                                                                    while ($category = mysqli_fetch_assoc($categories)):
+                                                                                    ?>
+                                                                                                <option class="kategori" value="<?= $category['slug'] ?>" <?= ($current_slug == $category['slug']) ? 'selected' : '' ?>>
+                                                                                                            <?= htmlspecialchars($category['name']) ?>
+                                                                                                </option>
+                                                                                    <?php endwhile; ?>
+                                                                        </select>
+                                                            </form>
                                                 </div>
                                     </div>
-
                                     <div class="col-lg-9">
                                                 <div class="card mb-4">
                                                             <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
@@ -91,9 +92,9 @@ $result_products = mysqli_stmt_get_result($stmt);
                                                                                                 <?php if (!empty($_GET['kategori'])): ?><input type="hidden" name="kategori" value="<?= $_GET['kategori'] ?>"><?php endif; ?>
                                                                                                 <?php if (!empty($_GET['q'])): ?><input type="hidden" name="q" value="<?= $_GET['q'] ?>"><?php endif; ?>
                                                                                                 <select name="urutkan" class="form-select" onchange="document.getElementById('form-urutkan').submit()">
-                                                                                                            <option value="terbaru" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'terbaru') ? 'selected' : '' ?>>Urutkan: Terbaru</option>
-                                                                                                            <option value="termurah" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'termurah') ? 'selected' : '' ?>>Harga: Termurah</option>
-                                                                                                            <option value="termahal" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'termahal') ? 'selected' : '' ?>>Harga: Termahal</option>
+                                                                                                            <option value="terbaru" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'terbaru') ? 'selected' : '' ?>>Terbaru</option>
+                                                                                                            <option value="termurah" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'termurah') ? 'selected' : '' ?>>Termurah</option>
+                                                                                                            <option value="termahal" <?= (isset($_GET['urutkan']) && $_GET['urutkan'] == 'termahal') ? 'selected' : '' ?>>Termahal</option>
                                                                                                 </select>
                                                                                     </form>
                                                                         </div>

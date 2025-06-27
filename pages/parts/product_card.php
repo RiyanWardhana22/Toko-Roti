@@ -1,7 +1,7 @@
 <div class="col-lg-3 col-md-4 col-6 mb-4">
             <div class="card product-card h-100">
                         <a href="<?= BASE_URL ?>produk/detail/<?= $product['id'] ?>">
-                                    <img src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($product['image_url']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: cover;">
+                                    <img loading="lazy" src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($product['image_url']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>" style="height: 200px; object-fit: cover;">
                         </a>
                         <div class="card-body text-center d-flex flex-column">
                                     <h5 class="card-title h6"><a href="<?= BASE_URL ?>produk/detail/<?= $product['id'] ?>" class="text-dark text-decoration-none"><?= htmlspecialchars($product['name']) ?></a></h5>

@@ -318,26 +318,6 @@ h6 {
   border-bottom: 2px solid var(--secondary-color);
 }
 
-.filter-sidebar .list-group-item {
-  border: none;
-  padding: 10px 15px;
-  font-weight: 500;
-  border-radius: 8px !important;
-  margin-bottom: 5px;
-  transition: all 0.2s ease;
-}
-
-.filter-sidebar .list-group-item:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.filter-sidebar .list-group-item.active {
-  background-color: var(--primary-color);
-  color: #fff;
-  border-color: var(--primary-color);
-}
-
 /* --- Redesign Product Detail Page --- */
 .product-detail-container {
   background-color: #fff;
