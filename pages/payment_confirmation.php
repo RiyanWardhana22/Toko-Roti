@@ -137,9 +137,7 @@ include 'parts/header.php';
                                                                                     </div>
 
                                                                                     <div class="d-grid gap-2">
-                                                                                                <button type="submit" class="btn btn-primary py-3">
-                                                                                                            <i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi Pembayaran
-                                                                                                </button>
+                                                                                                <button type="submit" class="btn btn-primary py-3">Konfirmasi Pembayaran</button>
                                                                                     </div>
                                                                         </form>
                                                             </div>

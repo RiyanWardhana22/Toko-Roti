@@ -676,6 +676,120 @@ h6 {
   color: #666;
 }
 
+/* ORDER DETAIL CUSTOMER */
+.order-detail-container {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.order-header {
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.order-number {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.order-status-badge {
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  border-radius: 50px;
+}
+
+.order-info-card {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.order-info-title {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.product-card-detail {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.product-image {
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.product-name {
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.product-price {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.summary-item {
+  border-bottom: 1px dashed #ddd;
+  padding: 10px 0;
+}
+
+.summary-total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  margin-top: 20px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--primary-color);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 2px solid white;
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  color: #777;
+}
+
 @media (max-width: 768px) {
   .order-success-section {
     padding: 30px 20px;
@@ -687,6 +801,14 @@ h6 {
 
   .order-number {
     font-size: 1.5rem;
+  }
+
+  .order-detail-container {
+    padding: 20px;
+  }
+
+  .order-info-card {
+    padding: 15px;
   }
 
   .payment-method-header {
