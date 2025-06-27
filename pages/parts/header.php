@@ -42,7 +42,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                     </button>
                                     <div class="collapse navbar-collapse" id="navbarNav">
                                                 <ul class="navbar-nav mx-auto">
-                                                            <li class="nav-item"><a class="nav-link active" href="<?= BASE_URL ?>">Beranda</a></li>
+                                                            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>">Beranda</a></li>
                                                             <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>about">Tentang Kami</a></li>
                                                             <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>produk">Produk</a></li>
                                                 </ul>
