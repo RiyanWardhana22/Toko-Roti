@@ -3,7 +3,7 @@ $result_sliders = mysqli_query($conn, "SELECT * FROM sliders WHERE is_active = 1
 
 $result_new = mysqli_query($conn, "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT 4");
 $result_featured = mysqli_query($conn, "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.price DESC LIMIT 4");
-$result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
+$result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 4");
 ?>
 
 <?php if (mysqli_num_rows($result_sliders) > 0): ?>
@@ -30,13 +30,23 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
             </div>
 <?php endif; ?>
 
+<div class="container my-5">
+            <h2 class="text-center mb-4">Produk Terbaru</h2>
+            <div class="row">
+                        <?php mysqli_data_seek($result_new, 0);
+                        while ($product = mysqli_fetch_assoc($result_new)) : ?>
+                                    <?php include 'parts/product_card.php'; ?>
+                        <?php endwhile; ?>
+            </div>
+</div>
+
 <main>
             <div class="container my-5 py-5">
                         <div class="section-title text-center mb-5">
                                     <h2 class="display-5 fw-bold text-gradient">Jelajahi Kategori Kami</h2>
                                     <p class="lead text-muted">Temukan kelezatan tak terbatas dalam setiap petualangan kuliner</p>
                         </div>
-                        <div class="row g-4">
+                        <div class="row g-4 d-flex justify-content-center">
                                     <?php mysqli_data_seek($result_categories, 0);
                                     while ($category = mysqli_fetch_assoc($result_categories)): ?>
                                                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -45,7 +55,7 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 3");
                                                                                     <div class="category-bg"></div>
                                                                                     <div class="category-content">
                                                                                                 <div class="category-icon">
-                                                                                                            <i class="fas fa-utensils"></i>
+                                                                                                            <i class="fa-solid fa-cake-candles"></i>
                                                                                                 </div>
                                                                                                 <h4><?= htmlspecialchars($category['name']) ?></h4>
                                                                                                 <span class="explore-btn">Jelajahi <i class="fas fa-arrow-right"></i></span>
