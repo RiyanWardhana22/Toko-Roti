@@ -336,3 +336,60 @@ h6 {
   color: #fff;
   border-color: var(--primary-color);
 }
+
+/* --- Redesign Product Detail Page --- */
+.product-detail-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
+}
+
+.product-gallery .main-image img {
+  border-radius: 10px;
+  border: 1px solid #eee;
+  width: 100%;
+  height: auto;
+}
+
+.product-info h2 {
+  font-size: 2.5rem;
+  color: var(--dark-color);
+}
+
+.product-info .price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.product-info .product-meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.product-info .product-meta strong {
+  color: var(--dark-color);
+}
+
+.product-info .badge {
+  font-size: 0.9rem;
+}
+
+/* Tab Styles */
+.product-tabs .nav-tabs {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.product-tabs .nav-link {
+  color: var(--dark-color);
+  font-weight: 500;
+  border: none;
+  border-bottom: 2px solid transparent;
+}
+
+.product-tabs .nav-link.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: transparent;
+}
