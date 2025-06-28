@@ -3,63 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
     <title>Selamat Datang di {{website_name}}</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Poppins", Arial, sans-serif;
         line-height: 1.6;
         color: #333;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
       }
+
       .container {
         max-width: 600px;
         margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       }
+
       .header {
-        background-color: #f4f4f4;
-        padding: 10px;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        padding: 40px 20px;
         text-align: center;
       }
-      .content {
-        padding: 20px 0;
+
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
       }
+
+      .header img.logo {
+        max-width: 120px;
+        margin-bottom: 20px;
+      }
+
+      .content {
+        padding: 30px 40px;
+        text-align: center;
+      }
+
+      .content p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .content .customer-name {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background-color: #0d6efd;
+        color: white;
+        padding: 15px 35px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .cta-button:hover {
+        background-color: #0b5ed7;
+        box-shadow: 0 6px 15px rgba(13, 110, 253, 0.5);
+      }
+
       .footer {
-        font-size: 0.9em;
+        background-color: #ffffff;
+        padding: 20px;
+        font-size: 12px;
         text-align: center;
         color: #777;
+      }
+
+      .social-icons a {
+        margin: 0 10px;
+        text-decoration: none;
+      }
+
+      .social-icons i {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #333;
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <h2>Selamat Datang di {{website_name}}!</h2>
+        <h1>Selamat Datang!</h1>
       </div>
       <div class="content">
-        <p>Halo, <strong>{{customer_name}}</strong>,</p>
+        <p class="customer-name">Halo, {{customer_name}}!</p>
         <p>
-          Terima kasih telah mendaftar. Akun Anda telah berhasil dibuat.
-          Sekarang Anda dapat mulai berbelanja aneka roti dan kue lezat kami.
-        </p>
-        <p>Jelajahi koleksi produk kami dengan mengunjungi website kami.</p>
-        <p style="text-align: center; margin-top: 30px">
-          <a
-            href="{{base_url}}"
-            style="
-              background-color: #0d6efd;
-              color: white;
-              padding: 10px 20px;
-              text-decoration: none;
-              border-radius: 5px;
-            "
-            >Kunjungi Toko</a
-          >
+          Terima kasih telah bergabung dengan <strong>{{website_name}}</strong>.
+          Akun Anda telah berhasil dibuat. Saatnya menjelajahi aneka roti dan
+          kue lezat kami.
         </p>
       </div>
       <div class="footer">
         <p>&copy; {{current_year}} {{website_name}}. All Rights Reserved.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
       </div>
     </div>
   </body>
