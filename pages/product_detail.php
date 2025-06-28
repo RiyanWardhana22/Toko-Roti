@@ -88,7 +88,7 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                                     <?php endif; ?>
                                                                         </p>
                                                                         <?php if ($total_terjual > 0): ?>
-                                                                                    <p class="mb-1 text-success"><strong>Terjual:</strong> <?= $total_terjual ?> buah</p>
+                                                                                    <p class="mb-1 text-success"><strong>Terjual: </strong> <?= $total_terjual ?></p>
                                                                         <?php endif; ?>
                                                             </div>
 

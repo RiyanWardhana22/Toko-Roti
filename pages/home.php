@@ -4,6 +4,9 @@ $result_sliders = mysqli_query($conn, "SELECT * FROM sliders WHERE is_active = 1
 $result_new = mysqli_query($conn, "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT 4");
 $result_featured = mysqli_query($conn, "SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.price DESC LIMIT 4");
 $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 4");
+
+$reviews_res = mysqli_query($conn, "SELECT r.rating, r.comment, u.name as user_name FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.is_approved = 1 AND r.comment != '' AND r.rating >= 4 ORDER BY r.created_at DESC LIMIT 3");
+$reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
 ?>
 
 <?php if (mysqli_num_rows($result_sliders) > 0): ?>
@@ -88,11 +91,23 @@ $result_categories = mysqli_query($conn, "SELECT * FROM categories LIMIT 4");
                                     <p>Kepuasan Anda adalah prioritas utama kami.</p>
                         </div>
                         <div class="row g-4">
-                                    <div class="col-md-4 text-center">
-                                                <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
-                                                <p class="fst-italic">"Rotinya lembut banget, anak-anak suka. Pasti pesan lagi!"</p>
-                                                <strong>- Ibu Siti -</strong>
-                                    </div>
+                                    <?php if (!empty($reviews)): ?>
+                                                <?php foreach ($reviews as $review): ?>
+                                                            <div class="col-md-4 text-center">
+                                                                        <div class="mb-2">
+                                                                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                                                                <i class="fas fa-star <?= $i <= $review['rating'] ? 'text-warning' : 'text-secondary' ?>" style="font-size: 0.9rem;"></i>
+                                                                                    <?php endfor; ?>
+                                                                        </div>
+                                                                        <p class="fst-italic">"<?= htmlspecialchars($review['comment']) ?>"</p>
+                                                                        <strong class="text-muted">- <?= htmlspecialchars($review['user_name']) ?> -</strong>
+                                                            </div>
+                                                <?php endforeach; ?>
+                                    <?php else: ?>
+                                                <div class="col text-center">
+                                                            <p>Belum ada ulasan untuk ditampilkan.</p>
+                                                </div>
+                                    <?php endif; ?>
                         </div>
             </div>
 
