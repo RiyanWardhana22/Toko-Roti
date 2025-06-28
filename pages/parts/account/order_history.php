@@ -25,24 +25,28 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                                                                         <p class="text-muted small mb-0">Dipesan pada: <?= date('d-m-Y | H:i', strtotime($order['created_at'])) ?></p>
                                                             </div>
                                                             <div class="col-md-3 text-md-center mt-2 mt-md-0">
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Menunggu Pembayaran'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-warning"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Menunggu Verifikasi'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-primary"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Diproses'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-primary"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Dikirim'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-primary"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Selesai'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-success"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
-                                                                        <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Dibatalkan'): ?>
-                                                                                    <span class="badge fs-7 rounded-pill text-bg-danger"><?= htmlspecialchars($order['status']) ?></span>
-                                                                        <?php endif; ?>
+                                                                        <?php
+                                                                        $status = htmlspecialchars($order['status']);
+                                                                        $class = '';
+                                                                        switch ($order['status']) {
+                                                                                    case 'Menunggu Pembayaran':
+                                                                                                $class = 'text-bg-warning';
+                                                                                                break;
+                                                                                    case 'Menunggu Verifikasi':
+                                                                                    case 'Diproses':
+                                                                                    case 'Dikirim':
+                                                                                                $class = 'text-bg-primary';
+                                                                                                break;
+                                                                                    case 'Selesai':
+                                                                                                $class = 'text-bg-success';
+                                                                                                break;
+                                                                                    case 'Dibatalkan':
+                                                                                                $class = 'text-bg-danger';
+                                                                                                break;
+                                                                        }
+
+                                                                        echo '<span class="badge fs-7 rounded-pill ' . $class . '">' . $status . '</span>';
+                                                                        ?>
                                                             </div>
                                                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                                                         <a href="<?= BASE_URL ?>order_detail_customer?id=<?= $order['id'] ?>" class="btn btn-outline-primary btn-sm mb-1 mb-md-0"><i class="fa-solid fa-eye"></i></a>
