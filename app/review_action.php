@@ -16,7 +16,7 @@ if (isset($_POST['rating']) && is_array($_POST['rating'])) {
                         $comment = isset($_POST['comment'][$product_id]) ? trim($_POST['comment'][$product_id]) : '';
                         $comment = mysqli_real_escape_string($conn, $comment);
 
-                        $stmt1 = mysqli_prepare($conn, "INSERT INTO reviews (product_id, user_id, order_id, rating, comment) VALUES (?, ?, ?, ?, ?)");
+                        $stmt1 = mysqli_prepare($conn, "INSERT INTO reviews (product_id, user_id, order_id, rating, comment, is_approved) VALUES (?, ?, ?, ?, ?, 1)");
                         mysqli_stmt_bind_param($stmt1, "iiiis", $product_id, $user_id, $order_id, $rating, $comment);
                         mysqli_stmt_execute($stmt1);
 
