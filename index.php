@@ -17,7 +17,8 @@ $allowed_pages = [
   'admin',
   'about',
   'order_detail_customer',
-  'payment_confirmation'
+  'payment_confirmation',
+  'write_review'
 ];
 
 $standalone_pages = ['admin', 'order_detail_customer', 'payment_confirmation'];
