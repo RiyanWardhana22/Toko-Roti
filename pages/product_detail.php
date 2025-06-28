@@ -23,6 +23,18 @@ $related_products_stmt = mysqli_prepare($conn, "SELECT p.*, c.name as category_n
 mysqli_stmt_bind_param($related_products_stmt, "ii", $product['category_id'], $product_id);
 mysqli_stmt_execute($related_products_stmt);
 $related_products_result = mysqli_stmt_get_result($related_products_stmt);
+
+$reviews_stmt = mysqli_prepare($conn, "SELECT r.*, u.name as user_name FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.product_id = ? AND r.is_approved = 1 ORDER BY r.created_at DESC");
+mysqli_stmt_bind_param($reviews_stmt, "i", $product_id);
+mysqli_stmt_execute($reviews_stmt);
+$reviews_result = mysqli_stmt_get_result($reviews_stmt);
+$reviews = mysqli_fetch_all($reviews_result, MYSQLI_ASSOC);
+
+$rating_summary_stmt = mysqli_prepare($conn, "SELECT AVG(rating) as avg_rating, COUNT(id) as total_reviews FROM reviews WHERE product_id = ? AND is_approved = 1");
+mysqli_stmt_bind_param($rating_summary_stmt, "i", $product_id);
+mysqli_stmt_execute($rating_summary_stmt);
+$rating_summary_result = mysqli_stmt_get_result($rating_summary_stmt);
+$rating_summary = mysqli_fetch_assoc($rating_summary_result);
 ?>
 
 <main>
@@ -46,6 +58,21 @@ $related_products_result = mysqli_stmt_get_result($related_products_stmt);
 
                                                 <div class="col-lg-6 product-info">
                                                             <h2><?= htmlspecialchars($product['name']) ?></h2>
+
+                                                            <div class="mb-3">
+                                                                        <?php if ($rating_summary['total_reviews'] > 0):
+                                                                                    $avg_rating = round($rating_summary['avg_rating']);
+                                                                        ?>
+                                                                                    <span class="me-2">
+                                                                                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                                                                            <i class="fas fa-star <?= $i <= $avg_rating ? 'text-warning' : 'text-secondary' ?>"></i>
+                                                                                                <?php endfor; ?>
+                                                                                    </span>
+                                                                                    <a href="#reviews-pane" class="text-muted text-decoration-none">(<?= $rating_summary['total_reviews'] ?> ulasan)</a>
+                                                                        <?php else: ?>
+                                                                                    <span class="text-muted">Belum ada ulasan</span>
+                                                                        <?php endif; ?>
+                                                            </div>
                                                             <div class="price my-3">
                                                                         <span>Rp <?= number_format($product['price'], 0, ',', '.') ?></span>
                                                             </div>
@@ -69,23 +96,25 @@ $related_products_result = mysqli_stmt_get_result($related_products_stmt);
                                                                         <input type="hidden" name="action" value="add">
                                                                         <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
 
-                                                                        <div class="input-group mb-3" style="width: 150px;">
-                                                                                    <label class="input-group-text" for="quantity">Jumlah</label>
-                                                                                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
+                                                                        <div class="d-flex align-items-center mb-3">
+                                                                                    <div class="input-group" style="width: 150px;">
+                                                                                                <label class="input-group-text" for="quantity">Jumlah</label>
+                                                                                                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="<?= $product['stock'] ?>">
+                                                                                    </div>
                                                                         </div>
                                                                         <div class="mb-3">
                                                                                     <label for="custom_text" class="form-label">Catatan untuk Produk (Opsional)</label>
                                                                                     <textarea class="form-control" name="customization_details" id="custom_text" rows="2" placeholder="Contoh: Tolong bungkus dengan rapi."></textarea>
                                                                         </div>
 
-                                                                        <div class="d-flex align-items-center">
+                                                                        <div class="d-grid">
                                                                                     <?php if (isset($_SESSION['user_id'])): ?>
-                                                                                                <button type="submit" class="btn btn-primary btn-lg flex-grow-1" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
+                                                                                                <button type="submit" class="btn btn-primary btn-lg" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
                                                                                                             <i class="fas fa-shopping-cart me-2"></i> Tambah ke Keranjang
                                                                                                 </button>
                                                                                     <?php else: ?>
-                                                                                                <a href="<?= BASE_URL ?>login" class="btn bg-primary btn-primary flex-grow-1 <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
-                                                                                                            <i class="fas fa-sign-in-alt me-2"></i> Login
+                                                                                                <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
+                                                                                                            <i class="fas fa-sign-in-alt me-2"></i> Login untuk Membeli
                                                                                                 </a>
                                                                                     <?php endif; ?>
                                                                         </div>
@@ -97,10 +126,10 @@ $related_products_result = mysqli_stmt_get_result($related_products_stmt);
                         <div class="product-tabs mt-5">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-pane" type="button">Deskripsi</button>
+                                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#description-pane" type="button">Deskripsi</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-pane" type="button">Ulasan</button>
+                                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviews-pane" type="button">Ulasan (<?= $rating_summary['total_reviews'] ?>)</button>
                                                 </li>
                                     </ul>
                                     <div class="tab-content pt-4" id="myTabContent">
@@ -108,7 +137,34 @@ $related_products_result = mysqli_stmt_get_result($related_products_stmt);
                                                             <?= nl2br(htmlspecialchars($product['description'])) ?>
                                                 </div>
                                                 <div class="tab-pane fade" id="reviews-pane" role="tabpanel">
-                                                            Belum ada ulasan untuk produk ini.
+                                                            <?php if (count($reviews) > 0): ?>
+                                                                        <h4 class="mb-4">Ulasan Pelanggan</h4>
+                                                                        <?php foreach ($reviews as $review):
+                                                                                    $rating = $review['rating'];
+                                                                        ?>
+                                                                                    <div class="d-flex mb-4">
+                                                                                                <div class="flex-shrink-0 me-3">
+                                                                                                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                                                                                                                        <?= strtoupper(substr($review['user_name'], 0, 1)) ?>
+                                                                                                            </div>
+                                                                                                </div>
+                                                                                                <div class="flex-grow-1">
+                                                                                                            <h5 class="mt-0 mb-1 text-dark"><?= htmlspecialchars($review['user_name']) ?></h5>
+                                                                                                            <div>
+                                                                                                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                                                                                                    <i class="fas fa-star <?= $i <= $rating ? 'text-warning' : 'text-secondary' ?>" style="font-size: 0.9rem;"></i>
+                                                                                                                        <?php endfor; ?>
+                                                                                                            </div>
+                                                                                                            <small class="text-muted">Diulas pada <?= date('d-m-Y | H:i', strtotime($review['created_at'])) ?></small>
+                                                                                                            <p class="mt-1          mb-2"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
+                                                                                                </div>
+                                                                                    </div>
+                                                                        <?php endforeach; ?>
+                                                            <?php else: ?>
+                                                                        <div class="text-center p-4 bg-light rounded">
+                                                                                    <p class="mb-0">Jadilah yang pertama memberi ulasan untuk produk ini!</p>
+                                                                        </div>
+                                                            <?php endif; ?>
                                                 </div>
                                     </div>
                         </div>
@@ -119,7 +175,8 @@ $related_products_result = mysqli_stmt_get_result($related_products_stmt);
                                                             <h2>Anda Mungkin Juga Suka</h2>
                                                 </div>
                                                 <div class="row g-4">
-                                                            <?php while ($related_product = mysqli_fetch_assoc($related_products_result)):
+                                                            <?php mysqli_data_seek($related_products_result, 0);
+                                                            while ($related_product = mysqli_fetch_assoc($related_products_result)):
                                                                         $product = $related_product;
                                                             ?>
                                                                         <?php include 'parts/product_card.php'; ?>

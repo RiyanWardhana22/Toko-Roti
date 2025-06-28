@@ -21,6 +21,7 @@ $allowed_admin_pages = [
             'customers',
             'categories',
             'vouchers',
+            'reviews',
             'reports',
             'invoice',
             'settings_about',
