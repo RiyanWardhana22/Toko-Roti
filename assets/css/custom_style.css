@@ -42,238 +42,120 @@ h6 {
 }
 
 /* --- Redesign Header/Navbar --- */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(5px);
+  -webkit-backdrop-filter: saturate(180%) blur(5px);
+  box-shadow: none;
+  transition: background-color 0.5s ease, padding 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.navbar.scrolled {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background-color: #fff;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  padding: 0.8rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.header-brand {
-  display: flex;
-  align-items: center;
-}
-
-.brand-logo img {
-  height: 42px;
-  transition: transform 0.3s ease;
-}
-
-.brand-text {
+.navbar-brand {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: color 0.3s ease;
+  font-size: 1.5rem;
 }
 
-.brand-text:hover {
-  color: var(--dark-color);
+.navbar-brand img {
+  height: 45px;
+  transition: height 0.5s ease;
 }
 
-.mobile-menu-toggle {
-  display: none;
-  background: none;
+.navbar.scrolled .navbar-brand img {
+  height: 35px;
+}
+
+.navbar-toggler {
   border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1001;
 }
 
-.toggle-bar {
-  display: block;
-  width: 25px;
-  height: 2px;
-  background-color: var(--primary-color);
-  margin: 5px 0;
-  transition: all 0.3s ease;
+.navbar-toggler:focus {
+  box-shadow: none;
 }
 
-.main-navigation {
-  display: flex;
-  align-items: center;
+.navbar .nav-item {
+  margin: 0 0.5rem;
 }
 
-.nav-menu {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  color: black;
-  position: relative;
-  margin: 0 0.8rem;
-}
-
-.nav-link {
-  font-family: var(--font-body);
+.navbar .nav-link {
   font-weight: 500;
   color: var(--dark-color);
-  text-decoration: none;
-  padding: 0.5rem 0;
   position: relative;
   transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
   color: var(--primary-color);
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary-color);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  margin-left: 1.5rem;
-}
-
-.cart-icon {
-  position: relative;
-  color: var(--dark-color);
-  font-size: 1.2rem;
-  margin-right: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-.cart-icon:hover {
-  color: var(--primary-color);
-}
-
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-
-.user-dropdown {
-  position: relative;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  color: var(--dark-color);
-  font-family: var(--font-body);
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.5rem 0.8rem;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-}
-
-.user-profile:hover {
   background-color: rgba(161, 98, 59, 0.1);
 }
 
-.dropdown-arrow {
-  margin-left: 0.5rem;
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
+/* Menghilangkan garis bawah dari desain lama */
+.navbar .nav-link::after {
+  display: none;
 }
 
-.user-dropdown:hover .dropdown-arrow {
-  transform: rotate(180deg);
-}
-
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  min-width: 200px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0;
-  list-style: none;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 1000;
-}
-
-.user-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.dropdown-item {
-  display: flex;
+.navbar .navbar-nav:last-child {
+  gap: 0.5rem;
   align-items: center;
-  padding: 0.6rem 1rem;
+}
+
+.navbar .nav-link .badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 0.6em;
+  transform: translate(25%, -25%);
+}
+
+.navbar .dropdown-menu {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+}
+
+.navbar .dropdown-item {
+  font-weight: 500;
   color: var(--dark-color);
-  text-decoration: none;
+  padding: 0.75rem 1.5rem;
   transition: all 0.2s ease;
 }
 
-.dropdown-item:hover {
-  background-color: rgba(161, 98, 59, 0.1);
+.navbar .dropdown-item:hover {
+  background-color: var(--secondary-color);
   color: var(--primary-color);
+  padding-left: 1.7rem;
 }
 
-.dropdown-divider {
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
+.navbar .dropdown-divider {
   margin: 0.5rem 0;
 }
 
-.login-btn {
-  font-family: var(--font-body);
+.navbar .nav-item .btn-login {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
   font-weight: 500;
-  color: var(--primary-color);
-  text-decoration: none;
-  padding: 0.1rem 1.2rem;
-  border: 2px solid var(--primary-color);
-  border-radius: 30px;
+  background-color: var(--primary-color);
+  color: #fff;
   transition: all 0.3s ease;
 }
 
-.login-btn:hover {
-  background-color: var(--primary-color);
-  color: white;
+.navbar .nav-item .btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(161, 98, 59, 0.3);
 }
 
 /* --- Redesign Hero Carousel --- */
@@ -1067,87 +949,31 @@ h6 {
 
 /* RATING FILTER END */
 
-/* Mobile Styles */
-@media (max-width: 992px) {
-  .mobile-menu-toggle {
-    display: block;
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
-  .main-navigation {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.5);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    flex-direction: column;
+  .navbar .nav-item {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .navbar .nav-link {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .navbar .navbar-nav:last-child {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
     align-items: flex-start;
-    padding: 5rem 2rem 2rem;
-    transition: right 0.4s ease;
-  }
-
-  .main-navigation.active {
-    right: 0;
-  }
-
-  .nav-menu {
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 2rem;
-  }
-
-  .nav-item {
-    margin: 0.5rem 0;
-  }
-
-  .nav-link {
-    font-size: 1.5rem;
-    padding: 0.8rem 0;
-    display: block;
-  }
-
-  .header-actions {
-    margin-left: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .cart-icon {
-    margin: 0.5rem 0 1.5rem;
-  }
-
-  .user-dropdown {
-    width: 100%;
-  }
-
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    display: none;
-  }
-
-  .user-dropdown:hover .dropdown-menu {
-    display: block;
-  }
-
-  /* Animated hamburger icon */
-  .mobile-menu-toggle.active .toggle-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .mobile-menu-toggle.active .toggle-bar:nth-child(2) {
-    opacity: 0;
-  }
-
-  .mobile-menu-toggle.active .toggle-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+    gap: 1rem;
   }
 }
 
@@ -1207,18 +1033,6 @@ h6 {
 @media (max-width: 576px) {
   html {
     font-size: 75%;
-  }
-
-  .header-container {
-    padding: 0 1rem;
-  }
-
-  .brand-text {
-    font-size: 1.3rem;
-  }
-
-  .main-navigation {
-    width: 80%;
   }
 
   .section-title h2 {

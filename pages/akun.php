@@ -8,7 +8,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
 ?>
 
 <main>
-            <div class="container py-5">
+            <div class=" container py-5">
                         <div class="row g-4">
                                     <div class="col-lg-3">
                                                 <div class="list-group account-nav">

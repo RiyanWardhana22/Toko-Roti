@@ -23,100 +23,71 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
             <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom_style.css">
             <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/akun.css">
+
 </head>
 
 <body>
-            <header class="site-header">
-                        <div class="header-container">
-                                    <div class="header-brand">
-                                                <?php
-                                                $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
-                                                if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
-                                                            echo '<a href="' . BASE_URL . '" class="brand-logo"><img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko"></a>';
-                                                } else {
-                                                            echo '<a href="' . BASE_URL . '" class="brand-text">' . htmlspecialchars($site_settings['navbar_brand_text'] ?? 'Toko Roti') . '</a>';
-                                                }
-                                                ?>
-                                    </div>
-
-                                    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
-                                                <span class="toggle-bar"></span>
-                                                <span class="toggle-bar"></span>
-                                                <span class="toggle-bar"></span>
+            <nav class="navbar navbar-expand-lg sticky-top">
+                        <div class="container">
+                                    <?php
+                                    $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
+                                    if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
+                                                echo '<a class="navbar-brand" href="' . BASE_URL . '"><img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" style="height: 40px;"></a>';
+                                    } else {
+                                                echo '<a class="navbar-brand" href="' . BASE_URL . '">' . htmlspecialchars($site_settings['navbar_brand_text'] ?? 'Toko Roti') . '</a>';
+                                    }
+                                    ?>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                                <span class="navbar-toggler-icon"></span>
                                     </button>
-
-                                    <nav class="main-navigation">
-                                                <ul class="nav-menu">
-                                                            <li class="nav-item"><a href="<?= BASE_URL ?>" class="nav-link">Beranda</a></li>
-                                                            <li class="nav-item"><a href="<?= BASE_URL ?>about" class="nav-link">Tentang Kami</a></li>
-                                                            <li class="nav-item"><a href="<?= BASE_URL ?>produk" class="nav-link">Produk</a></li>
+                                    <div class="collapse navbar-collapse" id="navbarNav">
+                                                <ul class="navbar-nav mx-auto">
+                                                            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>">Beranda</a></li>
+                                                            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>about">Tentang Kami</a></li>
+                                                            <li class="nav-item"><a class="nav-link" href="<?= BASE_URL ?>produk">Produk</a></li>
                                                 </ul>
-
-                                                <div class="header-actions">
-                                                            <?php $cart_link = isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login'; ?>
-                                                            <a href="<?= $cart_link ?>" class="cart-icon" aria-label="Cart">
-                                                                        <i class="fas fa-shopping-cart"></i>
-                                                                        <?php if ($cart_count > 0): ?>
-                                                                                    <span class="cart-count"><?= $cart_count ?></span>
-                                                                        <?php endif; ?>
-                                                            </a>
-
+                                                <ul class="navbar-nav">
+                                                            <li class="nav-item">
+                                                                        <?php $cart_link = isset($_SESSION['user_id']) ? BASE_URL . 'cart' : BASE_URL . 'login'; ?>
+                                                                        <a class="nav-link" href="<?= $cart_link ?>">
+                                                                                    <i class="fas fa-shopping-cart"></i> <span class="badge bg-danger rounded-pill"><?= $cart_count ?></span>
+                                                                        </a>
+                                                            </li>
                                                             <?php if (isset($_SESSION['user_id'])): ?>
-                                                                        <div class="user-dropdown">
-                                                                                    <button class="user-profile" aria-expanded="false" aria-label="User menu">
-                                                                                                <span class="user-name"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
-                                                                                                <i class="fas fa-chevron-down dropdown-arrow"></i>
-                                                                                    </button>
-                                                                                    <ul class="dropdown-menu">
+                                                                        <li class="nav-item dropdown">
+                                                                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                                <?= htmlspecialchars($_SESSION['user_name']) ?>
+                                                                                    </a>
+                                                                                    <ul class="dropdown-menu dropdown-menu-end">
                                                                                                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
-                                                                                                            <li><a href="<?= BASE_URL ?>admin" class="dropdown-item"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                                                                                                            <li><a class="dropdown-item" href="<?= BASE_URL ?>admin">Dashboard</a></li>
                                                                                                 <?php endif; ?>
-                                                                                                <li><a href="<?= BASE_URL ?>akun" class="dropdown-item"><i class="fas fa-user me-2"></i>Akun Saya</a></li>
-                                                                                                <li class="dropdown-divider"></li>
-                                                                                                <li><a href="<?= BASE_URL ?>app/logout.php" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                                                                                <li><a class="dropdown-item" href="<?= BASE_URL ?>akun">Akun Saya</a></li>
+                                                                                                <li>
+                                                                                                            <hr class="dropdown-divider">
+                                                                                                </li>
+                                                                                                <li><a class="dropdown-item" href="<?= BASE_URL ?>app/logout.php">Logout</a></li>
                                                                                     </ul>
-                                                                        </div>
+                                                                        </li>
                                                             <?php else: ?>
-                                                                        <a href="<?= BASE_URL ?>login" class="login-btn">Login</a>
+                                                                        <li class="nav-item"><a class="nav-link btn btn-primary btn-sm" href="<?= BASE_URL ?>login">Login</a></li>
                                                             <?php endif; ?>
-                                                </div>
-                                    </nav>
+                                                </ul>
+                                    </div>
                         </div>
-            </header>
+            </nav>
 
             <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                                    const mobileToggle = document.querySelector('.mobile-menu-toggle');
-                                    const navigation = document.querySelector('.main-navigation');
-
-                                    if (mobileToggle && navigation) {
-                                                mobileToggle.addEventListener('click', function(e) {
-                                                            e.stopPropagation();
-                                                            this.classList.toggle('active');
-                                                            navigation.classList.toggle('active');
-                                                            document.body.style.overflow = navigation.classList.contains('active') ? 'hidden' : '';
-                                                });
-
-                                                document.addEventListener('click', function(e) {
-                                                            if (!navigation.contains(e.target) && !mobileToggle.contains(e.target)) {
-                                                                        mobileToggle.classList.remove('active');
-                                                                        navigation.classList.remove('active');
-                                                                        document.body.style.overflow = '';
+                        document.addEventListener("DOMContentLoaded", function() {
+                                    const navbar = document.querySelector('.navbar');
+                                    if (navbar) {
+                                                window.addEventListener('scroll', function() {
+                                                            if (window.scrollY > 50) {
+                                                                        navbar.classList.add('scrolled');
+                                                            } else {
+                                                                        navbar.classList.remove('scrolled');
                                                             }
                                                 });
-
-                                                const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
-                                                navLinks.forEach(link => {
-                                                            link.addEventListener('click', function() {
-                                                                        if (window.innerWidth <= 992) {
-                                                                                    mobileToggle.classList.remove('active');
-                                                                                    navigation.classList.remove('active');
-                                                                                    document.body.style.overflow = '';
-                                                                        }
-                                                            });
-                                                });
-                                    } else {
-                                                console.error('Elemen menu tidak ditemukan!');
                                     }
                         });
             </script>
