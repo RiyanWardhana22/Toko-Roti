@@ -9,6 +9,101 @@ $reviews_res = mysqli_query($conn, "SELECT r.rating, r.comment, u.name as user_n
 $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
 ?>
 
+<style>
+            .primary-button {
+                        font-family: 'Ropa Sans', sans-serif;
+                        color: white;
+                        text-transform: uppercase;
+                        text-decoration: none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        font-weight: bold;
+                        letter-spacing: 0.05rem;
+                        border: 1px solid #0E1822;
+                        padding: 0.8rem 2.1rem;
+                        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 531.28 200'%3E%3Cdefs%3E%3Cstyle%3E .shape %7B fill: %23a1623b fill: %230E1822; %7D %3C/style%3E%3C/defs%3E%3Cg id='Layer_2' data-name='Layer 2'%3E%3Cg id='Layer_1-2' data-name='Layer 1'%3E%3Cpolygon class='shape' points='415.81 200 0 200 115.47 0 531.28 0 415.81 200' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+                        background-color: #0E1822;
+                        background-size: 200%;
+                        background-position: 200%;
+                        background-repeat: no-repeat;
+                        transition: 0.3s ease-in-out;
+                        transition-property: background-position, border, color;
+                        position: relative;
+                        z-index: 1;
+            }
+
+            .primary-button:hover {
+                        border: 1px solid #a1623b;
+                        color: white;
+                        background-position: 40%;
+            }
+
+            .primary-button:before {
+                        content: "";
+                        position: absolute;
+                        background-color: #0E1822;
+                        width: 0.2rem;
+                        height: 0.2rem;
+                        top: -1px;
+                        left: -1px;
+                        transition: background-color 0.15s ease-in-out;
+            }
+
+            .primary-button:hover:before {
+                        background-color: white;
+            }
+
+            .primary-button:hover:after {
+                        background-color: white;
+            }
+
+            .primary-button:after {
+                        content: "";
+                        position: absolute;
+                        background-color: #a1623b;
+                        width: 0.3rem;
+                        height: 0.3rem;
+                        bottom: -1px;
+                        right: -1px;
+                        transition: background-color 0.15s ease-in-out;
+            }
+
+            .button-borders {
+                        position: relative;
+                        width: fit-content;
+                        height: fit-content;
+            }
+
+            .button-borders:before {
+                        content: "";
+                        position: absolute;
+                        width: calc(100% + 0.5em);
+                        height: 60%;
+                        left: -0.3em;
+                        top: -0.3em;
+                        border: 1px solid #FFC300;
+                        border-bottom: 0px;
+                        /* opacity: 0.3; */
+            }
+
+            .button-borders:after {
+                        content: "";
+                        position: absolute;
+                        width: calc(100% + 0.5em);
+                        height: 60%;
+                        left: -0.3em;
+                        bottom: -0.3em;
+                        border: 1px solid #FFC300;
+                        border-top: 0px;
+                        /* opacity: 0.3; */
+                        z-index: 0;
+            }
+
+            .shape {
+                        fill: #FFC300;
+            }
+</style>
+
 <?php if (mysqli_num_rows($result_sliders) > 0): ?>
             <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                         <div class="carousel-inner">
@@ -16,11 +111,22 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
                                     while ($slide = mysqli_fetch_assoc($result_sliders)): ?>
                                                 <div class="carousel-item <?= $first ? 'active' : '' ?>" style="background-image: url('<?= BASE_URL ?>assets/images/sliders/<?= $slide['image_url'] ?>'); background-size: cover; background-position: center;">
                                                             <div class="container-fluid">
-                                                                        <div class="carousel-caption-custom text-center">
-                                                                                    <h1 class="display-4 fw-bold"><?= htmlspecialchars($slide['title']) ?></h1>
-                                                                                    <p class="fs-5 lead"><?= htmlspecialchars($slide['subtitle']) ?></p>
+                                                                        <div class="carousel-caption-custom text-center bg-transparent d-flex flex-column justify-content-between" style="height: 100%;">
+                                                                                    <div></div>
                                                                                     <?php if (!empty($slide['button_text']) && !empty($slide['button_link'])): ?>
-                                                                                                <a href="<?= htmlspecialchars($slide['button_link']) ?>" class="btn btn-primary btn-lg mt-3"><?= htmlspecialchars($slide['button_text']) ?></a>
+                                                                                                <div class="mb-5">
+                                                                                                            <div class="container-fluid">
+                                                                                                                        <div class="carousel-caption-custom text-center bg-transparent">
+                                                                                                                                    <div class="button-borders">
+                                                                                                                                                <?php if (!empty($slide['button_text']) && !empty($slide['button_link'])): ?>
+                                                                                                                                                            <a href="<?= htmlspecialchars($slide['button_link']) ?>" class="primary-button">
+                                                                                                                                                                        <span class="btn-text"><?= htmlspecialchars($slide['button_text']) ?></span>
+                                                                                                                                                            </a>
+                                                                                                                                                <?php endif; ?>
+                                                                                                                                    </div>
+                                                                                                                        </div>
+                                                                                                            </div>
+                                                                                                </div>
                                                                                     <?php endif; ?>
                                                                         </div>
                                                             </div>

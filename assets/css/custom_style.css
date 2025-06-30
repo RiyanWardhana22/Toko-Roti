@@ -82,6 +82,7 @@ h6 {
 #heroCarousel .carousel-item {
   height: 70vh;
   min-height: 500px;
+  position: relative;
 }
 
 #heroCarousel .carousel-item > div {
@@ -90,17 +91,24 @@ h6 {
   align-items: center;
   justify-content: center;
 }
+
 #heroCarousel .carousel-caption-custom {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 600px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
+
 #heroCarousel .carousel-caption-custom h1 {
   text-shadow: none;
   color: var(--primary-color);
 }
+
 #heroCarousel .carousel-caption-custom p {
   text-shadow: none;
   color: var(--dark-color);
