@@ -8,7 +8,7 @@ $result = mysqli_stmt_get_result($stmt);
 $product = mysqli_fetch_assoc($result);
 
 if (!$product) {
-            echo '<div class="alert alert-danger">Produk tidak ditemukan.</div>';
+            echo '<div class="alert alert-danger mt-3 text-center">Produk tidak ditemukan.</div>';
             return;
 }
 
