@@ -31,6 +31,13 @@ if (isset($_POST['update_website_settings'])) {
             if ($logo = handle_settings_image_upload('navbar_brand_logo')) {
                         update_setting('navbar_brand_logo', $logo);
             }
+
+            update_setting('contact_address', $_POST['contact_address']);
+            update_setting('contact_phone', $_POST['contact_phone']);
+            update_setting('contact_email', $_POST['contact_email']);
+            update_setting('contact_facebook', $_POST['contact_facebook']);
+            update_setting('contact_instagram', $_POST['contact_instagram']);
+            update_setting('contact_whatsapp', $_POST['contact_whatsapp']);
 }
 
 header('Location: ' . BASE_URL . 'admin?page=settings_website&status=success');
