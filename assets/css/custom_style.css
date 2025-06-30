@@ -37,7 +37,7 @@ h6 {
 .btn-primary:focus {
   background-color: #8a5331;
   border-color: #8a5331;
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -915,8 +915,12 @@ h6 {
 }
 
 @media (max-width: 576px) {
-  .rating-filter .d-flex {
-    justify-content: center;
+  html {
+    font-size: 75%;
+  }
+
+  .section-title h2 {
+    font-size: 1.8rem;
   }
 
   .rating-filter .btn {

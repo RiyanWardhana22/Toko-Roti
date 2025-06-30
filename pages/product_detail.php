@@ -131,7 +131,7 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                         </div>
                                                                         <div class="d-grid">
                                                                                     <?php if (isset($_SESSION['user_id'])): ?>
-                                                                                                <button type="submit" class="btn btn-primary btn-lg" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
+                                                                                                <button type="submit" class="btn btn-primary" <?= $product['stock'] < 1 ? 'disabled' : '' ?>>
                                                                                                             <i class="fas fa-shopping-cart me-2"></i> Tambah ke Keranjang
                                                                                                 </button>
                                                                                     <?php else: ?>
@@ -193,13 +193,13 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                                                             </div>
                                                                                                 </div>
                                                                                                 <div class="flex-grow-1">
-                                                                                                            <h5 class="mt-0 mb-1 text-dark"><?= htmlspecialchars($review['user_name']) ?></h5>
+                                                                                                            <p class="mt-0 mb-1 fw-bold"><?= htmlspecialchars($review['user_name']) ?></p>
                                                                                                             <div>
                                                                                                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                                                                                                                     <i class="fas fa-star <?= $i <= $review['rating'] ? 'text-warning' : 'text-secondary' ?>" style="font-size: 0.9rem;"></i>
                                                                                                                         <?php endfor; ?>
                                                                                                             </div>
-                                                                                                            <small class="text-muted">Diulas pada <?= date('d-m-Y | H:i', strtotime($review['created_at'])) ?></small>
+                                                                                                            <small class="text-muted"><?= date('d-m-Y | H:i', strtotime($review['created_at'])) ?></small>
                                                                                                             <p class="mt-1 mb-2"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
                                                                                                 </div>
                                                                                     </div>
