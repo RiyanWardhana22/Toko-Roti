@@ -1,7 +1,11 @@
 <?php
 $message = '';
+if (isset($_GET['status']) && $_GET['status'] == 'success') {
+            $message = "<div class='alert alert-success'>Pengaturan berhasil disimpan.</div>";
+}
 
-$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings WHERE setting_key LIKE 'website_%' OR setting_key LIKE 'navbar_%'");
+$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings");
+
 $settings = [];
 while ($row = mysqli_fetch_assoc($settings_res)) {
             $settings[$row['setting_key']] = $row['setting_value'];
@@ -11,6 +15,8 @@ while ($row = mysqli_fetch_assoc($settings_res)) {
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Settings - Informasi Website</h1>
 </div>
+
+<?= $message ?>
 
 <div class="card">
             <div class="card-header">

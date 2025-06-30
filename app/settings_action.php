@@ -12,7 +12,7 @@ function update_setting($key, $value)
 function handle_settings_image_upload($file_input_name)
 {
             if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] == 0) {
-                        $upload_dir = '../assets/images/';
+                        $upload_dir = __DIR__ . '/../assets/images/';
                         $file_name = 'site-' . $file_input_name . '-' . time() . '.' . pathinfo($_FILES[$file_input_name]['name'], PATHINFO_EXTENSION);
                         if (move_uploaded_file($_FILES[$file_input_name]['tmp_name'], $upload_dir . $file_name)) {
                                     return $file_name;
@@ -21,10 +21,12 @@ function handle_settings_image_upload($file_input_name)
             return null;
 }
 
+
 if (isset($_POST['update_website_settings'])) {
             update_setting('website_title', $_POST['website_title']);
             update_setting('navbar_brand_type', $_POST['navbar_brand_type']);
             update_setting('navbar_brand_text', $_POST['navbar_brand_text']);
+
             if ($favicon = handle_settings_image_upload('website_favicon')) {
                         update_setting('website_favicon', $favicon);
             }
@@ -35,9 +37,9 @@ if (isset($_POST['update_website_settings'])) {
             update_setting('contact_address', $_POST['contact_address']);
             update_setting('contact_phone', $_POST['contact_phone']);
             update_setting('contact_email', $_POST['contact_email']);
-            update_setting('contact_facebook', $_POST['contact_facebook']);
-            update_setting('contact_instagram', $_POST['contact_instagram']);
-            update_setting('contact_whatsapp', $_POST['contact_whatsapp']);
+            update_setting('social_facebook', $_POST['social_facebook']);
+            update_setting('social_instagram', $_POST['social_instagram']);
+            update_setting('social_whatsapp', $_POST['social_whatsapp']);
 }
 
 header('Location: ' . BASE_URL . 'admin?page=settings_website&status=success');

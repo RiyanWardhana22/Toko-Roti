@@ -2,7 +2,7 @@
             <div class="container">
                         <div class="row">
                                     <div class="col-md-4 mb-4">
-                                                <h5>Tentang Toko Roti</h5>
+                                                <h5>Tentang <?= htmlspecialchars($site_settings['navbar_brand_text'] ?? 'Toko Roti') ?></h5>
                                                 <p>Kami menyajikan roti dan kue berkualitas tinggi yang dibuat setiap hari dengan bahan-bahan pilihan dan resep warisan keluarga.</p>
                                     </div>
                                     <div class="col-md-2 mb-4">
@@ -16,23 +16,29 @@
                                     <div class="col-md-3 mb-4">
                                                 <h5>Kontak Kami</h5>
                                                 <ul class="list-unstyled">
-                                                            <li><i class="fas fa-map-marker-alt me-2"></i> Jl. Roti Enak No. 123, Medan</li>
-                                                            <li><i class="fas fa-phone me-2"></i> (061) 123-456</li>
-                                                            <li><i class="fas fa-envelope me-2"></i> kontak@tokoroti.com</li>
+                                                            <li><i class="fas fa-map-marker-alt me-2"></i> <?= htmlspecialchars($site_settings['contact_address'] ?? 'Alamat belum diatur') ?></li>
+                                                            <li><i class="fas fa-phone me-2"></i> <?= htmlspecialchars($site_settings['contact_phone'] ?? 'Telepon belum diatur') ?></li>
+                                                            <li><i class="fas fa-envelope me-2"></i> <?= htmlspecialchars($site_settings['contact_email'] ?? 'Email belum diatur') ?></li>
                                                 </ul>
                                     </div>
                                     <div class="col-md-3 mb-4">
                                                 <h5>Ikuti Kami</h5>
                                                 <div class="social-icons">
-                                                            <a href="#" class="text-dark"><i class="fab fa-facebook-f"></i></a>
-                                                            <a href="#" class="text-dark"><i class="fab fa-instagram"></i></a>
-                                                            <a href="#" class="text-dark"><i class="fab fa-whatsapp"></i></a>
+                                                            <?php if (!empty($site_settings['social_facebook'])): ?>
+                                                                        <a href="<?= htmlspecialchars($site_settings['social_facebook']) ?>" class="text-dark" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                                                            <?php endif; ?>
+                                                            <?php if (!empty($site_settings['social_instagram'])): ?>
+                                                                        <a href="<?= htmlspecialchars($site_settings['social_instagram']) ?>" class="text-dark" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                                                            <?php endif; ?>
+                                                            <?php if (!empty($site_settings['social_whatsapp'])): ?>
+                                                                        <a href="<?= htmlspecialchars($site_settings['social_whatsapp']) ?>" class="text-dark" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                                                            <?php endif; ?>
                                                 </div>
                                     </div>
                         </div>
                         <hr>
                         <div class="text-center">
-                                    <p class="mb-0">&copy; <?= date('Y') ?> <?= htmlspecialchars($site_settings['website_title']) ?>. All Rights Reserved.</p>
+                                    <p class="mb-0">&copy; <?= date('Y') ?> <?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti Anda') ?>. All Rights Reserved.</p>
                         </div>
             </div>
 </footer>
