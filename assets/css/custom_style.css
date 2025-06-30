@@ -6,7 +6,6 @@
   --dark-color: #3d2b24;
   --accent-color: #e8b4b8;
   --font-heading: "Playfair Display", serif;
-  /* --font-heading: "Poppins", sans-serif; */
   --font-body: "Poppins", sans-serif;
 }
 
@@ -810,6 +809,58 @@ h6 {
   color: #f7ba2a;
 }
 
+/* RATING FILTER START */
+.rating-filter {
+  margin-bottom: 2rem;
+}
+
+.rating-filter .btn {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-width: 1px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+}
+
+.rating-filter .btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.rating-filter .btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.rating-filter .btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.rating-filter .btn-warning {
+  background-color: #f7ba2a;
+  border-color: #f7ba2a;
+}
+
+.rating-filter .btn-outline-secondary {
+  color: var(--dark-color);
+  border-color: #dee2e6;
+}
+
+.rating-filter .btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.rating-filter .badge {
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* RATING FILTER END */
+
 @media (max-width: 768px) {
   .order-success-section {
     padding: 30px 20px;
@@ -847,5 +898,32 @@ h6 {
   .payment-method-details {
     padding-left: 0;
     padding-top: 15px;
+  }
+
+  .rating-filter .d-flex {
+    gap: 0.5rem !important;
+  }
+
+  .rating-filter .btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .rating-filter span.me-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .rating-filter .d-flex {
+    justify-content: center;
+  }
+
+  .rating-filter .btn {
+    padding: 0.25rem 0.6rem;
+  }
+
+  .rating-filter .badge {
+    display: none;
   }
 }

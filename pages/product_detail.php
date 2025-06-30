@@ -162,11 +162,24 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                             <?php if ($rating_summary['total_reviews'] > 0): ?>
                                                                         <h4 class="mb-4">Ulasan Pelanggan</h4>
                                                                         <div class="rating-filter mb-4">
-                                                                                    <div class="btn-group" role="group">
-                                                                                                <a href="<?= BASE_URL ?>produk/detail/<?= $product_id ?>" class="btn btn-outline-secondary <?= $rating_filter == 0 ? 'active' : '' ?>">Semua</a>
-                                                                                                <?php for ($star = 5; $star >= 1; $star--): ?>
-                                                                                                            <a href="<?= BASE_URL ?>produk/detail/<?= $product_id ?>?rating=<?= $star ?>" class="btn btn-outline-secondary <?= $rating_filter == $star ? 'active' : '' ?>">
-                                                                                                                        <i class="fas fa-star text-warning"></i> <?= $star ?>
+                                                                                    <div class="d-flex flex-wrap align-items-center gap-3">
+                                                                                                <a href="<?= BASE_URL ?>produk/detail/<?= $product_id ?>"
+                                                                                                            class="btn btn-sm px-3 rounded-pill <?= $rating_filter == 0 ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                                                                                            Semua (<?= $rating_summary['total_reviews'] ?>)
+                                                                                                </a>
+                                                                                                <?php for ($star = 5; $star >= 1; $star--):
+                                                                                                            $star_count_stmt = mysqli_prepare($conn, "SELECT COUNT(id) as count FROM reviews WHERE product_id = ? AND rating = ? AND is_approved = 1");
+                                                                                                            mysqli_stmt_bind_param($star_count_stmt, "ii", $product_id, $star);
+                                                                                                            mysqli_stmt_execute($star_count_stmt);
+                                                                                                            $star_count = mysqli_fetch_assoc(mysqli_stmt_get_result($star_count_stmt))['count'];
+                                                                                                ?>
+                                                                                                            <a href="<?= BASE_URL ?>produk/detail/<?= $product_id ?>?rating=<?= $star ?>"
+                                                                                                                        class="btn btn-sm px-3 rounded-pill <?= $rating_filter == $star ? 'btn-warning text-white' : 'btn-outline-secondary' ?>">
+                                                                                                                        <div class="d-flex align-items-center gap-1">
+                                                                                                                                    <span><?= $star ?></span>
+                                                                                                                                    <i class="fas fa-star text-warning"></i>
+                                                                                                                                    <span class="badge bg-light text-dark ms-1"><?= $star_count ?></span>
+                                                                                                                        </div>
                                                                                                             </a>
                                                                                                 <?php endfor; ?>
                                                                                     </div>
