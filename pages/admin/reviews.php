@@ -14,49 +14,71 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             }
 }
 
-$reviews_res = mysqli_query($conn, "SELECT r.*, p.name as product_name, u.name as user_name FROM reviews r JOIN products p ON r.product_id = p.id JOIN users u ON r.user_id = u.id ORDER BY r.created_at DESC");
+$rating_filter = isset($_GET['rating']) ? (int)$_GET['rating'] : 0;
+$where_clause = '';
+if ($rating_filter > 0 && $rating_filter <= 5) {
+            $where_clause = "WHERE r.rating = $rating_filter";
+}
+$reviews_res = mysqli_query($conn, "SELECT r.*, p.name as product_name, u.name as user_name FROM reviews r JOIN products p ON r.product_id = p.id JOIN users u ON r.user_id = u.id $where_clause ORDER BY r.created_at DESC");
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Manajemen Ulasan Pelanggan</h1>
-</div>
 <?= $message ?>
-<div class="table-responsive">
-            <table class="table table-striped">
-                        <thead>
-                                    <tr>
-                                                <th>Produk</th>
-                                                <th>Pelanggan</th>
-                                                <th>Rating</th>
-                                                <th>Ulasan</th>
-                                                <th>Tanggal</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                    </tr>
-                        </thead>
-                        <tbody>
-                                    <?php while ($review = mysqli_fetch_assoc($reviews_res)): ?>
-                                                <tr>
-                                                            <td><?= htmlspecialchars($review['product_name']) ?></td>
-                                                            <td><?= htmlspecialchars($review['user_name']) ?></td>
-                                                            <td class="text-center"><strong><?= $review['rating'] ?>/5</strong></td>
-                                                            <td><?= htmlspecialchars($review['comment']) ?></td>
-                                                            <td><?= date('d M Y', strtotime($review['created_at'])) ?></td>
-                                                            <td>
-                                                                        <span class="badge <?= $review['is_approved'] ? 'text-bg-success' : 'text-bg-secondary' ?>">
-                                                                                    <?= $review['is_approved'] ? 'Ditampilkan' : 'Disembunyikan' ?>
-                                                                        </span>
-                                                            </td>
-                                                            <td>
-                                                                        <?php if ($review['is_approved']): ?>
-                                                                                    <a href="?page=reviews&action=unapprove&id=<?= $review['id'] ?>" class="btn btn-secondary btn-sm">Sembunyikan</a>
-                                                                        <?php else: ?>
-                                                                                    <a href="?page=reviews&action=approve&id=<?= $review['id'] ?>" class="btn btn-success btn-sm">Tampilkan</a>
-                                                                        <?php endif; ?>
-                                                                        <a href="?page=reviews&action=delete&id=<?= $review['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus ulasan ini secara permanen?')">Hapus</a>
-                                                            </td>
-                                                </tr>
-                                    <?php endwhile; ?>
-                        </tbody>
-            </table>
+
+<div class="card content-card">
+            <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <h5 class="mb-2 mb-md-0">Manajemen Ulasan</h5>
+                        <div class="btn-group" role="group">
+                                    <a href="?page=reviews" class="btn btn-sm <?= $rating_filter == 0 ? 'btn-primary' : 'btn-outline-primary' ?>">Semua</a>
+                                    <?php for ($star = 5; $star >= 1; $star--): ?>
+                                                <a href="?page=reviews&rating=<?= $star ?>" class="btn btn-sm <?= $rating_filter == $star ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                                            <i class="fas fa-star"></i> <?= $star ?>
+                                                </a>
+                                    <?php endfor; ?>
+                        </div>
+            </div>
+            <div class="card-body">
+                        <div class="table-responsive">
+                                    <table class="table table-hover">
+                                                <thead>
+                                                            <tr>
+                                                                        <th>Produk</th>
+                                                                        <th>Pelanggan</th>
+                                                                        <th class="text-center">Rating</th>
+                                                                        <th>Ulasan</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-center">Aksi</th>
+                                                            </tr>
+                                                </thead>
+                                                <tbody>
+                                                            <?php if (mysqli_num_rows($reviews_res) > 0): ?>
+                                                                        <?php while ($review = mysqli_fetch_assoc($reviews_res)): ?>
+                                                                                    <tr>
+                                                                                                <td><?= htmlspecialchars($review['product_name']) ?></td>
+                                                                                                <td><?= htmlspecialchars($review['user_name']) ?></td>
+                                                                                                <td class="text-center"><strong><?= $review['rating'] ?>/5</strong></td>
+                                                                                                <td><small><?= htmlspecialchars($review['comment']) ?></small></td>
+                                                                                                <td>
+                                                                                                            <span class="badge <?= $review['is_approved'] ? 'text-bg-success' : 'text-bg-secondary' ?>">
+                                                                                                                        <?= $review['is_approved'] ? 'Ditampilkan' : 'Disembunyikan' ?>
+                                                                                                            </span>
+                                                                                                </td>
+                                                                                                <td class="d-flex gap-2 text-end">
+                                                                                                            <?php if ($review['is_approved']): ?>
+                                                                                                                        <a href="?page=reviews&action=unapprove&id=<?= $review['id'] ?>" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-eye-slash"></i></a>
+                                                                                                            <?php else: ?>
+                                                                                                                        <a href="?page=reviews&action=approve&id=<?= $review['id'] ?>" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-eye"></i></a>
+                                                                                                            <?php endif; ?>
+                                                                                                            <a href="?page=reviews&action=delete&id=<?= $review['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Yakin?')"><i class="fa-solid fa-trash"></i></a>
+                                                                                                </td>
+                                                                                    </tr>
+                                                                        <?php endwhile; ?>
+                                                            <?php else: ?>
+                                                                        <tr>
+                                                                                    <td colspan="7" class="text-center p-4">Tidak ada ulasan yang cocok dengan filter ini.</td>
+                                                                        </tr>
+                                                            <?php endif; ?>
+                                                </tbody>
+                                    </table>
+                        </div>
+            </div>
 </div>
