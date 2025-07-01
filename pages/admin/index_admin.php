@@ -73,8 +73,19 @@ $admin_standalone_pages = ['invoice'];
 
             <script src="<?= BASE_URL ?>assets/js/bootstrap.bundle.min.js"></script>
             <script>
-                        document.querySelector('.mobile-toggler').addEventListener('click', function() {
-                                    document.querySelector('.admin-sidebar').classList.toggle('active');
+                        const sidebar = document.querySelector('.admin-sidebar');
+                        const mobileToggler = document.querySelector('.mobile-toggler');
+
+                        mobileToggler.addEventListener('click', function() {
+                                    sidebar.classList.toggle('active');
+                        });
+
+                        document.addEventListener('click', function(event) {
+                                    const isClickInsideSidebar = sidebar.contains(event.target);
+                                    const isClickOnToggler = mobileToggler.contains(event.target);
+                                    if (sidebar.classList.contains('active') && !isClickInsideSidebar && !isClickOnToggler) {
+                                                sidebar.classList.remove('active');
+                                    }
                         });
             </script>
 </body>
