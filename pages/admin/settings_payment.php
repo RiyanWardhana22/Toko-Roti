@@ -52,60 +52,77 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
 $all_methods = mysqli_query($conn, "SELECT * FROM payment_methods");
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Settings - Metode Pembayaran</h1>
-</div>
 <?= $message ?>
 <div class="row">
-            <div class="col-md-8">
-                        <table class="table table-striped">
-                                    <thead>
-                                                <tr>
-                                                            <th>Logo</th>
-                                                            <th>Nama Metode</th>
-                                                            <th>Detail Akun</th>
-                                                            <th>Status</th>
-                                                            <th>Aksi</th>
-                                                </tr>
-                                    </thead>
-                                    <tbody>
-                                                <?php while ($row = mysqli_fetch_assoc($all_methods)): ?>
-                                                            <tr>
-                                                                        <td><img src="<?= BASE_URL ?>assets/images/logos/<?= $row['logo_url'] ?>" height="30" alt=""></td>
-                                                                        <td><?= htmlspecialchars($row['method_name']) ?></td>
-                                                                        <td><?= nl2br(htmlspecialchars($row['account_details'])) ?></td>
-                                                                        <td><span class="badge <?= $row['is_active'] ? 'text-bg-success' : 'text-bg-secondary' ?>"><?= $row['is_active'] ? 'Aktif' : 'Nonaktif' ?></span></td>
-                                                                        <td>
-                                                                                    <a href="?page=settings_payment&action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                                                                    <a href="?page=settings_payment&action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">Hapus</a>
-                                                                        </td>
-                                                            </tr>
-                                                <?php endwhile; ?>
-                                    </tbody>
-                        </table>
+            <div class="col-lg-8">
+                        <div class="card content-card">
+                                    <div class="card-header">Daftar Metode Pembayaran</div>
+                                    <div class="card-body">
+                                                <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                        <thead>
+                                                                                    <tr>
+                                                                                                <th>Logo</th>
+                                                                                                <th>Nama Metode</th>
+                                                                                                <th>Detail Akun</th>
+                                                                                                <th>Status</th>
+                                                                                                <th class="text-end">Aksi</th>
+                                                                                    </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                                    <?php while ($row = mysqli_fetch_assoc($all_methods)): ?>
+                                                                                                <tr>
+                                                                                                            <td>
+                                                                                                                        <?php if (!empty($row['logo_url'])): ?>
+                                                                                                                                    <img src="<?= BASE_URL ?>assets/images/logos/<?= $row['logo_url'] ?>" height="30" alt="">
+                                                                                                                        <?php endif; ?>
+                                                                                                            </td>
+                                                                                                            <td><?= htmlspecialchars($row['method_name']) ?></td>
+                                                                                                            <td><small><?= nl2br(htmlspecialchars($row['account_details'])) ?></small></td>
+                                                                                                            <td><span class="badge <?= $row['is_active'] ? 'text-bg-success' : 'text-bg-secondary' ?>"><?= $row['is_active'] ? 'Aktif' : 'Nonaktif' ?></span></td>
+                                                                                                            <td class="text-end">
+                                                                                                                        <a href="?page=settings_payment&action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                                                                                                                        <a href="?page=settings_payment&action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">Hapus</a>
+                                                                                                            </td>
+                                                                                                </tr>
+                                                                                    <?php endwhile; ?>
+                                                                        </tbody>
+                                                            </table>
+                                                </div>
+                                    </div>
+                        </div>
             </div>
-            <div class="col-md-4">
-                        <h3><?= $edit_mode ? 'Edit Metode' : 'Tambah Metode Baru' ?></h3>
-                        <form method="POST" action="?page=settings_payment" enctype="multipart/form-data">
-                                    <input type="hidden" name="action" value="<?= $edit_mode ? 'update' : 'create' ?>">
-                                    <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
-                                    <div class="mb-3">
-                                                <label class="form-label">Nama Metode</label>
-                                                <input type="text" class="form-control" name="name" value="<?= htmlspecialchars($edit_data['method_name']) ?>" required>
+            <div class="col-lg-4">
+                        <div class="card content-card">
+                                    <div class="card-header"><?= $edit_mode ? 'Edit Metode Pembayaran' : 'Tambah Metode Baru' ?></div>
+                                    <div class="card-body">
+                                                <form method="POST" action="?page=settings_payment" enctype="multipart/form-data">
+                                                            <input type="hidden" name="action" value="<?= $edit_mode ? 'update' : 'create' ?>">
+                                                            <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
+                                                            <div class="mb-3">
+                                                                        <label class="form-label">Nama Metode</label>
+                                                                        <input type="text" class="form-control" name="name" value="<?= htmlspecialchars($edit_data['method_name']) ?>" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                        <label class="form-label">Detail Akun</label>
+                                                                        <textarea class="form-control" name="details" rows="4" required><?= htmlspecialchars($edit_data['account_details']) ?></textarea>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                        <label class="form-label">Logo</label>
+                                                                        <input type="file" class="form-control" name="logo">
+                                                            </div>
+                                                            <div class="form-check mb-3">
+                                                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1" <?= $edit_data['is_active'] ? 'checked' : '' ?>>
+                                                                        <label class="form-check-label" for="is_active">Aktifkan metode ini</label>
+                                                            </div>
+                                                            <div class="d-grid">
+                                                                        <button type="submit" class="btn btn-primary"><?= $edit_mode ? 'Simpan Perubahan' : 'Tambah' ?></button>
+                                                                        <?php if ($edit_mode): ?>
+                                                                                    <a href="?page=settings_payment" class="btn btn-light mt-2">Batal</a>
+                                                                        <?php endif; ?>
+                                                            </div>
+                                                </form>
                                     </div>
-                                    <div class="mb-3">
-                                                <label class="form-label">Detail Akun (No. Rek, Atas Nama, dll)</label>
-                                                <textarea class="form-control" name="details" rows="4" required><?= htmlspecialchars($edit_data['account_details']) ?></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                                <label class="form-label">Logo</label>
-                                                <input type="file" class="form-control" name="logo">
-                                    </div>
-                                    <div class="form-check mb-3">
-                                                <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1" <?= $edit_data['is_active'] ? 'checked' : '' ?>>
-                                                <label class="form-check-label" for="is_active">Aktifkan metode ini</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary"><?= $edit_mode ? 'Simpan Perubahan' : 'Tambah' ?></button>
-                        </form>
+                        </div>
             </div>
 </div>
