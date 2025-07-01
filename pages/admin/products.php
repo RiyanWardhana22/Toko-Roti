@@ -45,7 +45,7 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
                                                                         <th scope="col">Kategori</th>
                                                                         <th scope="col">Harga</th>
                                                                         <th scope="col">Stok</th>
-                                                                        <th scope="col" class="text-end">Aksi</th>
+                                                                        <th scope="col" class="text-center">Aksi</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
@@ -67,7 +67,7 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
                                                                                                 <td><?= htmlspecialchars($product_row['category_name'] ?? 'N/A') ?></td>
                                                                                                 <td>Rp <?= number_format($product_row['price'], 0, ',', '.') ?></td>
                                                                                                 <td><?= $product_row['stock'] ?></td>
-                                                                                                <td class="text-end">
+                                                                                                <td class="d-flex justify-content-center gap-2">
                                                                                                             <a href="<?= BASE_URL ?>admin?page=products&action=edit&id=<?= $product_row['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                                                                                                             <a href="<?= BASE_URL ?>admin?page=products&action=delete&id=<?= $product_row['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus produk ini secara permanen?');"><i class="fa-solid fa-trash"></i></a>
                                                                                                 </td>

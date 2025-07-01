@@ -10,7 +10,7 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_users',
 ?>
 
 <nav class="admin-sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header d-flex justify-content-center">
                         <a class="navbar-brand" href="<?= BASE_URL ?>admin">
                                     <?php
                                     if (($site_settings['navbar_brand_type'] ?? 'text') == 'logo' && !empty($site_settings['navbar_brand_logo'])) {

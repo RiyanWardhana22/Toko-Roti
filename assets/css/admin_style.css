@@ -1,11 +1,10 @@
-/* assets/css/admin_style.css (BARU) */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
   --admin-bg: #f4f7fc;
   --sidebar-bg: #ffffff;
   --card-bg: #ffffff;
-  --primary-accent: #4a69ff; /* Biru sebagai aksen */
+  --primary-accent: #4a69ff;
   --text-primary: #1a202c;
   --text-secondary: #718096;
   --border-color: #e2e8f0;
@@ -31,7 +30,7 @@ body.admin-body {
   transition: margin-left 0.3s ease-in-out;
 }
 .sidebar-header {
-  padding: 1.5rem 1.25rem;
+  padding: 0 1.25rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -44,7 +43,7 @@ body.admin-body {
   font-weight: 600;
 }
 .sidebar-header .navbar-brand img {
-  height: 35px !important;
+  height: 80px !important;
 }
 .sidebar-nav {
   padding: 1rem;
