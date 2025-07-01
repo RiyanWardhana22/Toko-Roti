@@ -53,7 +53,7 @@ $all_vouchers = mysqli_query($conn, "SELECT * FROM vouchers ORDER BY created_at 
                                                                                                 <th>Tipe</th>
                                                                                                 <th>Nilai</th>
                                                                                                 <th>Status</th>
-                                                                                                <th class="text-end">Aksi</th>
+                                                                                                <th class="text-center">Aksi</th>
                                                                                     </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -66,9 +66,9 @@ $all_vouchers = mysqli_query($conn, "SELECT * FROM vouchers ORDER BY created_at 
                                                                                                             <td><?= ucfirst($row['type']) ?></td>
                                                                                                             <td><?= $row['type'] == 'percentage' ? $row['value'] . '%' : 'Rp ' . number_format($row['value']) ?></td>
                                                                                                             <td><span class="badge <?= $row['is_active'] ? 'text-bg-success' : 'text-bg-secondary' ?>"><?= $row['is_active'] ? 'Aktif' : 'Nonaktif' ?></span></td>
-                                                                                                            <td class="text-end">
-                                                                                                                        <a href="?page=vouchers&action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                                                                                                        <a href="?page=vouchers&action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">Hapus</a>
+                                                                                                            <td class="d-flex gap-2 justify-content-end">
+                                                                                                                        <a href="?page=vouchers&action=edit&id=<?= $row['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                                                                                                        <a href="?page=vouchers&action=delete&id=<?= $row['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus voucher ini?');"><i class="fa-solid fa-trash"></i></a>
                                                                                                             </td>
                                                                                                 </tr>
                                                                                     <?php endwhile; ?>
