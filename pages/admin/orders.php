@@ -68,21 +68,20 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 ?>
 
-<div class="card content-card mb-4">
+<div class="card content-card">
             <div class="card-body">
-                        <div class="d-flex justify-content-start align-items-center">
-                                    <span class="me-3">Filter Status:</span>
-                                    <div class="btn-group">
-                                                <a href="<?= BASE_URL ?>admin?page=orders" class="btn btn-sm <?= empty($status_filter) ? 'btn-primary' : 'btn-outline-primary' ?>">Semua</a>
+                        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center">
+                                    <span class="mb-2 mb-sm-0 me-sm-3 flex-shrink-0">Filter Status:</span>
+                                    <select class="form-select form-select-sm" style="width: auto;" onchange="if (this.value) window.location = this.value;">
+                                                <option value="<?= BASE_URL ?>admin?page=orders" <?= empty($status_filter) ? 'selected' : '' ?>>Semua</option>
                                                 <?php foreach ($statuses as $status) : ?>
-                                                            <a href="<?= BASE_URL ?>admin?page=orders&status=<?= urlencode($status) ?>" class="btn btn-sm <?= ($status_filter == $status) ? 'btn-primary' : 'btn-outline-primary' ?>"><?= $status ?></a>
+                                                            <option value="<?= BASE_URL ?>admin?page=orders&status=<?= urlencode($status) ?>" <?= ($status_filter == $status) ? 'selected' : '' ?>>
+                                                                        <?= htmlspecialchars($status) ?>
+                                                            </option>
                                                 <?php endforeach; ?>
-                                    </div>
+                                    </select>
                         </div>
             </div>
-</div>
-
-<div class="card content-card">
             <div class="card-header">Daftar Pesanan</div>
             <div class="card-body">
                         <div class="table-responsive">

@@ -75,7 +75,6 @@ $admin_standalone_pages = ['invoice'];
             <script>
                         const sidebar = document.querySelector('.admin-sidebar');
                         const mobileToggler = document.querySelector('.mobile-toggler');
-
                         mobileToggler.addEventListener('click', function() {
                                     sidebar.classList.toggle('active');
                         });
