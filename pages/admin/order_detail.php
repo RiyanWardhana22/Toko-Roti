@@ -109,7 +109,11 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                                                         <button type="submit" name="update_status" class="btn btn-primary">Update Status</button>
                                                             </div>
                                                 </form>
+                                                <div class="d-flex justify-content-start mt-2">
+                                                            <a href="<?= BASE_URL ?>admin?page=invoice&id=<?= $order_id ?>" target="_blank" class="btn btn-outline-success btn-sm fw-bold"><i class="fa-solid fa-file-pdf me-2"></i>Cetak</a>
+                                                </div>
                                     </div>
+
                                     <div class="card-body">
                                                 <div class="table-responsive">
                                                             <table class="table">
