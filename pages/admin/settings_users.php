@@ -39,51 +39,53 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
 </div>
 
 <?= $message ?>
-
-<div class="row justify-content-end">
-            <div class="col-md-4">
-                        <form method="GET" class="mb-3">
+<div class="card content-card">
+            <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                        <h5 class="mb-2 mb-md-0">Manajemen Pengguna</h5>
+                        <form action="" method="GET">
                                     <input type="hidden" name="page" value="settings_users">
                                     <div class="input-group">
                                                 <input type="text" name="q" class="form-control" placeholder="Cari nama atau email..." value="<?= htmlspecialchars($search_query) ?>">
-                                                <button class="btn btn-primary" type="submit">Cari</button>
+                                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                         </form>
             </div>
-</div>
-
-<div class="table-responsive">
-            <table class="table table-striped">
-                        <thead>
-                                    <tr>
-                                                <th>NO</th>
-                                                <th>Nama</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Tanggal Daftar</th>
-                                                <th>Aksi</th>
-                                    </tr>
-                        </thead>
-                        <tbody>
-                                    <?php
-                                    $no = 1;
-                                    while ($user = mysqli_fetch_assoc($users_result)): ?>
-                                                <tr>
-                                                            <td><?= $no++ ?></td>
-                                                            <td><?= htmlspecialchars($user['name']) ?></td>
-                                                            <td><?= htmlspecialchars($user['email']) ?></td>
-                                                            <td>
-                                                                        <span class="badge <?= $user['role'] == 'admin' ? 'text-bg-success' : 'text-bg-secondary' ?>">
-                                                                                    <?= ucfirst($user['role']) ?>
-                                                                        </span>
-                                                            </td>
-                                                            <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
-                                                            <td>
-                                                                        <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit Role</a>
-                                                                        <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');">Hapus</a>
-                                                            </td>
-                                                </tr>
-                                    <?php endwhile; ?>
-                        </tbody>
-            </table>
+            <div class="card-body">
+                        <div class="table-responsive">
+                                    <table class="table table-hover">
+                                                <thead>
+                                                            <tr>
+                                                                        <th>NO</th>
+                                                                        <th>Nama</th>
+                                                                        <th>Email</th>
+                                                                        <th>Role</th>
+                                                                        <th>Tanggal Daftar</th>
+                                                                        <th class="text-end">Aksi</th>
+                                                            </tr>
+                                                </thead>
+                                                <tbody>
+                                                            <?php
+                                                            $no = 1;
+                                                            while ($user = mysqli_fetch_assoc($users_result)):
+                                                            ?>
+                                                                        <tr>
+                                                                                    <td><?= $no++ ?></td>
+                                                                                    <td><?= htmlspecialchars($user['name']) ?></td>
+                                                                                    <td><?= htmlspecialchars($user['email']) ?></td>
+                                                                                    <td>
+                                                                                                <span class="badge <?= $user['role'] == 'admin' ? 'text-bg-success' : 'text-bg-secondary' ?>">
+                                                                                                            <?= ucfirst($user['role']) ?>
+                                                                                                </span>
+                                                                                    </td>
+                                                                                    <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
+                                                                                    <td class="text-end">
+                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit Role</a>
+                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');">Hapus</a>
+                                                                                    </td>
+                                                                        </tr>
+                                                            <?php endwhile; ?>
+                                                </tbody>
+                                    </table>
+                        </div>
+            </div>
 </div>

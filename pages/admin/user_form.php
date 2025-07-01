@@ -13,17 +13,15 @@ if (!$user_data) {
 }
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Edit Role User</h1>
-            <a href="<?= BASE_URL ?>admin?page=settings_users" class="btn btn-secondary">Kembali</a>
-</div>
-
-<div class="card">
+<div class="card content-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Edit Role Pengguna</h5>
+                        <a href="<?= BASE_URL ?>admin?page=settings_users" class="btn btn-light btn-sm">Kembali</a>
+            </div>
             <div class="card-body">
                         <form action="<?= BASE_URL ?>app/user_action.php" method="POST">
                                     <input type="hidden" name="action" value="update_role">
                                     <input type="hidden" name="user_id" value="<?= $user_data['id'] ?>">
-
                                     <div class="mb-3">
                                                 <label class="form-label">Nama</label>
                                                 <input type="text" class="form-control" value="<?= htmlspecialchars($user_data['name']) ?>" disabled>

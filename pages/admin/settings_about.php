@@ -20,15 +20,11 @@ if ($row = mysqli_fetch_assoc($result)) {
 }
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Settings - Tentang Kami</h1>
-</div>
-
 <?= $message ?>
 
-<div class="card">
+<div class="card content-card">
             <div class="card-header">
-                        Edit Konten Halaman "Tentang Kami"
+                        <h5 class="mb-0">Edit Konten Halaman "Tentang Kami"</h5>
             </div>
             <div class="card-body">
                         <form method="POST" action="">
@@ -36,7 +32,9 @@ if ($row = mysqli_fetch_assoc($result)) {
                                                 <label for="about_us_content" class="form-label">Konten</label>
                                                 <textarea class="form-control" name="about_us_content" id="about_us_content" rows="15"><?= htmlspecialchars($about_us_content) ?></textarea>
                                     </div>
-                                    <button type="submit" name="update_about_us" class="btn btn-primary">Simpan Perubahan</button>
+                                    <div class="d-flex justify-content-end">
+                                                <button type="submit" name="update_about_us" class="btn btn-primary">Simpan Perubahan</button>
+                                    </div>
                         </form>
             </div>
 </div>

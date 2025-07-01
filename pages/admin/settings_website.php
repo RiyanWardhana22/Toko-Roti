@@ -11,9 +11,6 @@ while ($row = mysqli_fetch_assoc($settings_res)) {
 }
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Settings - Informasi Website</h1>
-</div>
 <?= $message ?>
 <form method="POST" action="<?= BASE_URL ?>app/settings_action.php" enctype="multipart/form-data">
             <div class="row">
