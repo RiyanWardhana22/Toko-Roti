@@ -39,7 +39,7 @@ $reviews_res = mysqli_query($conn, "SELECT r.*, p.name as product_name, u.name a
                                     <a href="?page=reviews" class="btn btn-sm <?= $rating_filter == 0 ? 'btn-primary' : 'btn-outline-primary' ?>">Semua</a>
                                     <?php for ($star = 5; $star >= 1; $star--): ?>
                                                 <a href="?page=reviews&rating=<?= $star ?>" class="btn btn-sm <?= $rating_filter == $star ? 'btn-primary' : 'btn-outline-primary' ?>">
-                                                            <i class="fas fa-star"></i> <?= $star ?>
+                                                            <i class="fas fa-star text-warning"></i> <?= $star ?>
                                                 </a>
                                     <?php endfor; ?>
                         </div>

@@ -44,7 +44,7 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
                                     <i class="fas fa-plus me-2"></i>Tambah Produk Baru
                         </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mt-2">
                         <form action="" method="GET">
                                     <input type="hidden" name="page" value="products">
                                     <div class="input-group">
