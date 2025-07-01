@@ -54,7 +54,7 @@ $reviews_res = mysqli_query($conn, "SELECT r.*, p.name as product_name, u.name a
                                                                         <th class="text-center">Rating</th>
                                                                         <th>Ulasan</th>
                                                                         <th>Status</th>
-                                                                        <th class="text-end">Aksi</th>
+                                                                        <th class="text-center">Aksi</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
@@ -70,13 +70,13 @@ $reviews_res = mysqli_query($conn, "SELECT r.*, p.name as product_name, u.name a
                                                                                                                         <?= $review['is_approved'] ? 'Ditampilkan' : 'Disembunyikan' ?>
                                                                                                             </span>
                                                                                                 </td>
-                                                                                                <td class="text-end">
+                                                                                                <td class="d-flex justify-content-center gap-2">
                                                                                                             <?php if ($review['is_approved']): ?>
-                                                                                                                        <a href="?page=reviews&action=unapprove&id=<?= $review['id'] ?>" class="btn btn-secondary btn-sm">Sembunyikan</a>
+                                                                                                                        <a href="?page=reviews&action=unapprove&id=<?= $review['id'] ?>" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-eye-slash"></i></a>
                                                                                                             <?php else: ?>
-                                                                                                                        <a href="?page=reviews&action=approve&id=<?= $review['id'] ?>" class="btn btn-success btn-sm">Tampilkan</a>
+                                                                                                                        <a href="?page=reviews&action=approve&id=<?= $review['id'] ?>" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-eye"></i></a>
                                                                                                             <?php endif; ?>
-                                                                                                            <a href="?page=reviews&action=delete&id=<?= $review['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                                                                                                            <a href="?page=reviews&action=delete&id=<?= $review['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Yakin?')"><i class="fa-solid fa-trash"></i></a>
                                                                                                 </td>
                                                                                     </tr>
                                                                         <?php endwhile; ?>
