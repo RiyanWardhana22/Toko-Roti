@@ -10,6 +10,33 @@ $total_produk = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as tota
 
 $result_pesanan_terbaru = mysqli_query($conn, "SELECT o.id, u.name as customer_name, o.total_amount, o.status, o.created_at FROM orders o JOIN users u ON o.user_id = u.id ORDER BY o.created_at DESC LIMIT 5");
 $result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products WHERE stock < 10 AND stock > 0");
+
+function get_status_badge(string $status): string
+{
+            $class = '';
+            switch ($status) {
+                        case 'Menunggu Pembayaran':
+                                    $class = 'text-bg-warning';
+                                    break;
+                        case 'Menunggu Verifikasi':
+                                    $class = 'text-bg-info';
+                                    break;
+                        case 'Diproses':
+                        case 'Dikirim':
+                                    $class = 'text-bg-primary';
+                                    break;
+                        case 'Selesai':
+                                    $class = 'text-bg-success';
+                                    break;
+                        case 'Dibatalkan':
+                                    $class = 'text-bg-danger';
+                                    break;
+                        default:
+                                    $class = 'text-bg-secondary';
+                                    break;
+            }
+            return '<span class="badge fs-7 rounded-pill ' . $class . '">' . htmlspecialchars($status) . '</span>';
+}
 ?>
 
 <?php if ($verification_count > 0): ?>
@@ -92,7 +119,7 @@ $result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products
                                                                                                 <th>ID</th>
                                                                                                 <th>Pelanggan</th>
                                                                                                 <th>Total</th>
-                                                                                                <th>Status</th>
+                                                                                                <th class="text-center">Status</th>
                                                                                                 <th>Tanggal</th>
                                                                                     </tr>
                                                                         </thead>
@@ -102,7 +129,7 @@ $result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products
                                                                                                             <td><a href="<?= BASE_URL ?>admin?page=orders&action=view&id=<?= $pesanan['id'] ?>">#<?= $pesanan['id'] ?></a></td>
                                                                                                             <td><?= htmlspecialchars($pesanan['customer_name']) ?></td>
                                                                                                             <td>Rp <?= number_format($pesanan['total_amount']) ?></td>
-                                                                                                            <td><span class="badge rounded-pill text-bg-info"><?= $pesanan['status'] ?></span></td>
+                                                                                                            <td class="text-center"><?= get_status_badge($pesanan['status']) ?></td>
                                                                                                             <td><?= date('d-m-Y', strtotime($pesanan['created_at'])) ?></td>
                                                                                                 </tr>
                                                                                     <?php endwhile; ?>
