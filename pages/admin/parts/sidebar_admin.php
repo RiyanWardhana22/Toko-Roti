@@ -34,16 +34,25 @@ $is_settings_page = in_array($current_page, ['settings_about', 'settings_users',
                                     </a>
                         </li>
                         <li class="nav-item">
+                                    <a class="nav-link <?= ($current_page == 'categories') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=categories"><i class="fa-solid fa-list"></i> Kategori</a>
+                        </li>
+                        <li class="nav-item">
                                     <a class="nav-link <?= ($current_page == 'products') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=products"><i class="fas fa-box"></i> Produk</a>
                         </li>
                         <li class="nav-item">
-                                    <a class="nav-link <?= ($current_page == 'customers') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=customers"><i class="fas fa-users"></i> Pelanggan</a>
-                        </li>
-                        <li class="nav-item">
-                                    <a class="nav-link <?= ($current_page == 'reviews') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reviews"><i class="fas fa-star"></i> Ulasan</a>
-                        </li>
-                        <li class="nav-item">
                                     <a class="nav-link <?= ($current_page == 'reports') ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reports"><i class="fas fa-chart-line"></i> Laporan</a>
+                        </li>
+                        <li class="nav-item">
+                                    <a class="nav-link <?= $is_settings_page ? 'active' : '' ?>" href="#settings-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_settings_page ? 'true' : 'false' ?>">
+                                                <i class="fa-solid fa-address-card"></i> Layanan Pelanggan
+                                    </a>
+                                    <div class="collapse <?= $is_settings_page ? 'show' : '' ?>" id="settings-submenu">
+                                                <ul class="nav flex-column ms-3 ps-3 border-start border-2 my-1">
+                                                            <li class="nav-item"><a class="nav-link py-1 <?= $current_page == 'customers' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=customers">Pelanggan</a></li>
+                                                            <li class="nav-item"><a class="nav-link py-1 <?= $current_page == 'reviews' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=reviews">Ulasan</a></li>
+                                                            <li class="nav-item"><a class="nav-link py-1 <?= $current_page == 'vouchers' ? 'active' : '' ?>" href="<?= BASE_URL ?>admin?page=vouchers">Voucher</a></li>
+                                                </ul>
+                                    </div>
                         </li>
                         <li class="nav-item">
                                     <a class="nav-link <?= $is_settings_page ? 'active' : '' ?>" href="#settings-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_settings_page ? 'true' : 'false' ?>">

@@ -73,66 +73,74 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
 $all_categories_result = mysqli_query($conn, "SELECT * FROM categories ORDER BY name ASC");
 ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Manajemen Kategori</h1>
-</div>
-
-<?php echo $message;
-?>
-
+<?= $message ?>
 <div class="row">
-            <div class="col-md-8">
-                        <h3>Daftar Kategori</h3>
-                        <div class="table-responsive">
-                                    <table class="table table-striped table-sm">
-                                                <thead>
-                                                            <tr>
-                                                                        <th>No</th>
-                                                                        <th>Nama Kategori</th>
-                                                                        <th>Slug</th>
-                                                                        <th>Aksi</th>
-                                                            </tr>
-                                                </thead>
-                                                <tbody>
-                                                            <?php
-                                                            $no = 1;
-                                                            while ($cat = mysqli_fetch_assoc($all_categories_result)): ?>
-                                                                        <tr>
-                                                                                    <td><?= $no++ ?></td>
-                                                                                    <td><?= htmlspecialchars($cat['name']) ?></td>
-                                                                                    <td><?= htmlspecialchars($cat['slug']) ?></td>
-                                                                                    <td>
-                                                                                                <a href="<?= BASE_URL ?>admin?page=categories&action=edit&id=<?= $cat['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                                                                                                <a href="<?= BASE_URL ?>admin?page=categories&action=delete&id=<?= $cat['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus kategori ini?');">Hapus</a>
-                                                                                    </td>
-                                                                        </tr>
-                                                            <?php endwhile; ?>
-                                                </tbody>
-                                    </table>
+            <div class="col-lg-8">
+                        <div class="card content-card">
+                                    <div class="card-header">
+                                                <h5 class="mb-0">Daftar Kategori</h5>
+                                    </div>
+                                    <div class="card-body">
+                                                <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                        <thead>
+                                                                                    <tr>
+                                                                                                <th>No</th>
+                                                                                                <th>Nama Kategori</th>
+                                                                                                <th>Slug</th>
+                                                                                                <th class="text-center">Aksi</th>
+                                                                                    </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                                    <?php
+                                                                                    $no = 1;
+                                                                                    while ($cat = mysqli_fetch_assoc($all_categories_result)):
+                                                                                    ?>
+                                                                                                <tr>
+                                                                                                            <td><?= $no++ ?></td>
+                                                                                                            <td><?= htmlspecialchars($cat['name']) ?></td>
+                                                                                                            <td><?= htmlspecialchars($cat['slug']) ?></td>
+                                                                                                            <td class="d-flex gap-2 justify-content-end">
+                                                                                                                        <a href="<?= BASE_URL ?>admin?page=categories&action=edit&id=<?= $cat['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                                                                                                        <a href="<?= BASE_URL ?>admin?page=categories&action=delete&id=<?= $cat['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus kategori ini?');"><i class="fa-solid fa-trash"></i></a>
+                                                                                                            </td>
+                                                                                                </tr>
+                                                                                    <?php endwhile; ?>
+                                                                        </tbody>
+                                                            </table>
+                                                </div>
+                                    </div>
                         </div>
             </div>
-
-            <div class="col-md-4">
-                        <h3><?= $page_title ?></h3>
-                        <form action="<?= BASE_URL ?>admin?page=categories" method="POST">
-                                    <input type="hidden" name="action" value="<?= $form_action ?>">
-                                    <?php if ($form_action == 'update'): ?>
-                                                <input type="hidden" name="category_id" value="<?= $category_id ?>">
-                                    <?php endif; ?>
-
-                                    <div class="mb-3">
-                                                <label for="name" class="form-label">Nama Kategori</label>
-                                                <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($category_name) ?>" required>
+            <div class="col-lg-4">
+                        <div class="card content-card">
+                                    <div class="card-header">
+                                                <h5 class="mb-0"><?= $page_title ?></h5>
                                     </div>
-                                    <div class="mb-3">
-                                                <label for="slug" class="form-label">Slug</label>
-                                                <input type="text" class="form-control" id="slug" name="slug" value="<?= htmlspecialchars($category_slug) ?>">
-                                                <div class="form-text">Slug adalah versi URL-friendly dari nama. Kosongkan agar dibuat otomatis.</div>
+                                    <div class="card-body">
+                                                <form action="<?= BASE_URL ?>admin?page=categories" method="POST">
+                                                            <input type="hidden" name="action" value="<?= $form_action ?>">
+                                                            <?php if ($form_action == 'update'): ?>
+                                                                        <input type="hidden" name="category_id" value="<?= $category_id ?>">
+                                                            <?php endif; ?>
+
+                                                            <div class="mb-3">
+                                                                        <label for="name" class="form-label">Nama Kategori</label>
+                                                                        <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($category_name) ?>" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                        <label for="slug" class="form-label">Slug</label>
+                                                                        <input type="text" class="form-control" id="slug" name="slug" value="<?= htmlspecialchars($category_slug) ?>">
+                                                                        <div class="form-text">Kosongkan agar dibuat otomatis.</div>
+                                                            </div>
+                                                            <div class="d-grid">
+                                                                        <button type="submit" class="btn btn-primary"><?= ($form_action == 'update') ? 'Simpan Perubahan' : 'Tambah Kategori' ?></button>
+                                                                        <?php if ($form_action == 'update'): ?>
+                                                                                    <a href="<?= BASE_URL ?>admin?page=categories" class="btn btn-light mt-2">Batal</a>
+                                                                        <?php endif; ?>
+                                                            </div>
+                                                </form>
                                     </div>
-                                    <button type="submit" class="btn btn-primary"><?= ($form_action == 'update') ? 'Simpan Perubahan' : 'Tambah Kategori' ?></button>
-                                    <?php if ($form_action == 'update'): ?>
-                                                <a href="<?= BASE_URL ?>admin?page=categories" class="btn btn-secondary">Batal Edit</a>
-                                    <?php endif; ?>
-                        </form>
+                        </div>
             </div>
 </div>
