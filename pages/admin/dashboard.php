@@ -4,6 +4,7 @@ $verification_count = mysqli_fetch_assoc($verification_res)['total'];
 
 $today = date('Y-m-d');
 $pendapatan_hari_ini = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_amount) as total FROM orders WHERE status = 'Selesai' AND DATE(created_at) = '$today'"))['total'] ?? 0;
+$pendapatan_bulan_ini = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_amount) as total FROM orders WHERE status = 'Selesai' AND MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())"))['total'] ?? 0;
 $pesanan_baru = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE DATE(created_at) = '$today'"))['total'];
 $total_pelanggan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as total FROM users WHERE role = 'customer'"))['total'];
 $total_produk = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(id) as total FROM products"))['total'];
@@ -58,6 +59,19 @@ function get_status_badge(string $status): string
                                                             <div class="me-3"><i class="fas fa-dollar-sign fa-2x text-success"></i></div>
                                                             <div>
                                                                         <p class="text-muted mb-0">Pendapatan Hari Ini</p>
+                                                                        <h5 class="mb-0">Rp <?= number_format($pendapatan_hari_ini) ?></h5>
+                                                            </div>
+                                                </div>
+                                    </div>
+                        </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card content-card h-100">
+                                    <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                            <div class="me-3"><i class="fas fa-dollar-sign fa-2x text-success"></i></div>
+                                                            <div>
+                                                                        <p class="text-muted mb-0">Pendapatan Bulan Ini</p>
                                                                         <h5 class="mb-0">Rp <?= number_format($pendapatan_hari_ini) ?></h5>
                                                             </div>
                                                 </div>
