@@ -66,7 +66,7 @@ $all_methods = mysqli_query($conn, "SELECT * FROM payment_methods");
                                                                                                 <th>Nama Metode</th>
                                                                                                 <th>Detail Akun</th>
                                                                                                 <th>Status</th>
-                                                                                                <th class="text-end">Aksi</th>
+                                                                                                <th class="text-center">Aksi</th>
                                                                                     </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -80,9 +80,9 @@ $all_methods = mysqli_query($conn, "SELECT * FROM payment_methods");
                                                                                                             <td><?= htmlspecialchars($row['method_name']) ?></td>
                                                                                                             <td><small><?= nl2br(htmlspecialchars($row['account_details'])) ?></small></td>
                                                                                                             <td><span class="badge <?= $row['is_active'] ? 'text-bg-success' : 'text-bg-secondary' ?>"><?= $row['is_active'] ? 'Aktif' : 'Nonaktif' ?></span></td>
-                                                                                                            <td class="text-end">
-                                                                                                                        <a href="?page=settings_payment&action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                                                                                                        <a href="?page=settings_payment&action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">Hapus</a>
+                                                                                                            <td class="d-flex text-end gap-2">
+                                                                                                                        <a href="?page=settings_payment&action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
+                                                                                                                        <a href="?page=settings_payment&action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin?')"><i class="fa-solid fa-trash"></i></a>
                                                                                                             </td>
                                                                                                 </tr>
                                                                                     <?php endwhile; ?>

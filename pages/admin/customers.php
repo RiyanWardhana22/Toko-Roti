@@ -37,14 +37,16 @@ $result = mysqli_query($conn, "SELECT id, name, email, phone, created_at FROM us
                                                                         <th>Email</th>
                                                                         <th>Telepon</th>
                                                                         <th>Tanggal Daftar</th>
-                                                                        <th class="text-end">Aksi</th>
+                                                                        <th class="text-center">Aksi</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
-                                                            <?php if (mysqli_num_rows($result) > 0): ?>
+                                                            <?php
+                                                            $no = 1;
+                                                            if (mysqli_num_rows($result) > 0): ?>
                                                                         <?php while ($customer = mysqli_fetch_assoc($result)): ?>
                                                                                     <tr>
-                                                                                                <td><?= $customer['id'] ?></td>
+                                                                                                <td><?= $no++ ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['name']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['email']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['phone']) ?></td>

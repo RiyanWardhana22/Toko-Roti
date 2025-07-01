@@ -53,7 +53,7 @@ $sliders = mysqli_query($conn, "SELECT * FROM sliders ORDER BY display_order ASC
                                                                                     <tr>
                                                                                                 <th>Preview Gambar</th>
                                                                                                 <th>Tombol</th>
-                                                                                                <th class="text-end">Aksi</th>
+                                                                                                <th class="text-center">Aksi</th>
                                                                                     </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -68,8 +68,8 @@ $sliders = mysqli_query($conn, "SELECT * FROM sliders ORDER BY display_order ASC
                                                                                                                                                 -
                                                                                                                                     <?php endif; ?>
                                                                                                                         </td>
-                                                                                                                        <td class="text-end">
-                                                                                                                                    <a href="<?= BASE_URL ?>admin?page=settings_slider&action=delete&id=<?= $slide['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin?')">Hapus</a>
+                                                                                                                        <td class="text-center">
+                                                                                                                                    <a href="<?= BASE_URL ?>admin?page=settings_slider&action=delete&id=<?= $slide['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin?')"><i class="fa-solid fa-trash"></i></a>
                                                                                                                         </td>
                                                                                                             </tr>
                                                                                                 <?php endwhile; ?>

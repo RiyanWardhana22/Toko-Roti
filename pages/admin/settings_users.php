@@ -60,7 +60,7 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
                                                                         <th>Email</th>
                                                                         <th>Role</th>
                                                                         <th>Tanggal Daftar</th>
-                                                                        <th class="text-end">Aksi</th>
+                                                                        <th class="text-center">Aksi</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
@@ -78,9 +78,9 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
                                                                                                 </span>
                                                                                     </td>
                                                                                     <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
-                                                                                    <td class="text-end">
-                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit Role</a>
-                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');">Hapus</a>
+                                                                                    <td class="d-flex text-end gap-2">
+                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');"><i class="fa-solid fa-trash"></i></a>
                                                                                     </td>
                                                                         </tr>
                                                             <?php endwhile; ?>
