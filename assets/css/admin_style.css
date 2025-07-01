@@ -79,6 +79,54 @@ body.admin-body {
   font-size: 0.9rem;
 }
 
+.info-card {
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card .card-body {
+  position: relative;
+  z-index: 2;
+}
+
+.info-card-text p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.info-card-icon {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%);
+  opacity: 0.2;
+  z-index: 1;
+}
+
+.info-card-icon i {
+  font-size: 7rem;
+}
+
+.info-card.card-green {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+.info-card.card-blue {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+}
+.info-card.card-purple {
+  background: linear-gradient(45deg, #9b59b6, #8e44ad);
+}
+.info-card.card-yellow {
+  background: linear-gradient(45deg, #f1c40f, #f39c12);
+}
+.info-card.card-red {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
 /* --- Main Content --- */
 .main-content {
   flex-grow: 1;

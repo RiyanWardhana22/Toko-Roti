@@ -53,65 +53,79 @@ function get_status_badge(string $status): string
 
 <div class="row">
             <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card content-card h-100">
+                        <div class="card info-card card-green h-100">
                                     <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                            <div class="me-3"><i class="fas fa-dollar-sign fa-2x text-success"></i></div>
-                                                            <div>
-                                                                        <p class="text-muted mb-0">Pendapatan Hari Ini</p>
-                                                                        <h5 class="mb-0">Rp <?= number_format($pendapatan_hari_ini) ?></h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="info-card-text">
+                                                                        <p class="mb-1 fw-bold fs-6">Pendapatan Hari Ini</p>
+                                                                        <h4 class="mb-0 fw-bold">Rp <?= number_format($pendapatan_hari_ini) ?></h4>
+                                                            </div>
+                                                            <div class="info-card-icon">
+                                                                        <i class="fas fa-dollar-sign"></i>
                                                             </div>
                                                 </div>
                                     </div>
                         </div>
             </div>
+
             <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card content-card h-100">
+                        <div class="card info-card card-blue h-100">
                                     <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                            <div class="me-3"><i class="fas fa-dollar-sign fa-2x text-success"></i></div>
-                                                            <div>
-                                                                        <p class="text-muted mb-0">Pendapatan Bulan Ini</p>
-                                                                        <h5 class="mb-0">Rp <?= number_format($pendapatan_hari_ini) ?></h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="info-card-text">
+                                                                        <p class="mb-1 fw-bold fs-6">Pendapatan Bulan Ini</p>
+                                                                        <h4 class="mb-0 fw-bold">Rp <?= number_format($pendapatan_bulan_ini) ?></h4>
+                                                            </div>
+                                                            <div class="info-card-icon">
+                                                                        <i class="fas fa-calendar-alt"></i>
                                                             </div>
                                                 </div>
                                     </div>
                         </div>
             </div>
+
             <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card content-card h-100">
+                        <div class="card info-card card-purple h-100">
                                     <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                            <div class="me-3"><i class="fas fa-shopping-cart fa-2x text-primary"></i></div>
-                                                            <div>
-                                                                        <p class="text-muted mb-0">Pesanan Baru Hari Ini</p>
-                                                                        <h5 class="mb-0"><?= $pesanan_baru ?></h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="info-card-text">
+                                                                        <p class="mb-1 fw-bold fs-6">Pesanan Baru Hari Ini</p>
+                                                                        <h4 class="mb-0 fw-bold"><?= $pesanan_baru ?></h4>
+                                                            </div>
+                                                            <div class="info-card-icon">
+                                                                        <i class="fas fa-shopping-cart"></i>
                                                             </div>
                                                 </div>
                                     </div>
                         </div>
             </div>
+
             <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card content-card h-100">
+                        <div class="card info-card card-yellow h-100">
                                     <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                            <div class="me-3"><i class="fas fa-users fa-2x text-info"></i></div>
-                                                            <div>
-                                                                        <p class="text-muted mb-0">Total Pelanggan</p>
-                                                                        <h5 class="mb-0"><?= $total_pelanggan ?></h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="info-card-text">
+                                                                        <p class="mb-1 fw-bold fs-6">Total Pelanggan</p>
+                                                                        <h4 class="mb-0 fw-bold"><?= $total_pelanggan ?></h4>
+                                                            </div>
+                                                            <div class="info-card-icon">
+                                                                        <i class="fas fa-users"></i>
                                                             </div>
                                                 </div>
                                     </div>
                         </div>
             </div>
+
             <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card content-card h-100">
+                        <div class="card info-card card-red h-100">
                                     <div class="card-body">
-                                                <div class="d-flex align-items-center">
-                                                            <div class="me-3"><i class="fas fa-box-open fa-2x text-secondary"></i></div>
-                                                            <div>
-                                                                        <p class="text-muted mb-0">Total Produk</p>
-                                                                        <h5 class="mb-0"><?= $total_produk ?></h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="info-card-text">
+                                                                        <p class="mb-1 fw-bold fs-6">Total Produk</p>
+                                                                        <h4 class="mb-0 fw-bold"><?= $total_produk ?></h4>
+                                                            </div>
+                                                            <div class="info-card-icon">
+                                                                        <i class="fas fa-box-open"></i>
                                                             </div>
                                                 </div>
                                     </div>
