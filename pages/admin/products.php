@@ -81,7 +81,7 @@ $all_products_result = mysqli_query($conn, "SELECT p.*, c.name as category_name 
                                                                                                 <td><?= $no++ ?></td>
                                                                                                 <td>
                                                                                                             <?php if (!empty($product_row['image_url'])): ?>
-                                                                                                                        <img src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($product_row['image_url']) ?>" alt="Gambar Produk" width="50" height="50" style="object-fit: cover; border-radius: 8px;">
+                                                                                                                        <img src="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($product_row['image_url']) ?>" alt="Gambar Produk" width="50" height="50" loading="lazy" style="object-fit: cover; border-radius: 8px;">
                                                                                                             <?php else: ?>
                                                                                                                         <div style="width: 50px; height: 50px; background-color: #eee;" class="d-flex align-items-center justify-content-center">No Img</div>
                                                                                                             <?php endif; ?>

@@ -25,18 +25,22 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
             }
 }
 
-$search_query = isset($_GET['q']) ? mysqli_real_escape_string($conn, $_GET['q']) : '';
+$limit = 20;
+$page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+$offset = ($page - 1) * $limit;
+
+$search_query = isset($_GET['q']) ? mysqli_real_escape_string($conn, trim($_GET['q'])) : '';
 $where_clause = '';
 if (!empty($search_query)) {
             $where_clause = "WHERE name LIKE '%$search_query%' OR email LIKE '%$search_query%'";
 }
 
-$users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FROM users $where_clause ORDER BY created_at DESC");
-?>
+$total_res = mysqli_query($conn, "SELECT COUNT(id) as total FROM users $where_clause");
+$total_results = mysqli_fetch_assoc($total_res)['total'];
+$total_pages = ceil($total_results / $limit);
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Settings - Manajemen User</h1>
-</div>
+$users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FROM users $where_clause ORDER BY created_at DESC LIMIT $limit OFFSET $offset");
+?>
 
 <?= $message ?>
 <div class="card content-card">
@@ -65,27 +69,52 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
                                                 </thead>
                                                 <tbody>
                                                             <?php
-                                                            $no = 1;
-                                                            while ($user = mysqli_fetch_assoc($users_result)):
+                                                            $no = $offset + 1;
+                                                            if (mysqli_num_rows($users_result) > 0):
+                                                                        while ($user = mysqli_fetch_assoc($users_result)):
                                                             ?>
+                                                                                    <tr>
+                                                                                                <td><?= $no++ ?></td>
+                                                                                                <td><?= htmlspecialchars($user['name']) ?></td>
+                                                                                                <td><?= htmlspecialchars($user['email']) ?></td>
+                                                                                                <td>
+                                                                                                            <span class="badge <?= $user['role'] == 'admin' ? 'text-bg-success' : 'text-bg-secondary' ?>">
+                                                                                                                        <?= ucfirst($user['role']) ?>
+                                                                                                            </span>
+                                                                                                </td>
+                                                                                                <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
+                                                                                                <td class="d-flex justify-content-center gap-2">
+                                                                                                            <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                                                                                            <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');"><i class="fa-solid fa-trash"></i></a>
+                                                                                                </td>
+                                                                                    </tr>
+                                                                        <?php
+                                                                        endwhile;
+                                                            else: ?>
                                                                         <tr>
-                                                                                    <td><?= $no++ ?></td>
-                                                                                    <td><?= htmlspecialchars($user['name']) ?></td>
-                                                                                    <td><?= htmlspecialchars($user['email']) ?></td>
-                                                                                    <td>
-                                                                                                <span class="badge <?= $user['role'] == 'admin' ? 'text-bg-success' : 'text-bg-secondary' ?>">
-                                                                                                            <?= ucfirst($user['role']) ?>
-                                                                                                </span>
-                                                                                    </td>
-                                                                                    <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
-                                                                                    <td class="d-flex text-end gap-2">
-                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
-                                                                                                <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');"><i class="fa-solid fa-trash"></i></a>
+                                                                                    <td colspan="6" class="text-center p-4">
+                                                                                                <?php if (!empty($search_query)): ?>
+                                                                                                            Pengguna dengan nama atau email "<?= htmlspecialchars($search_query) ?>" tidak ditemukan.
+                                                                                                <?php else: ?>
+                                                                                                            Tidak ada data pengguna.
+                                                                                                <?php endif; ?>
                                                                                     </td>
                                                                         </tr>
-                                                            <?php endwhile; ?>
+                                                            <?php endif; ?>
                                                 </tbody>
                                     </table>
                         </div>
+
+                        <?php if ($total_pages > 1): ?>
+                                    <nav class="mt-3">
+                                                <ul class="pagination justify-content-center">
+                                                            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                                                        <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                                                                                    <a class="page-link" href="?page=settings_users&q=<?= urlencode($search_query) ?>&p=<?= $i ?>"><?= $i ?></a>
+                                                                        </li>
+                                                            <?php endfor; ?>
+                                                </ul>
+                                    </nav>
+                        <?php endif; ?>
             </div>
 </div>
