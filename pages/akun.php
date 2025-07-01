@@ -19,7 +19,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
                                                                         <i class="fas fa-receipt"></i> Riwayat Pesanan
                                                             </a>
                                                             <a href="<?= BASE_URL ?>akun?tab=profil" class="list-group-item list-group-item-action <?= $active_tab == 'profil' ? 'active' : '' ?>">
-                                                                        <i class="fas fa-user-edit"></i> Profil Saya
+                                                                        <i class="fa-solid fa-user"></i> Profil Saya
                                                             </a>
                                                             <a href="<?= BASE_URL ?>akun?tab=ubah_password" class="list-group-item list-group-item-action <?= $active_tab == 'ubah_password' ? 'active' : '' ?>">
                                                                         <i class="fas fa-key"></i> Ubah Password

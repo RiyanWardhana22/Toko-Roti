@@ -1,38 +1,29 @@
 <?php
-$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings");
-$site_settings = [];
-while ($row = mysqli_fetch_assoc($settings_res)) {
-            $site_settings[$row['setting_key']] = $row['setting_value'];
-}
+$user_id_admin = $_SESSION['user_id'];
+$user_res_admin = mysqli_query($conn, "SELECT * FROM users WHERE id = $user_id_admin");
+$user_admin = mysqli_fetch_assoc($user_res_admin);
 ?>
-
-<!doctype html>
-<html lang="id">
-
-<head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Dashboard - <?= htmlspecialchars($site_settings['website_title']) ?></title>
-            <?php if (!empty($site_settings['website_favicon'])): ?>
-                        <link rel="icon" href="<?= BASE_URL ?>assets/images/<?= htmlspecialchars($site_settings['website_favicon']) ?>">
-            <?php endif; ?>
-            <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
-            <link href="<?= BASE_URL ?>assets/css/admin_style.css" rel="stylesheet">
-</head>
-
-<body>
-            <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-                        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="w-100"></div>
-
-                        <div class="navbar-nav ms-auto">
-                                    <div class="nav-item text-nowrap">
-                                                <a class="nav-link px-3" href="<?= BASE_URL ?>app/logout.php">Logout</a>
-                                    </div>
-                        </div>
-            </header>
-            <div class="container-fluid">
-                        <div class="row">
+<header class="admin-header">
+            <div>
+                        <button class="btn d-md-none mobile-toggler"><i class="fas fa-bars"></i></button>
+                        <h1 class="page-title d-none d-md-block">
+                                    <?php
+                                    $page_title_header = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+                                    echo ucwords(str_replace('_', ' ', $page_title_header));
+                                    ?>
+                        </h1>
+            </div>
+            <div class="user-profile dropdown">
+                        <a href="#" class="dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                                    <span class="me-2 d-none d-sm-block"><?= htmlspecialchars($user_admin['name']) ?></span>
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="<?= BASE_URL ?>" target="_blank"><i class="fas fa-globe me-2"></i>Lihat Website</a></li>
+                                    <li>
+                                                <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item text-danger" href="<?= BASE_URL ?>app/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+            </div>
+</header>

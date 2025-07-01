@@ -5,54 +5,75 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$result = mysqli_query($conn, "SELECT role FROM users WHERE id = $user_id");
-$user = mysqli_fetch_assoc($result);
-
+$user_res = mysqli_query($conn, "SELECT * FROM users WHERE id = $user_id");
+$user = mysqli_fetch_assoc($user_res);
 if (!$user || $user['role'] !== 'admin') {
             header('Location: ' . BASE_URL);
             exit();
 }
 
-$admin_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-$allowed_admin_pages = [
-            'dashboard',
-            'products',
-            'orders',
-            'customers',
-            'categories',
-            'vouchers',
-            'reviews',
-            'reports',
-            'invoice',
-            'settings_about',
-            'settings_slider',
-            'settings_users',
-            'settings_website',
-            'settings_payment'
-];
-
-$admin_standalone_pages = ['invoice'];
-if (in_array($admin_page, $admin_standalone_pages)) {
-            if (file_exists(__DIR__ . '/' . $admin_page . '.php')) {
-                        include __DIR__ . '/' . $admin_page . '.php';
-            } else {
-                        echo "404 - Halaman tidak ditemukan";
-            }
-} else {
-            $verification_res_sidebar = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
-            $verification_count_sidebar = mysqli_fetch_assoc($verification_res_sidebar)['total'];
-            include 'parts/header_admin.php';
-            include 'parts/sidebar_admin.php';
-
-            echo '<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">';
-            $page_path = __DIR__ . '/' . $admin_page . '.php';
-
-            if (in_array($admin_page, $allowed_admin_pages) && file_exists($page_path)) {
-                        include $page_path;
-            } else {
-                        include __DIR__ . '/dashboard.php';
-            }
-
-            echo '</div>';
-            include 'parts/footer_admin.php';
+$settings_res = mysqli_query($conn, "SELECT setting_key, setting_value FROM settings");
+$site_settings = [];
+while ($row = mysqli_fetch_assoc($settings_res)) {
+            $site_settings[$row['setting_key']] = $row['setting_value'];
 }
+
+$verification_res_sidebar = mysqli_query($conn, "SELECT COUNT(id) as total FROM orders WHERE status = 'Menunggu Verifikasi'");
+$verification_count_sidebar = mysqli_fetch_assoc($verification_res_sidebar)['total'];
+
+$admin_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$allowed_admin_pages = ['dashboard', 'products', 'orders', 'customers', 'categories', 'vouchers', 'reviews', 'reports', 'invoice', 'settings_about', 'settings_slider', 'settings_users', 'settings_website', 'settings_payment'];
+$admin_standalone_pages = ['invoice'];
+?>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Dashboard - <?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti') ?></title>
+            <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+            <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin_style.css">
+</head>
+
+<body class="admin-body">
+
+            <?php
+            if (in_array($admin_page, $admin_standalone_pages)) {
+                        if (file_exists(__DIR__ . '/' . $admin_page . '.php')) {
+                                    include __DIR__ . '/' . $admin_page . '.php';
+                        } else {
+                                    echo "404 - Halaman tidak ditemukan";
+                        }
+            } else {
+            ?>
+                        <div class="admin-wrapper">
+                                    <?php include 'parts/sidebar_admin.php'; ?>
+                                    <div class="main-content">
+                                                <?php include 'parts/header_admin.php'; ?>
+                                                <main class="page-content">
+                                                            <?php
+                                                            $page_path = __DIR__ . '/' . $admin_page . '.php';
+                                                            if (in_array($admin_page, $allowed_admin_pages) && file_exists($page_path)) {
+                                                                        include $page_path;
+                                                            } else {
+                                                                        include __DIR__ . '/dashboard.php';
+                                                            }
+                                                            ?>
+                                                </main>
+                                    </div>
+                        </div>
+            <?php
+            }
+            ?>
+
+            <script src="<?= BASE_URL ?>assets/js/bootstrap.bundle.min.js"></script>
+            <script>
+                        document.querySelector('.mobile-toggler').addEventListener('click', function() {
+                                    document.querySelector('.admin-sidebar').classList.toggle('active');
+                        });
+            </script>
+</body>
+
+</html>

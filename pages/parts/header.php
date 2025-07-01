@@ -70,7 +70,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                     </ul>
                                                                         </li>
                                                             <?php else: ?>
-                                                                        <li class="nav-item"><a class="nav-link btn btn-primary btn-sm" href="<?= BASE_URL ?>login">Login</a></li>
+                                                                        <li class="nav-item"><a class="btn btn-primary btn-sm" href="<?= BASE_URL ?>login">Login</a></li>
                                                             <?php endif; ?>
                                                 </ul>
                                     </div>
