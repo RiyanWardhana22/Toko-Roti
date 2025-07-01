@@ -103,7 +103,7 @@ $result_stok_menipis = mysqli_query($conn, "SELECT id, name, stock FROM products
                                                                                                             <td><?= htmlspecialchars($pesanan['customer_name']) ?></td>
                                                                                                             <td>Rp <?= number_format($pesanan['total_amount']) ?></td>
                                                                                                             <td><span class="badge rounded-pill text-bg-info"><?= $pesanan['status'] ?></span></td>
-                                                                                                            <td><?= date('d M Y', strtotime($pesanan['created_at'])) ?></td>
+                                                                                                            <td><?= date('d-m-Y', strtotime($pesanan['created_at'])) ?></td>
                                                                                                 </tr>
                                                                                     <?php endwhile; ?>
                                                                         </tbody>

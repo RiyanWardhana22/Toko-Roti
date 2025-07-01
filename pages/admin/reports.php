@@ -46,7 +46,7 @@ $bestselling_result = mysqli_query($conn, $bestselling_query);
     <div class="col-lg-8">
         <div class="card content-card">
             <div class="card-header">
-                Laporan Penjualan (<?= date('d M Y', strtotime($start_date)) ?> - <?= date('d M Y', strtotime($end_date)) ?>)
+                Laporan Penjualan (<?= date('d-m-Y', strtotime($start_date)) ?> - <?= date('d-m-Y', strtotime($end_date)) ?>)
             </div>
             <div class="card-body">
                 <div class="row mb-4">

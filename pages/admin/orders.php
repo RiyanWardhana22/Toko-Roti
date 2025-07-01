@@ -103,7 +103,7 @@ $result = mysqli_stmt_get_result($stmt);
                                                                                     <tr>
                                                                                                 <td><a href="<?= BASE_URL ?>admin?page=orders&action=view&id=<?= $order['id'] ?>" class="fw-bold">#<?= $order['id'] ?></a></td>
                                                                                                 <td><?= htmlspecialchars($order['customer_name']) ?></td>
-                                                                                                <td><?= date('d M Y, H:i', strtotime($order['created_at'])) ?></td>
+                                                                                                <td><?= date('d-m-Y | H:i', strtotime($order['created_at'])) ?></td>
                                                                                                 <td>Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></td>
                                                                                                 <td><?= get_status_badge($order['status']) ?></td>
                                                                                                 <td class="text-end">

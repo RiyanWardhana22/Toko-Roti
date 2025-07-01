@@ -82,7 +82,7 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
                                                                                                                         <?= ucfirst($user['role']) ?>
                                                                                                             </span>
                                                                                                 </td>
-                                                                                                <td><?= date('d M Y', strtotime($user['created_at'])) ?></td>
+                                                                                                <td><?= date('d-m-Y', strtotime($user['created_at'])) ?></td>
                                                                                                 <td class="d-flex justify-content-center gap-2">
                                                                                                             <a href="<?= BASE_URL ?>admin?page=settings_users&action=edit&id=<?= $user['id'] ?>" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pencil"></i></a>
                                                                                                             <a href="<?= BASE_URL ?>admin?page=settings_users&action=delete&id=<?= $user['id'] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus user ini?');"><i class="fa-solid fa-trash"></i></a>

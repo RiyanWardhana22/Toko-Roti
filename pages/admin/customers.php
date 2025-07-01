@@ -53,7 +53,7 @@ $result = mysqli_query($conn, "SELECT id, name, email, phone, created_at FROM us
                                                                                                 <td><?= htmlspecialchars($customer['name']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['email']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['phone']) ?></td>
-                                                                                                <td><?= date('d M Y', strtotime($customer['created_at'])) ?></td>
+                                                                                                <td><?= date('d-m-Y', strtotime($customer['created_at'])) ?></td>
                                                                                                 <td class="text-end">
                                                                                                             <a href="<?= BASE_URL ?>admin?page=customers&action=view&id=<?= $customer['id'] ?>" class="btn btn-info btn-sm">Lihat Detail</a>
                                                                                                 </td>

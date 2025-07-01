@@ -39,7 +39,7 @@ $orders_result = mysqli_stmt_get_result($orders_stmt);
                                                 <p><strong>Email:</strong><br><?= htmlspecialchars($customer['email']) ?></p>
                                                 <p><strong>Telepon:</strong><br><?= htmlspecialchars($customer['phone']) ?></p>
                                                 <p><strong>Alamat:</strong><br><?= nl2br(htmlspecialchars($customer['address'])) ?></p>
-                                                <p><strong>Tanggal Bergabung:</strong><br><?= date('d F Y, H:i', strtotime($customer['created_at'])) ?></p>
+                                                <p><strong>Tanggal Bergabung:</strong><br><?= date('d-m-Y | H:i', strtotime($customer['created_at'])) ?></p>
                                     </div>
                         </div>
             </div>
@@ -62,7 +62,7 @@ $orders_result = mysqli_stmt_get_result($orders_stmt);
                                                                         <?php while ($order = mysqli_fetch_assoc($orders_result)): ?>
                                                                                     <tr>
                                                                                                 <td>#<?= $order['id'] ?></td>
-                                                                                                <td><?= date('d M Y', strtotime($order['created_at'])) ?></td>
+                                                                                                <td><?= date('d-m-Y', strtotime($order['created_at'])) ?></td>
                                                                                                 <td>Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></td>
                                                                                                 <td><span class="badge bg-primary"><?= htmlspecialchars($order['status']) ?></span></td>
                                                                                                 <td>
