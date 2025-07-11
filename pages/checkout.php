@@ -35,7 +35,12 @@ foreach ($_SESSION['cart'] as $item) {
                                                                                     <div class="mb-3"><label class="form-label">Alamat Pengiriman Lengkap</label><textarea class="form-control" name="address" rows="3" required><?= htmlspecialchars($user['address']) ?></textarea></div>
                                                                         </div>
                                                             </div>
-
+                                                            <div class="card checkout-card">
+                                                                        <div class="card-body p-4">
+                                                                                    <h5 class="card-title mb-4">Opsi Pembayaran</h5>
+                                                                                    <div class="form-check"><input class="form-check-input" type="radio" name="payment_method" id="transfer" value="Transfer Bank Manual" checked required><label class="form-check-label" for="transfer">Transfer Bank Manual</label></div>
+                                                                        </div>
+                                                            </div>
                                                             <div class="card checkout-card">
                                                                         <div class="card-body p-4">
                                                                                     <h5 class="card-title mb-4">Opsi Pengiriman</h5>
@@ -76,12 +81,6 @@ foreach ($_SESSION['cart'] as $item) {
                                                                                                             <strong class="fs-5" id="total-cost-text">Rp <?= number_format($subtotal, 0, ',', '.') ?></strong>
                                                                                                 </li>
                                                                                     </ul>
-                                                                        </div>
-                                                            </div>
-                                                            <div class="card checkout-card">
-                                                                        <div class="card-body p-4">
-                                                                                    <h5 class="card-title mb-4">Opsi Pembayaran</h5>
-                                                                                    <div class="form-check"><input class="form-check-input" type="radio" name="payment_method" id="transfer" value="Transfer Bank Manual" checked required><label class="form-check-label" for="transfer">Transfer Bank Manual</label></div>
                                                                         </div>
                                                             </div>
                                                             <div class="d-grid">
