@@ -84,7 +84,11 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                                                         <strong>Bank Pengirim:</strong> <?= htmlspecialchars($confirmation_data['bank_name']) ?><br>
                                                                         <strong>Pemilik Rekening:</strong> <?= htmlspecialchars($confirmation_data['account_holder']) ?><br>
                                                                         <strong>Jumlah Transfer:</strong> Rp <?= number_format($confirmation_data['transfer_amount'], 0, ',', '.') ?><br>
-                                                                        <strong>Tanggal Transfer:</strong> <?= date('d M Y', strtotime($confirmation_data['transfer_date'])) ?>
+                                                                        <strong>Tanggal Transfer:</strong> <?php
+                                                                                                            $hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                                                                                                            $timestamp = strtotime($confirmation_data['transfer_date']);
+                                                                                                            echo $hari[date('w', $timestamp)] . ', ' . date('d/m/Y', $timestamp);
+                                                                                                            ?>
                                                             </p>
                                                             <h6>Bukti Transfer:</h6>
                                                             <a href="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" target="_blank">
