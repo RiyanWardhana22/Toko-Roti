@@ -95,7 +95,6 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
                         bottom: -0.3em;
                         border: 1px solid #FFC300;
                         border-top: 0px;
-                        /* opacity: 0.3; */
                         z-index: 0;
             }
 
@@ -105,7 +104,7 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
 </style>
 
 <?php if (mysqli_num_rows($result_sliders) > 0): ?>
-            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000000">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                         <div class="carousel-inner">
                                     <?php $first = true;
                                     while ($slide = mysqli_fetch_assoc($result_sliders)): ?>
@@ -142,7 +141,7 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
 <div class="container my-5">
             <div class="section-title text-center mb-5">
                         <h2 class="display-5 fw-bold text-gradient">Produk Terbaru</h2>
-                        <p class="lead text-muted">Temukan kelezatan tak terbatas dalam setiap petualangan kuliner</p>
+                        <p class="lead text-muted">Satu gigitan, ribuan petualangan rasa. Yuk, cek produk terbaru kami!</p>
             </div>
             <div class="row">
                         <?php mysqli_data_seek($result_new, 0);
@@ -156,7 +155,7 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
             <div class="container my-5 py-5">
                         <div class="section-title text-center mb-5">
                                     <h2 class="display-5 fw-bold text-gradient">Jelajahi Kategori Kami</h2>
-                                    <p class="lead text-muted">Temukan kelezatan tak terbatas dalam setiap petualangan kuliner</p>
+                                    <p class="lead text-muted">Temukan yang Anda Cari, dari Dapur Klasik hingga Modern</p>
                         </div>
                         <div class="row g-4 d-flex justify-content-center">
                                     <?php mysqli_data_seek($result_categories, 0);
@@ -183,7 +182,7 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
                         <div class="container">
                                     <div class="section-title text-center">
                                                 <h2>Produk Unggulan Kami</h2>
-                                                <p>Roti dan kue terbaik yang menjadi favorit pelanggan setia kami.</p>
+                                                <p>Rasakan bedanya, temukan kenikmatan disetiap gigitannya</p>
                                     </div>
                                     <div class="row g-4">
                                                 <?php mysqli_data_seek($result_featured, 0);

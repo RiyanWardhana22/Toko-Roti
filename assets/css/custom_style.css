@@ -197,12 +197,14 @@ h6 {
 .section-title {
   margin-bottom: 50px;
 }
+
 .section-title h2 {
   font-size: 2.5rem;
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
 }
+
 .section-title h2::after {
   content: "";
   position: absolute;
@@ -217,6 +219,7 @@ h6 {
   max-width: 600px;
   margin: 10px auto 0 auto;
   color: #6c757d;
+  font-size: 1rem;
 }
 
 /* --- Redesigned Category Card --- */

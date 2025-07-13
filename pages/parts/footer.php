@@ -3,7 +3,7 @@
                         <div class="row">
                                     <div class="col-md-4 mb-4">
                                                 <h5>Tentang <?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti') ?></h5>
-                                                <p>Kami menyajikan roti dan kue berkualitas tinggi yang dibuat setiap hari dengan bahan-bahan pilihan dan resep warisan keluarga.</p>
+                                                <p>Nikmati banyak pilihan roti, kue berkualitas dan promo di <?php echo ($site_settings['website_title']) ?> </p>
                                     </div>
                                     <div class="col-md-2 mb-4">
                                                 <h5>Navigasi</h5>
