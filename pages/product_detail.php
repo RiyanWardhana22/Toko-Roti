@@ -105,9 +105,9 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                         <p class="mb-1"><strong>Kategori:</strong> <?= htmlspecialchars($product['category_name']) ?></p>
                                                                         <p class="mb-1"><strong>Stok:</strong>
                                                                                     <?php if ($product['stock'] > 10): ?>
-                                                                                                <span class="badge bg-success">Tersedia</span> (<?= $product['stock'] ?>)
+                                                                                                <?= $product['stock'] ?>
                                                                                     <?php elseif ($product['stock'] > 0): ?>
-                                                                                                <span class="badge bg-warning">Stok Terbatas</span> (<?= $product['stock'] ?>)
+                                                                                                <?= $product['stock'] ?>
                                                                                     <?php else: ?>
                                                                                                 <span class="badge bg-danger">Habis</span>
                                                                                     <?php endif; ?>

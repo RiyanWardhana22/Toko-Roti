@@ -130,17 +130,22 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                                                                                 <tr>
                                                                                                             <td>
                                                                                                                         <strong><?= htmlspecialchars($item['product_name']) ?></strong>
-                                                                                                                        <?php if (!empty($item['customization_details'])): ?>
-                                                                                                                                    <p class="mb-0 mt-1"><small class="text-muted"><em>Catatan: "<?= htmlspecialchars($item['customization_details']) ?>"</em></small></p>
-                                                                                                                        <?php endif; ?>
+
                                                                                                             </td>
+                                                                                                            <?php if (!empty($item['customization_details'])): ?>
+                                                                                                                        <p class="mb-1"><small class="text-muted"><em>Catatan: "<?= htmlspecialchars($item['customization_details']) ?>"</em></small></p>
+                                                                                                            <?php endif; ?>
                                                                                                             <td class="text-center"><?= $item['quantity'] ?></td>
                                                                                                             <td class="text-end">Rp <?= number_format($item['price'], 0, ',', '.') ?></td>
                                                                                                             <td class="text-end">Rp <?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?></td>
+
                                                                                                 </tr>
+
                                                                                     <?php endwhile; ?>
                                                                         </tbody>
+
                                                                         <tfoot>
+
                                                                                     <tr>
                                                                                                 <th colspan="3" class="text-end">Subtotal Produk</th>
                                                                                                 <th class="text-end">Rp <?= number_format($order['total_amount'] + $order['discount_amount'] - $order['shipping_cost'], 0, ',', '.') ?></th>

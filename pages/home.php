@@ -105,7 +105,7 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
 </style>
 
 <?php if (mysqli_num_rows($result_sliders) > 0): ?>
-            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000000">
                         <div class="carousel-inner">
                                     <?php $first = true;
                                     while ($slide = mysqli_fetch_assoc($result_sliders)): ?>

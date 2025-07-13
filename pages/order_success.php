@@ -56,7 +56,7 @@ $total_amount = $order['total_amount'] ?? 0;
 
                                                             <div class="action-buttons">
                                                                         <a href="<?= BASE_URL ?>payment_confirmation?id=<?= $order_id ?>" class="btn btn-primary px-4 py-2">
-                                                                                    <i class="fas fa-receipt me-2"></i> Konfirmasi Pembayaran
+                                                                                    Konfirmasi Pembayaran
                                                                         </a>
                                                             </div>
                                                 </div>
