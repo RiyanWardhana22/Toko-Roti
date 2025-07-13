@@ -16,7 +16,6 @@ function create_slug($string)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $category_name = mysqli_real_escape_string($conn, $_POST['name']);
-            $category_slug = mysqli_real_escape_string($conn, $_POST['slug']);
             if (empty($category_slug)) {
                         $category_slug = create_slug($category_name);
             }
@@ -127,11 +126,6 @@ $all_categories_result = mysqli_query($conn, "SELECT * FROM categories ORDER BY 
                                                             <div class="mb-3">
                                                                         <label for="name" class="form-label">Nama Kategori</label>
                                                                         <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($category_name) ?>" required>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                        <label for="slug" class="form-label">Slug</label>
-                                                                        <input type="text" class="form-control" id="slug" name="slug" value="<?= htmlspecialchars($category_slug) ?>">
-                                                                        <div class="form-text">Kosongkan agar dibuat otomatis.</div>
                                                             </div>
                                                             <div class="d-grid">
                                                                         <button type="submit" class="btn btn-primary"><?= ($form_action == 'update') ? 'Simpan Perubahan' : 'Tambah Kategori' ?></button>
