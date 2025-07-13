@@ -279,8 +279,7 @@ h6 {
 }
 
 .category-icon {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+  font-size: 5rem;
   color: #ff6b6b;
   transition: all 0.3s ease;
 }
@@ -290,10 +289,9 @@ h6 {
   color: #ff4757;
 }
 
-.category-card h4 {
+.category-card p {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: 1.4rem;
   margin-bottom: 10px;
   color: #2f3542;
   transition: all 0.3s ease;

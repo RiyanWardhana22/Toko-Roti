@@ -21,6 +21,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
             <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+            <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
             <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom_style.css">
             <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/akun.css">
 

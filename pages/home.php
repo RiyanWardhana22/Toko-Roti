@@ -167,9 +167,9 @@ $reviews = mysqli_fetch_all($reviews_res, MYSQLI_ASSOC);
                                                                                     <div class="category-bg"></div>
                                                                                     <div class="category-content">
                                                                                                 <div class="category-icon">
-                                                                                                            <i class="fa-solid fa-cake-candles"></i>
+                                                                                                            <i class='bx  bx-cake-slice'></i>
                                                                                                 </div>
-                                                                                                <h4><?= htmlspecialchars($category['name']) ?></h4>
+                                                                                                <p><?= htmlspecialchars($category['name']) ?></p>
                                                                                                 <span class="explore-btn">Jelajahi <i class="fas fa-arrow-right"></i></span>
                                                                                     </div>
                                                                         </div>
