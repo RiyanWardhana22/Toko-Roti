@@ -653,38 +653,98 @@ h6 {
   margin-bottom: 30px;
 }
 
-.payment-method-card {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 3px 10px;
-  margin-bottom: 15px;
-  transition: all 0.3s ease;
+/* --- Redesign Payment Method Selection --- */
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.payment-method-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+.payment-method-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #eee;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #fff;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
 }
 
-.payment-method-header {
+.payment-method-box img {
+  height: 20px;
+  max-width: 40px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+}
+
+.payment-method-box .method-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.6rem;
+  color: var(--dark-color);
+}
+
+/* --- Custom Modal Styles for Payment --- */
+.payment-modal .modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.payment-modal .modal-header {
+  background-color: var(--secondary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  padding: 10px 0;
 }
 
-.payment-method-logo {
-  width: 40px;
-  height: 40px;
+.payment-modal .modal-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.payment-modal .modal-title-wrapper img {
+  height: 35px;
   object-fit: contain;
-  margin-right: 15px;
 }
 
-.payment-method-details {
-  padding: 15px 10px;
-  font-size: 0.9rem;
-  line-height: 1.6;
+.payment-modal .modal-title {
+  color: var(--dark-color);
+  font-size: 1.5rem;
 }
+
+.payment-modal .modal-body {
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--dark-color);
+}
+
+.payment-modal .modal-body strong {
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+.payment-modal .btn-close {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 0.5rem;
+  opacity: 0.8;
+}
+
+.payment-modal .btn-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
 .form-label {
   font-weight: 500;
   margin-bottom: 8px;

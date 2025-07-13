@@ -63,30 +63,48 @@ include 'parts/header.php';
                                                             </div>
                                                 <?php else: ?>
                                                             <div class="mb-4">
-                                                                        <h5 class="mb-3">Metode Pembayaran</h5>
-                                                                        <p class="text-muted">Silakan pilih metode pembayaran yang Anda gunakan:</p>
+                                                                        <h5 class="mb-3">Pilih Metode Pembayaran</h5>
+                                                                        <p class="text-muted">Klik pada salah satu metode untuk melihat detail instruksi pembayaran.</p>
 
-                                                                        <div class="accordion" id="paymentMethodsAccordion">
+                                                                        <div class="payment-methods-grid">
                                                                                     <?php while ($method = mysqli_fetch_assoc($payment_methods_res)): ?>
-                                                                                                <div class="payment-method-card">
-                                                                                                            <div class="payment-method-header" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $method['id'] ?>">
-                                                                                                                        <?php if ($method['logo_url']): ?>
-                                                                                                                                    <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" class="payment-method-logo">
-                                                                                                                        <?php endif; ?>
-                                                                                                                        <div class="payment-method-name flex-grow-1">
-                                                                                                                                    <h6 class="mb-0"><?= htmlspecialchars($method['method_name']) ?></h6>
-                                                                                                                        </div>
-                                                                                                                        <i class="fas fa-chevron-down"></i>
-                                                                                                            </div>
-                                                                                                            <div id="collapse-<?= $method['id'] ?>" class="collapse" data-bs-parent="#paymentMethodsAccordion">
-                                                                                                                        <div class="payment-method-details">
-                                                                                                                                    <?= nl2br(htmlspecialchars($method['account_details'])) ?>
-                                                                                                                        </div>
-                                                                                                            </div>
-                                                                                                </div>
+                                                                                                <a href="#" class="payment-method-box" data-bs-toggle="modal" data-bs-target="#paymentModal-<?= $method['id'] ?>">
+                                                                                                            <?php if ($method['logo_url']): ?>
+                                                                                                                        <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" alt="<?= htmlspecialchars($method['method_name']) ?>">
+                                                                                                            <?php endif; ?>
+                                                                                                            <div class="method-name"><?= htmlspecialchars($method['method_name']) ?></div>
+                                                                                                </a>
                                                                                     <?php endwhile; ?>
                                                                         </div>
                                                             </div>
+
+
+                                                            <?php
+                                                            mysqli_data_seek($payment_methods_res, 0);
+                                                            while ($method = mysqli_fetch_assoc($payment_methods_res)):
+                                                            ?>
+                                                                        <div class="modal fade payment-modal" id="paymentModal-<?= $method['id'] ?>" tabindex="-1" aria-labelledby="paymentModalLabel-<?= $method['id'] ?>" aria-hidden="true">
+                                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                                                <div class="modal-content">
+                                                                                                            <div class="modal-header">
+                                                                                                                        <div class="modal-title-wrapper">
+                                                                                                                                    <?php if ($method['logo_url']): ?>
+                                                                                                                                                <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" alt="<?= htmlspecialchars($method['method_name']) ?>">
+                                                                                                                                    <?php endif; ?>
+                                                                                                                                    <h5 class="modal-title" id="paymentModalLabel-<?= $method['id'] ?>"><?= htmlspecialchars($method['method_name']) ?></h5>
+                                                                                                                        </div>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                            </div>
+                                                                                                            <div class="modal-body">
+                                                                                                                        <p class="text-muted mb-3">Silakan lakukan transfer ke rekening berikut:</p>
+                                                                                                                        <p class="fw-bold"><?= nl2br(htmlspecialchars($method['account_details'])) ?></p>
+                                                                                                                        <hr>
+                                                                                                                        <p class="mt-4 small">Setelah melakukan transfer, mohon lanjutkan mengisi form konfirmasi di bawah halaman ini.</p>
+                                                                                                            </div>
+                                                                                                </div>
+                                                                                    </div>
+                                                                        </div>
+                                                            <?php endwhile; ?>
 
                                                             <div class="mb-4">
                                                                         <h5 class="mb-3">Form Konfirmasi Pembayaran</h5>
