@@ -7,10 +7,6 @@ $user_admin = mysqli_fetch_assoc($user_res_admin);
             <div>
                         <button class="btn d-md-none mobile-toggler"><i class="fas fa-bars"></i></button>
                         <h1 class="page-title d-none d-md-block">
-                                    <?php
-                                    $page_title_header = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-                                    echo ucwords(str_replace('_', ' ', $page_title_header));
-                                    ?>
                         </h1>
             </div>
             <div class="user-profile dropdown">

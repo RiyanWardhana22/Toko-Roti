@@ -183,7 +183,7 @@ body.admin-body {
 }
 
 /* --- Responsive --- */
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .admin-sidebar {
     position: fixed;
     left: -260px;

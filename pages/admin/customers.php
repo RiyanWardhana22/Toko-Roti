@@ -54,8 +54,8 @@ $result = mysqli_query($conn, "SELECT id, name, email, phone, created_at FROM us
                                                                                                 <td><?= htmlspecialchars($customer['email']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['phone']) ?></td>
                                                                                                 <td><?= date('d-m-Y', strtotime($customer['created_at'])) ?></td>
-                                                                                                <td class="text-end">
-                                                                                                            <a href="<?= BASE_URL ?>admin?page=customers&action=view&id=<?= $customer['id'] ?>" class="btn btn-info btn-sm">Lihat Detail</a>
+                                                                                                <td class="text-center">
+                                                                                                            <a href="<?= BASE_URL ?>admin?page=customers&action=view&id=<?= $customer['id'] ?>" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
                                                                                                 </td>
                                                                                     </tr>
                                                                         <?php endwhile; ?>

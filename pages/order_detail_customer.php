@@ -47,7 +47,7 @@ include 'parts/header.php';
                                     <div class="order-detail-container">
                                                 <div class="order-header">
                                                             <h1 class="order-number mt-0 mb-3">Pesanan #<?= htmlspecialchars($order['id']) ?></h1>
-                                                            <h3><i class="fas fa-receipt me-2"></i> Detail Produk</h3>
+                                                            <h3>Detail Produk</h3>
                                                 </div>
 
                                                 <?php while ($item = mysqli_fetch_assoc($items_result)): ?>
@@ -74,7 +74,7 @@ include 'parts/header.php';
                                                 <?php endwhile; ?>
 
                                                 <div class="order-header mt-5">
-                                                            <h3><i class="fas fa-truck me-2"></i> Informasi Pengiriman</h3>
+                                                            <h3>Informasi Pengiriman</h3>
                                                 </div>
 
                                                 <div class="order-info-card">
@@ -108,7 +108,7 @@ include 'parts/header.php';
                                                             <?php if ($order['status'] != 'Menunggu Pembayaran'): ?>
                                                                         <div class="timeline-item">
                                                                                     <h6>Pembayaran DiKonfirmasi</h6>
-                                                                                    <p>Pembayaran telah diverifikasi.</p>
+                                                                                    <p>Pembayaran telah diverifikasi, selanjutnya menunggu pesanan anda di proses.</p>
                                                                         </div>
                                                             <?php endif; ?>
 
@@ -122,7 +122,7 @@ include 'parts/header.php';
                                                             <?php if ($order['status'] == 'Dikirim' || $order['status'] == 'Selesai'): ?>
                                                                         <div class="timeline-item">
                                                                                     <h6>Pesanan Dikirim</h6>
-                                                                                    <p>Pesanan telah dikirim ke alamat Anda</p>
+                                                                                    <p>Pesanan telah dikirim ke alamat tujuan.</p>
                                                                         </div>
                                                             <?php endif; ?>
 
@@ -140,7 +140,7 @@ include 'parts/header.php';
                         <div class="col-lg-4">
                                     <div class="order-detail-container">
                                                 <div class="order-header">
-                                                            <h3><i class="fas fa-file-invoice-dollar me-2"></i> Ringkasan Pesanan</h3>
+                                                            <h3>Ringkasan Pesanan</h3>
                                                 </div>
 
                                                 <div class="mb-4">
