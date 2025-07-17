@@ -695,6 +695,14 @@ h6 {
 }
 
 /* --- Custom Modal Styles for Payment --- */
+.payment-methods-grid .payment-method-box.mobile-hidden {
+  display: none;
+}
+
+.payment-methods-grid.show-all .payment-method-box.mobile-hidden {
+  display: flex;
+}
+
 .payment-modal .modal-content {
   border-radius: 15px;
   border: none;
@@ -1109,6 +1117,14 @@ h6 {
 
   .rating-filter .badge {
     display: none;
+  }
+
+  .payment-methods-grid .payment-method-box:nth-child(n + 4) {
+    display: none;
+  }
+
+  .payment-methods-grid.show-all .payment-method-box:nth-child(n + 4) {
+    display: flex;
   }
 }
 

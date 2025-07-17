@@ -54,8 +54,13 @@ include 'parts/header.php';
 
                                                                                     <div class="payment-methods-grid">
                                                                                                 <?php mysqli_data_seek($payment_methods_res, 0);
-                                                                                                while ($method = mysqli_fetch_assoc($payment_methods_res)): ?>
-                                                                                                            <a href="#" class="payment-method-box" data-bs-toggle="modal" data-bs-target="#paymentModal-<?= $method['id'] ?>">
+                                                                                                $method_count = mysqli_num_rows($payment_methods_res);
+                                                                                                $i = 0;
+                                                                                                while ($method = mysqli_fetch_assoc($payment_methods_res)):
+                                                                                                            $extra_class = ($i >= 3) ? 'mobile-hidden' : '';
+                                                                                                            $i++;
+                                                                                                ?>
+                                                                                                            <a href="#" class="payment-method-box <?= $extra_class ?>" data-bs-toggle="modal" data-bs-target="#paymentModal-<?= $method['id'] ?>">
                                                                                                                         <?php if ($method['logo_url']): ?>
                                                                                                                                     <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" alt="<?= htmlspecialchars($method['method_name']) ?>">
                                                                                                                         <?php endif; ?>
@@ -63,6 +68,11 @@ include 'parts/header.php';
                                                                                                             </a>
                                                                                                 <?php endwhile; ?>
                                                                                     </div>
+
+                                                                                    <?php if ($method_count > 3): ?>
+                                                                                                <div class="text-center mt-3 d-sm-none"> <a href="#" id="show-more-methods" class="text-decoration-none fw-bold">Lihat Lainnya <i class="fas fa-chevron-down ms-1 small"></i></a>
+                                                                                                </div>
+                                                                                    <?php endif; ?>
                                                                         </div>
 
                                                                         <?php
@@ -151,8 +161,28 @@ include 'parts/header.php';
 
 <?php include 'parts/footer.php'; ?>
 <script>
-            document.getElementById('proof_image').addEventListener('change', function(e) {
-                        const fileName = e.target.files[0] ? e.target.files[0].name : 'Format: JPG, PNG (Maks. 2MB)';
-                        document.getElementById('file-name').textContent = fileName;
+            document.addEventListener('DOMContentLoaded', function() {
+                        const showMoreBtn = document.getElementById('show-more-methods');
+                        if (showMoreBtn) {
+                                    showMoreBtn.addEventListener('click', function(e) {
+                                                e.preventDefault();
+                                                const grid = document.querySelector('.payment-methods-grid');
+                                                grid.classList.toggle('show-all');
+
+                                                if (grid.classList.contains('show-all')) {
+                                                            this.innerHTML = 'Tampilkan Lebih Sedikit <i class="fas fa-chevron-up ms-1 small"></i>';
+                                                } else {
+                                                            this.innerHTML = 'Lihat Lainnya <i class="fas fa-chevron-down ms-1 small"></i>';
+                                                }
+                                    });
+                        }
+
+                        const proofImageInput = document.getElementById('proof_image');
+                        if (proofImageInput) {
+                                    proofImageInput.addEventListener('change', function(e) {
+                                                const fileName = e.target.files[0] ? e.target.files[0].name : 'Format: JPG, PNG (Maks. 2MB)';
+                                                document.getElementById('file-name').textContent = fileName;
+                                    });
+                        }
             });
 </script>

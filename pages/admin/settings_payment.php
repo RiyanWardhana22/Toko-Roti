@@ -134,6 +134,10 @@ $all_methods = mysqli_query($conn, "SELECT * FROM payment_methods ORDER BY id DE
                                                             <input type="hidden" name="id" value="<?= $edit_data['id'] ?>">
 
                                                             <div class="mb-3">
+                                                                        <label class="form-label">Logo</label>
+                                                                        <input type="file" class="form-control" name="logo">
+                                                            </div>
+                                                            <div class="mb-3">
                                                                         <label class="form-label">Nama Metode</label>
                                                                         <input type="text" class="form-control" name="name" value="<?= htmlspecialchars($edit_data['method_name'] ?? '') ?>" required>
                                                             </div>
@@ -141,11 +145,6 @@ $all_methods = mysqli_query($conn, "SELECT * FROM payment_methods ORDER BY id DE
                                                                         <label class="form-label">Detail Akun</label>
                                                                         <textarea class="form-control" name="details" rows="3" required><?= htmlspecialchars($edit_data['account_details'] ?? '') ?></textarea>
                                                             </div>
-                                                            <div class="mb-3">
-                                                                        <label class="form-label">Logo</label>
-                                                                        <input type="file" class="form-control" name="logo">
-                                                            </div>
-
                                                             <div class="mb-3">
                                                                         <label class="form-label">Pilih Gambar (QRIS)</label>
                                                                         <input type="file" class="form-control" name="qris_image">
