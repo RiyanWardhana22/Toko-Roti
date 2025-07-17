@@ -30,11 +30,11 @@ include 'parts/header.php';
                         <div class="row justify-content-center">
                                     <div class="col-lg-8">
                                                 <div class="payment-confirmation-container">
-                                                            <h2 class="mb-4 text-center">Konfirmasi Pembayaran</h2>
-
-                                                            <div class="order-summary">
+                                                            <h2 class=" text-center">KONFIRMASI PEMBAYARAN</h2>
+                                                            <hr>
+                                                            <div class="my-4">
                                                                         <h5 class="mb-3">Detail Pesanan #<?= $order['id'] ?></h5>
-                                                                        <div class="mt-2">
+                                                                        <div>
                                                                                     <span class="text-muted">Total Tagihan:</span>
                                                                                     <span class="fs-6 fw-bold text-success">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></span>
                                                                         </div>
