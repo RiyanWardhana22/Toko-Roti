@@ -676,6 +676,10 @@ h6 {
   aspect-ratio: 1 / 1;
 }
 
+.payment-method-box:hover {
+  border: 2px solid var(--primary-color);
+}
+
 .payment-method-box img {
   height: 20px;
   max-width: 40px;

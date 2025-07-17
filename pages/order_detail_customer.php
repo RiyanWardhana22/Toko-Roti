@@ -46,7 +46,6 @@ include 'parts/header.php';
                         <div class="col-lg-8">
                                     <div class="order-detail-container">
                                                 <div class="order-header">
-                                                            <h1 class="order-number mt-0 mb-3">Pesanan #<?= htmlspecialchars($order['id']) ?></h1>
                                                             <h3>Detail Produk</h3>
                                                 </div>
 
@@ -168,7 +167,7 @@ include 'parts/header.php';
                                                 <div class="mb-3">
                                                             <?php if ($order['status'] == 'Menunggu Pembayaran'): ?>
                                                                         <a href="<?= BASE_URL ?>payment_confirmation?id=<?= $order['id'] ?>" class="btn btn-primary w-100 mb-3">
-                                                                                    <i class="fas fa-money-bill-wave me-2"></i> Konfirmasi Pembayaran
+                                                                                    Konfirmasi Pembayaran
                                                                         </a>
                                                             <?php endif; ?>
                                                 </div>
