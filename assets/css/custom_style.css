@@ -658,7 +658,14 @@ h6 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  max-height: 110px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.payment-methods-grid.show-all {
+  max-height: 1000px;
 }
 
 .payment-method-box {
@@ -674,10 +681,11 @@ h6 {
   background-color: #fff;
   cursor: pointer;
   aspect-ratio: 1 / 1;
+  transition: border-color 0.3s ease;
 }
 
 .payment-method-box:hover {
-  border: 2px solid var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .payment-method-box img {
@@ -1109,6 +1117,10 @@ h6 {
 
   .rating-filter .badge {
     display: none;
+  }
+
+  .payment-methods-grid {
+    max-height: 80px;
   }
 
   .payment-methods-grid .payment-method-box.mobile-hidden {

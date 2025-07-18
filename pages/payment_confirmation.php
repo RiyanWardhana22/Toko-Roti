@@ -53,15 +53,9 @@ include 'parts/header.php';
                                                                                     <p class="text-muted">Klik pada salah satu metode untuk melihat detail instruksi pembayaran.</p>
 
                                                                                     <div class="payment-methods-grid">
-                                                                                                <?php
-                                                                                                mysqli_data_seek($payment_methods_res, 0);
-                                                                                                $method_count = mysqli_num_rows($payment_methods_res);
-                                                                                                $i = 0;
-                                                                                                while ($method = mysqli_fetch_assoc($payment_methods_res)):
-                                                                                                            $extra_class = ($i >= 3) ? 'mobile-hidden' : '';
-                                                                                                            $i++;
-                                                                                                ?>
-                                                                                                            <a href="#" class="payment-method-box <?= $extra_class ?>" data-bs-toggle="modal" data-bs-target="#paymentModal-<?= $method['id'] ?>">
+                                                                                                <?php mysqli_data_seek($payment_methods_res, 0);
+                                                                                                while ($method = mysqli_fetch_assoc($payment_methods_res)): ?>
+                                                                                                            <a href="#" class="payment-method-box" data-bs-toggle="modal" data-bs-target="#paymentModal-<?= $method['id'] ?>">
                                                                                                                         <?php if ($method['logo_url']): ?>
                                                                                                                                     <img src="<?= BASE_URL ?>assets/images/logos/<?= $method['logo_url'] ?>" alt="<?= htmlspecialchars($method['method_name']) ?>">
                                                                                                                         <?php endif; ?>
@@ -70,11 +64,9 @@ include 'parts/header.php';
                                                                                                 <?php endwhile; ?>
                                                                                     </div>
 
-                                                                                    <?php if ($method_count > 3): ?>
-                                                                                                <div class="text-center mt-3 d-sm-none">
-                                                                                                            <a href="#" id="show-more-methods" class="text-decoration-none fw-bold">Lihat Lainnya <i class="fas fa-chevron-down ms-1 small"></i></a>
-                                                                                                </div>
-                                                                                    <?php endif; ?>
+                                                                                    <div class="text-center mt-2" id="toggle-methods-container" style="display: none;">
+                                                                                                <a href="#" id="show-more-methods" class="text-decoration-none fw-bold">Lihat Lainnya <i class="fas fa-chevron-down ms-1 small"></i></a>
+                                                                                    </div>
                                                                         </div>
 
                                                                         <?php
@@ -164,11 +156,25 @@ include 'parts/header.php';
 <?php include 'parts/footer.php'; ?>
 <script>
             document.addEventListener('DOMContentLoaded', function() {
+                        const grid = document.querySelector('.payment-methods-grid');
                         const showMoreBtn = document.getElementById('show-more-methods');
+                        const toggleContainer = document.getElementById('toggle-methods-container');
+
+                        function checkOverflow() {
+                                    const isOverflowing = grid.scrollHeight > grid.clientHeight;
+
+                                    if (isOverflowing) {
+                                                toggleContainer.style.display = 'block';
+                                    } else {
+                                                toggleContainer.style.display = 'none';
+                                    }
+                        }
+
+                        checkOverflow();
+                        window.addEventListener('resize', checkOverflow);
                         if (showMoreBtn) {
                                     showMoreBtn.addEventListener('click', function(e) {
                                                 e.preventDefault();
-                                                const grid = document.querySelector('.payment-methods-grid');
                                                 grid.classList.toggle('show-all');
 
                                                 if (grid.classList.contains('show-all')) {
