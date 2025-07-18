@@ -63,7 +63,7 @@ while ($row = mysqli_fetch_assoc($settings_res)) {
                                                 </div>
                                     </div>
                                     <div class="d-grid mt-4">
-                                                <button type="submit" name="update_website_settings" class="btn btn-primary">Simpan Semua Pengaturan</button>
+                                                <button type="submit" name="update_website_settings" class="btn btn-primary">Simpan Pengaturan</button>
                                     </div>
                         </div>
             </div>

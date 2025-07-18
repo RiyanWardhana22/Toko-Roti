@@ -35,6 +35,7 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                                                                                     <p class="order-id mb-1 fs-6"><?= htmlspecialchars($product_name) ?></p>
                                                                         </a>
                                                                         <p class="text-muted small mb-0">Dipesan pada: <?= date('d-m-Y | H:i', strtotime($order['created_at'])) ?></p>
+                                                                        <p class="text-muted small mb-0">Total Pesanan: <span class="text-warning">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></span></p>
                                                             </div>
                                                             <div class="col-md-3 text-md-center mt-2 mt-md-0">
                                                                         <?php
@@ -61,7 +62,7 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                                                                         ?>
                                                             </div>
                                                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                                                        <a href="<?= BASE_URL ?>order_detail_customer?id=<?= $order['id'] ?>" class="btn btn-outline-primary btn-sm mb-1 mb-md-0"><i class="fa-solid fa-eye"></i></a>
+                                                                        <a href="<?= BASE_URL ?>order_detail_customer?id=<?= $order['id'] ?>" class="btn btn-outline-primary btn-sm mb-1 mb-md-0">Lihat Pesanan</a>
                                                                         <?php if ($order['status'] == 'Dikirim'): ?>
                                                                                     <a href="<?= BASE_URL ?>app/order_customer_action.php?action=complete&id=<?= $order['id'] ?>" class="btn btn-success btn-sm ms-2" onclick="return confirm('Apakah Anda yakin sudah menerima pesanan ini?')">Pesanan Diterima</a>
                                                                         <?php endif; ?>
