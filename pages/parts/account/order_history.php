@@ -16,11 +16,23 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
 <div class="card-body">
             <?php if (mysqli_num_rows($orders_res) > 0): ?>
                         <?php while ($order = mysqli_fetch_assoc($orders_res)): ?>
-                                    <div class="order-history-item">
+                                    <?php
+                                    $item_stmt = mysqli_prepare($conn, "SELECT p.name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ? LIMIT 1");
+                                    mysqli_stmt_bind_param($item_stmt, "i", $order['id']);
+                                    mysqli_stmt_execute($item_stmt);
+                                    $item_result = mysqli_stmt_get_result($item_stmt);
+
+                                    $product_name = "Lihat Detail Pesanan";
+                                    if ($item = mysqli_fetch_assoc($item_result)) {
+                                                $product_name = $item['name'];
+                                    }
+                                    mysqli_stmt_close($item_stmt);
+                                    ?>
+                                    <div class="order-history-item mb-2">
                                                 <div class="row align-items-center">
                                                             <div class="col-md-5">
                                                                         <a href="<?= BASE_URL ?>order_detail_customer?id=<?= $order['id'] ?>" class="text-decoration-none">
-                                                                                    <h5 class="order-id">Pesanan #<?= $order['id'] ?></h5>
+                                                                                    <p class="order-id mb-1 fs-6"><?= htmlspecialchars($product_name) ?></p>
                                                                         </a>
                                                                         <p class="text-muted small mb-0">Dipesan pada: <?= date('d-m-Y | H:i', strtotime($order['created_at'])) ?></p>
                                                             </div>

@@ -72,5 +72,5 @@
 }
 .order-history-item .order-id {
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--dark-color);
 }
