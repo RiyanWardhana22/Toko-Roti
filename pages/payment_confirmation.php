@@ -18,7 +18,7 @@ if (!$order) {
             header('Location: ' . BASE_URL . 'akun?tab=riwayat_pesanan&error=invalid_order');
             exit();
 }
-$payment_methods_res = mysqli_query($conn, "SELECT * FROM payment_methods WHERE is_active = 1");
+$payment_methods_res = mysqli_query($conn, "SELECT * FROM payment_methods WHERE is_active = 1 AND method_name NOT LIKE '%Bayar di Toko%'");
 $confirm_check = mysqli_query($conn, "SELECT id FROM payment_confirmations WHERE order_id = $order_id");
 $already_confirmed = mysqli_num_rows($confirm_check) > 0;
 
