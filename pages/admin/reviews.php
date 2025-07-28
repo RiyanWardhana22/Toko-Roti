@@ -14,7 +14,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
             }
 }
 
-$limit = 20;
+$limit = 10;
 $page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 $offset = ($page - 1) * $limit;
 

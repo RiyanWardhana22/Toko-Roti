@@ -1,5 +1,4 @@
 <?php
-// ... (Bagian PHP di atas tidak ada perubahan) ...
 if (!isset($_SESSION['user_id'])) {
             header('Location: ' . BASE_URL . 'login');
             exit();
@@ -38,14 +37,21 @@ foreach ($_SESSION['cart'] as $item) {
                                                             <div class="card checkout-card">
                                                                         <div class="card-body p-4">
                                                                                     <h5 class="card-title mb-4">Opsi Pembayaran</h5>
-                                                                                    <div class="form-check"><input class="form-check-input" type="radio" name="payment_method" id="transfer" value="Transfer Bank Manual" checked required><label class="form-check-label" for="transfer">Transfer Bank Manual</label></div>
+                                                                                    <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="payment_method" id="payment_transfer" value="Transfer Bank/E-Wallet" checked required>
+                                                                                                <label class="form-check-label" for="payment_transfer">Transfer Bank/E-Wallet</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                                <input class="form-check-input" type="radio" name="payment_method" id="payment_cod" value="Bayar di Toko">
+                                                                                                <label class="form-check-label" for="payment_cod">Bayar di Toko</label>
+                                                                                    </div>
                                                                         </div>
                                                             </div>
                                                             <div class="card checkout-card">
                                                                         <div class="card-body p-4">
                                                                                     <h5 class="card-title mb-4">Opsi Pengiriman</h5>
                                                                                     <div class="form-check"><input class="form-check-input shipping-option" type="radio" name="shipping_method" id="gosend" value="Gosend Same Day" data-cost="15000" required><label class="form-check-label" for="gosend">Gosend Same Day - Rp 15.000</label></div>
-                                                                                    <div class="form-check"><input class="form-check-input shipping-option" type="radio" name="shipping_method" id="grab" value="Grab Express" data-cost="18000"><label class="form-check-label" for="grab">Grab Express - Rp 18.000</label></div>
+                                                                                    <div class="form-check"><input class="form-check-input shipping-option" type="radio" name="shipping_method" id="gosend_instant" value="Gosend Instant" data-cost="18000"><label class="form-check-label" for="gosend_instant">Gosend Instant - Rp 18.000</label></div>
                                                                                     <div class="form-check"><input class="form-check-input shipping-option" type="radio" name="shipping_method" id="ambil" value="Ambil di Toko" data-cost="0"><label class="form-check-label" for="ambil">Ambil di Toko - Rp 0</label></div>
                                                                         </div>
                                                             </div>
@@ -76,7 +82,7 @@ foreach ($_SESSION['cart'] as $item) {
                                                                                                             </div>
                                                                                                             <div id="voucher-message" class="mt-2"></div>
                                                                                                 </div>
-                                                                                                <li class="list-group-item d-flex justify-content-between px-0 bg-light">
+                                                                                                <li class="list-group-item d-flex justify-content-between p-2 bg-light">
                                                                                                             <strong class="fs-5">Total Akhir</strong>
                                                                                                             <strong class="fs-5" id="total-cost-text">Rp <?= number_format($subtotal, 0, ',', '.') ?></strong>
                                                                                                 </li>
