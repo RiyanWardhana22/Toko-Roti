@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'mailer.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id']) || empty($_SESSION['cart'])) {
             header('Location: ' . BASE_URL);
@@ -15,10 +16,7 @@ $shipping_cost = (float)$_POST['shipping_cost'];
 $total_amount = (float)$_POST['total_amount'];
 $payment_method = mysqli_real_escape_string($conn, $_POST['payment_method']);
 
-$initial_status = 'Menunggu Pembayaran';
-if ($payment_method === 'Bayar di Toko') {
-            $initial_status = 'Diproses';
-}
+$initial_status = (stripos($payment_method, 'Bayar di Toko') !== false) ? 'Diproses' : 'Menunggu Pembayaran';
 
 mysqli_begin_transaction($conn);
 
@@ -42,6 +40,9 @@ try {
             }
 
             mysqli_commit($conn);
+
+            if ($initial_status == 'Diproses') {
+            }
 
             unset($_SESSION['cart']);
             unset($_SESSION['voucher']);

@@ -6,54 +6,78 @@ if (!isset($_GET['id'])) {
 $order_id = (int)$_GET['id'];
 $message = '';
 
+$order_res = mysqli_query($conn, "SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = $order_id");
+$order = mysqli_fetch_assoc($order_res);
+
+$site_settings_res = mysqli_query($conn, "SELECT setting_value FROM settings WHERE setting_key = 'website_title'");
+$website_name = mysqli_fetch_assoc($site_settings_res)['setting_value'] ?? 'Toko Anda';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
+            $old_status = $order['status'];
             $new_status = mysqli_real_escape_string($conn, $_POST['status']);
-            if ($new_status == 'Dikirim') {
-                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ?, shipped_at = NOW() WHERE id = ?");
-                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
-            } else {
-                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ? WHERE id = ?");
-                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
-            }
 
-            if (mysqli_stmt_execute($stmt)) {
-                        $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui.</div>";
-                        require_once __DIR__ . '/../../app/mailer.php';
-                        $cust_res = mysqli_query($conn, "SELECT u.name, u.email FROM users u JOIN orders o ON u.id = o.user_id WHERE o.id = $order_id");
-                        $customer_data = mysqli_fetch_assoc($cust_res);
-                        $settings_res = mysqli_query($conn, "SELECT setting_value FROM settings WHERE setting_key = 'website_title'");
-                        $website_name = mysqli_fetch_assoc($settings_res)['setting_value'] ?? 'Toko Anda';
+            if ($new_status != $old_status) {
+                        $query = "UPDATE orders SET status = ?";
+                        $params = [$new_status];
+                        $types = "s";
 
-                        $template_path = __DIR__ . '/../../templates/email/status_update_template.html';
-                        if (file_exists($template_path)) {
-                                    $email_body = file_get_contents($template_path);
-                                    $placeholders = [
-                                                '{{customer_name}}' => $customer_data['name'],
-                                                '{{order_id}}' => $order_id,
-                                                '{{new_status}}' => $new_status,
-                                                '{{order_detail_link}}' => BASE_URL . 'order_detail_customer?id=' . $order_id,
-                                                '{{website_name}}' => $website_name,
-                                                '{{current_year}}' => date('Y')
-                                    ];
-                                    $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);
-                                    send_email($customer_data['email'], $customer_data['name'], "Update Status Pesanan #" . $order_id, $email_body);
+                        if ($new_status == 'Dikirim') {
+                                    $query .= ", shipped_at = NOW()";
+                        }
+                        $query .= " WHERE id = ?";
+                        $params[] = $order_id;
+                        $types .= "i";
+
+                        $stmt = mysqli_prepare($conn, $query);
+                        mysqli_stmt_bind_param($stmt, $types, ...$params);
+
+                        if (mysqli_stmt_execute($stmt)) {
+                                    $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui.</div>";
+                                    $order['status'] = $new_status;
+
+                                    if ($new_status == 'Diproses' && $old_status == 'Menunggu Verifikasi') {
+                                                require_once __DIR__ . '/../../app/mailer.php';
+
+                                                $items_res_mail = mysqli_query($conn, "SELECT oi.quantity, oi.price, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
+                                                $order_details_html = '<table class="order-details-table"><thead><tr><th>Nama Item</th><th>Jumlah</th><th>Harga</th></tr></thead><tbody>';
+                                                while ($item = mysqli_fetch_assoc($items_res_mail)) {
+                                                            $order_details_html .= '<tr><td>' . htmlspecialchars($item['product_name']) . '</td><td>' . $item['quantity'] . 'x</td><td>Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
+                                                }
+                                                if ($order['discount_amount'] > 0) {
+                                                            $order_details_html .= '<tr><td colspan="2">Diskon (' . $order['voucher_code'] . ')</td><td>- Rp ' . number_format($order['discount_amount'], 0, ',', '.') . '</td></tr>';
+                                                }
+                                                $order_details_html .= '<tr><td colspan="2">Ongkos Kirim</td><td>Rp ' . number_format($order['shipping_cost'], 0, ',', '.') . '</td></tr>';
+                                                $order_details_html .= '</tbody></table>';
+
+                                                $template_path = realpath(__DIR__ . '/../../templates/email/ereceipt_template.html');
+                                                if (file_exists($template_path)) {
+                                                            $email_body = file_get_contents($template_path);
+                                                            $placeholders = [
+                                                                        '{{customer_name}}' => $order['customer_name'],
+                                                                        '{{order_id}}' => $order_id,
+                                                                        '{{order_date}}' => date('d F Y, H:i', strtotime($order['created_at'])),
+                                                                        '{{total_amount}}' => number_format($order['total_amount'], 0, ',', '.'),
+                                                                        '{{website_name}}' => $website_name,
+                                                                        '{{payment_method}}' => 'Transfer Bank/E-Wallet',
+                                                                        '{{order_details_table}}' => $order_details_html,
+                                                            ];
+                                                            $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);
+                                                            $subject = "Pembayaran Berhasil untuk Pesanan #" . $order_id;
+                                                            send_email($order['customer_email'], $order['customer_name'], $subject, $email_body);
+                                                            $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui dan E-Receipt telah dikirim.</div>";
+                                                }
+                                    }
                         }
             }
 }
 
-$order_res = mysqli_query($conn, "SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = $order_id");
-$order = mysqli_fetch_assoc($order_res);
-
 $items_res = mysqli_query($conn, "SELECT oi.*, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
-
 $confirmation_res = mysqli_query($conn, "SELECT * FROM payment_confirmations WHERE order_id = $order_id LIMIT 1");
 $confirmation_data = mysqli_fetch_assoc($confirmation_res);
-
 $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan'];
 ?>
 
 <?= $message ?>
-
 <div class="row">
             <div class="col-lg-4">
                         <div class="card content-card mb-4">
@@ -73,20 +97,6 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                     <div class="card content-card">
                                                 <div class="card-header">Detail Konfirmasi Pembayaran</div>
                                                 <div class="card-body">
-                                                            <p>
-                                                                        <strong>Bank Pengirim:</strong> <?= htmlspecialchars($confirmation_data['bank_name']) ?><br>
-                                                                        <strong>Pemilik Rekening:</strong> <?= htmlspecialchars($confirmation_data['account_holder']) ?><br>
-                                                                        <strong>Jumlah Transfer:</strong> Rp <?= number_format($confirmation_data['transfer_amount'], 0, ',', '.') ?><br>
-                                                                        <strong>Tanggal Transfer:</strong> <?php
-                                                                                                            $hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                                                                                                            $timestamp = strtotime($confirmation_data['transfer_date']);
-                                                                                                            echo $hari[date('w', $timestamp)] . ', ' . date('d/m/Y', $timestamp);
-                                                                                                            ?>
-                                                            </p>
-                                                            <h6>Bukti Transfer:</h6>
-                                                            <a href="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" target="_blank">
-                                                                        <img src="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" class="img-fluid rounded border" alt="Bukti Transfer">
-                                                            </a>
                                                 </div>
                                     </div>
                         <?php endif; ?>
@@ -96,21 +106,20 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                         <div class="card content-card">
                                     <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
                                                 <h5 class="mb-2 mb-md-0">Rincian Pesanan #<?= $order['id'] ?></h5>
-                                                <form method="POST" action="">
-                                                            <div class="input-group">
-                                                                        <select class="form-select" id="status" name="status" style="width: 150px;">
-                                                                                    <?php foreach ($statuses as $status): ?>
-                                                                                                <option value="<?= $status ?>" <?= ($order['status'] == $status) ? 'selected' : '' ?>><?= $status ?></option>
-                                                                                    <?php endforeach; ?>
-                                                                        </select>
-                                                                        <button type="submit" name="update_status" class="btn btn-primary">Update Status</button>
-                                                            </div>
-                                                </form>
-                                                <div class="d-flex justify-content-start mt-2">
-                                                            <a href="<?= BASE_URL ?>admin?page=invoice&id=<?= $order_id ?>" target="_blank" class="btn btn-outline-success btn-sm fw-bold"><i class="fa-solid fa-file-pdf me-2"></i>Cetak</a>
+                                                <div class="d-flex align-items-center">
+                                                            <a href="<?= BASE_URL ?>admin?page=invoice&id=<?= $order_id ?>" target="_blank" class="btn btn-secondary btn-sm me-2"><i class="fa-solid fa-print"></i></a>
+                                                            <form method="POST" action="" class="mb-0">
+                                                                        <div class="input-group">
+                                                                                    <select class="form-select" name="status" style="width: 150px;">
+                                                                                                <?php foreach ($statuses as $status): ?>
+                                                                                                            <option value="<?= $status ?>" <?= ($order['status'] == $status) ? 'selected' : '' ?>><?= $status ?></option>
+                                                                                                <?php endforeach; ?>
+                                                                                    </select>
+                                                                                    <button type="submit" name="update_status" class="btn btn-primary">Update</button>
+                                                                        </div>
+                                                            </form>
                                                 </div>
                                     </div>
-
                                     <div class="card-body">
                                                 <div class="table-responsive">
                                                             <table class="table">
@@ -123,35 +132,29 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                                                                     </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                                    <?php while ($item = mysqli_fetch_assoc($items_res)): ?>
+                                                                                    <?php mysqli_data_seek($items_res, 0);
+                                                                                    while ($item = mysqli_fetch_assoc($items_res)): ?>
                                                                                                 <tr>
                                                                                                             <td>
                                                                                                                         <strong><?= htmlspecialchars($item['product_name']) ?></strong>
-
+                                                                                                                        <?php if (!empty($item['customization_details'])): ?>
+                                                                                                                                    <p class="mb-0 mt-1"><small class="text-muted"><em>Catatan: "<?= htmlspecialchars($item['customization_details']) ?>"</em></small></p>
+                                                                                                                        <?php endif; ?>
                                                                                                             </td>
-                                                                                                            <?php if (!empty($item['customization_details'])): ?>
-                                                                                                                        <p class="mb-1"><small class="text-muted"><em>Catatan: "<?= htmlspecialchars($item['customization_details']) ?>"</em></small></p>
-                                                                                                            <?php endif; ?>
                                                                                                             <td class="text-center"><?= $item['quantity'] ?></td>
                                                                                                             <td class="text-end">Rp <?= number_format($item['price'], 0, ',', '.') ?></td>
                                                                                                             <td class="text-end">Rp <?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?></td>
-
                                                                                                 </tr>
-
                                                                                     <?php endwhile; ?>
                                                                         </tbody>
-
                                                                         <tfoot>
-
                                                                                     <tr>
                                                                                                 <th colspan="3" class="text-end">Subtotal Produk</th>
                                                                                                 <th class="text-end">Rp <?= number_format($order['total_amount'] + $order['discount_amount'] - $order['shipping_cost'], 0, ',', '.') ?></th>
                                                                                     </tr>
                                                                                     <?php if ($order['discount_amount'] > 0): ?>
                                                                                                 <tr class="text-success">
-                                                                                                            <th colspan="3" class="text-end">
-                                                                                                                        Diskon (<?= htmlspecialchars($order['voucher_code']) ?>)
-                                                                                                            </th>
+                                                                                                            <th colspan="3" class="text-end">Diskon (<?= htmlspecialchars($order['voucher_code']) ?>)</th>
                                                                                                             <th class="text-end">- Rp <?= number_format($order['discount_amount'], 0, ',', '.') ?></th>
                                                                                                 </tr>
                                                                                     <?php endif; ?>
