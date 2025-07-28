@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
 }
 $order_id = (int)$_GET['id'];
 $user_id = $_SESSION['user_id'];
-$order_stmt = mysqli_prepare($conn, "SELECT id, total_amount, status FROM orders WHERE id = ? AND user_id = ? AND status = 'Menunggu Pembayaran'");
+$order_stmt = mysqli_prepare($conn, "SELECT id, total_amount, status, created_at FROM orders WHERE id = ? AND user_id = ? AND status = 'Menunggu Pembayaran'");
 mysqli_stmt_bind_param($order_stmt, "ii", $order_id, $user_id);
 mysqli_stmt_execute($order_stmt);
 $order_result = mysqli_stmt_get_result($order_stmt);
@@ -31,13 +31,22 @@ include 'parts/header.php';
                                     <div class="col-lg-8">
                                                 <div class="payment-confirmation-container">
                                                             <h2 class=" text-center">KONFIRMASI PEMBAYARAN</h2>
-                                                            <hr>
                                                             <div class="my-4">
+                                                                        <?php
+                                                                        $deadline = strtotime($order['created_at']) + (12 * 3600);
+                                                                        ?>
+                                                                        <div class="mb-3 border-top pt-3">
+                                                                                    <h5 class="">Selesaikan pembayaran dalam:</h5>
+                                                                                    <span class="fs-6 text-danger countdown-timer" data-deadline="<?= date('Y-m-d H:i:s', $deadline) ?>">
+                                                                                                Menghitung...
+                                                                                    </span>
+                                                                        </div>
                                                                         <h5 class="mb-3">Detail Pesanan #<?= $order['id'] ?></h5>
                                                                         <div>
                                                                                     <span class="text-muted">Total Tagihan:</span>
                                                                                     <span class="fs-6 fw-bold text-success">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></span>
                                                                         </div>
+
                                                             </div>
 
                                                             <?php if ($already_confirmed): ?>

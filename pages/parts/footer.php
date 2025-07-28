@@ -44,6 +44,36 @@
 </footer>
 
 <script src="<?= BASE_URL ?>assets/js/bootstrap.bundle.min.js"></script>
+<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                        const countdownElements = document.querySelectorAll('.countdown-timer');
+
+                        countdownElements.forEach(function(element) {
+                                    const deadline = new Date(element.getAttribute('data-deadline').replace(' ', 'T')).getTime();
+
+                                    const interval = setInterval(function() {
+                                                const now = new Date().getTime();
+                                                const distance = deadline - now;
+
+                                                if (distance < 0) {
+                                                            clearInterval(interval);
+                                                            element.innerHTML = "WAKTU HABIS";
+                                                            return;
+                                                }
+
+                                                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                                const fHours = hours < 10 ? '0' + hours : hours;
+                                                const fMinutes = minutes < 10 ? '0' + minutes : minutes;
+                                                const fSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+                                                element.innerHTML = `${fHours} : ${fMinutes} : ${fSeconds}`;
+                                    }, 1000);
+                        });
+            });
+</script>
 </body>
 
 </html>

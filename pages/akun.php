@@ -34,7 +34,6 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'dashboard';
                                                 <div class="card account-card">
                                                             <div class="card-body">
                                                                         <?php
-                                                                        // Logika switch tidak berubah
                                                                         switch ($active_tab) {
                                                                                     case 'riwayat_pesanan':
                                                                                                 include 'parts/account/order_history.php';

@@ -8,20 +8,13 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             $new_status = mysqli_real_escape_string($conn, $_POST['status']);
-            $query = "UPDATE orders SET status = ?";
-            $params = [$new_status];
-            $types = "s";
-
             if ($new_status == 'Dikirim') {
-                        $query .= ", shipped_at = NOW()";
+                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ?, shipped_at = NOW() WHERE id = ?");
+                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
+            } else {
+                        $stmt = mysqli_prepare($conn, "UPDATE orders SET status = ? WHERE id = ?");
+                        mysqli_stmt_bind_param($stmt, "si", $new_status, $order_id);
             }
-
-            $query .= " WHERE id = ?";
-            $params[] = $order_id;
-            $types .= "i";
-
-            $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, $types, ...$params);
 
             if (mysqli_stmt_execute($stmt)) {
                         $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui.</div>";

@@ -71,6 +71,16 @@ $orders_res = mysqli_query($conn, "SELECT id, created_at, total_amount, status F
                                                                         <?php endif; ?>
                                                             </div>
                                                 </div>
+                                                <?php if ($order['status'] == 'Menunggu Pembayaran'):
+                                                            $deadline = strtotime($order['created_at']) + (12 * 3600);
+                                                ?>
+                                                            <div class="mt-2 text-md-start border-top pt-2">
+                                                                        <small class="text-muted">Batas Waktu Pembayaran:</small>
+                                                                        <div class="fw-bold text-danger countdown-timer" data-deadline="<?= date('Y-m-d H:i:s', $deadline) ?>">
+                                                                                    Menghitung...
+                                                                        </div>
+                                                            </div>
+                                                <?php endif; ?>
                                     </div>
                         <?php endwhile; ?>
             <?php else: ?>
