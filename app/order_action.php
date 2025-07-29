@@ -21,8 +21,8 @@ $initial_status = (stripos($payment_method, 'Bayar di Toko') !== false) ? 'Dipro
 mysqli_begin_transaction($conn);
 
 try {
-            $stmt1 = mysqli_prepare($conn, "INSERT INTO orders (user_id, total_amount, status, shipping_address, shipping_method, shipping_cost, voucher_code, discount_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt1, "idsssssd", $user_id, $total_amount, $initial_status, $shipping_address, $shipping_method, $shipping_cost, $voucher_code, $discount_amount);
+            $stmt1 = mysqli_prepare($conn, "INSERT INTO orders (user_id, total_amount, status, shipping_address, shipping_method, payment_method, shipping_cost, voucher_code, discount_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmt1, "idsssssdd", $user_id, $total_amount, $initial_status, $shipping_address, $shipping_method, $payment_method, $shipping_cost, $voucher_code, $discount_amount);
             mysqli_stmt_execute($stmt1);
             $order_id = mysqli_insert_id($conn);
 
@@ -42,6 +42,38 @@ try {
             mysqli_commit($conn);
 
             if ($initial_status == 'Diproses') {
+                        $user_res = mysqli_query($conn, "SELECT name, email FROM users WHERE id = $user_id");
+                        $customer_data = mysqli_fetch_assoc($user_res);
+                        $settings_res = mysqli_query($conn, "SELECT setting_value FROM settings WHERE setting_key = 'website_title'");
+                        $website_name = mysqli_fetch_assoc($settings_res)['setting_value'] ?? 'Toko Anda';
+
+                        $order_details_html = '<table class="order-details-table"><thead><tr><th>Nama Item</th><th>Jumlah</th><th>Harga</th></tr></thead><tbody>';
+                        foreach ($_SESSION['cart'] as $item) {
+                                    $order_details_html .= '<tr><td>' . htmlspecialchars($item['name']) . '</td><td>' . $item['quantity'] . 'x</td><td>Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
+                        }
+                        if ($discount_amount > 0) {
+                                    $order_details_html .= '<tr><td colspan="2">Diskon (' . $voucher_code . ')</td><td>- Rp ' . number_format($discount_amount, 0, ',', '.') . '</td></tr>';
+                        }
+                        $order_details_html .= '<tr><td colspan="2">Ongkos Kirim</td><td>Rp ' . number_format($shipping_cost, 0, ',', '.') . '</td></tr>';
+                        $order_details_html .= '</tbody></table>';
+
+                        $template_path = realpath(__DIR__ . '/../templates/email/ereceipt_template.html');
+                        if (file_exists($template_path)) {
+                                    $email_body = file_get_contents($template_path);
+                                    $placeholders = [
+                                                '{{customer_name}}' => $customer_data['name'],
+                                                '{{order_id}}' => $order_id,
+                                                '{{order_date}}' => date('d F Y, H:i'),
+                                                '{{total_amount}}' => number_format($total_amount, 0, ',', '.'),
+                                                '{{website_name}}' => $website_name,
+                                                '{{payment_method}}' => htmlspecialchars($payment_method),
+                                                '{{order_details_table}}' => $order_details_html,
+                                    ];
+                                    $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);
+
+                                    $subject = "Pesanan Anda #" . $order_id . " sedang diproses";
+                                    send_email($customer_data['email'], $customer_data['name'], $subject, $email_body);
+                        }
             }
 
             unset($_SESSION['cart']);

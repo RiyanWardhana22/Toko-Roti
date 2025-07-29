@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                                         '{{order_date}}' => date('d F Y, H:i', strtotime($order['created_at'])),
                                                                         '{{total_amount}}' => number_format($order['total_amount'], 0, ',', '.'),
                                                                         '{{website_name}}' => $website_name,
-                                                                        '{{payment_method}}' => 'Transfer Bank/E-Wallet',
+                                                                        '{{payment_method}}' => htmlspecialchars($order['payment_method']),
                                                                         '{{order_details_table}}' => $order_details_html,
                                                             ];
                                                             $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);
@@ -85,7 +85,9 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                     <div class="card-body">
                                                 <p><strong>Nama:</strong> <?= htmlspecialchars($order['customer_name']) ?><br>
                                                             <strong>Email:</strong> <?= htmlspecialchars($order['customer_email']) ?><br>
-                                                            <strong>Telepon:</strong> <?= htmlspecialchars($order['customer_phone']) ?>
+                                                            <strong>Telepon:</strong> <?= htmlspecialchars($order['customer_phone']) ?><br>
+                                                            <strong>Metode Pembayaran:</strong> <?= htmlspecialchars($order['payment_method']) ?><br>
+                                                            <strong>Metode Pengiriman:</strong> <?= htmlspecialchars($order['shipping_method']) ?>
                                                 </p>
                                                 <hr>
                                                 <h6>Alamat Pengiriman</h6>

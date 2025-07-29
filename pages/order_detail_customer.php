@@ -152,12 +152,10 @@ include 'parts/header.php';
                                                                         <span>Rp <?= number_format($order['shipping_cost'], 0, ',', '.') ?></span>
                                                             </div>
                                                             <?php if ($order['discount_amount'] > 0): ?>
-                                                                        <tr class="text-success">
-                                                                                    <th colspan="3" class="text-end">
-                                                                                                Diskon (<?= htmlspecialchars($order['voucher_code']) ?>)
-                                                                                    </th>
-                                                                                    <th>- Rp <?= number_format($order['discount_amount'], 0, ',', '.') ?></th>
-                                                                        </tr>
+                                                                        <div class="summary-item d-flex justify-content-between">
+                                                                                    <span>Voucher</span>
+                                                                                    <span>- Rp <?= number_format($order['discount_amount'], 0, ',', '.') ?></span>
+                                                                        </div>
                                                             <?php endif; ?>
                                                             <div class="summary-item d-flex justify-content-between summary-total">
                                                                         <span>Total Pembayaran</span>

@@ -22,13 +22,13 @@
         margin-bottom: 20px;
       }
       .header h2 {
+        text-transform: uppercase;
         margin: 0;
-        color: #2ecc71;
       }
       .header .total {
-        font-size: 24px;
+        margin: 5px 0;
         font-weight: bold;
-        margin: 10px 0;
+        color: #999;
       }
       .info-section {
         margin-bottom: 20px;
@@ -76,25 +76,20 @@
   <body>
     <div class="container">
       <div class="header">
-        <h2>Pembayaran Berhasil</h2>
-        <div class="total">Rp {{total_amount}}</div>
+        <h2>{{website_name}}</h2>
+        <div class="total">Pembayaran Berhasil - Rp {{total_amount}}</div>
         <div class="date">{{order_date}}</div>
       </div>
       <div class="info-section">
         <h4>Informasi Pesanan</h4>
         <div class="info-item">
-          <span class="label">Nama Toko:</span><br /><strong
-            >{{website_name}}</strong
+          <span class="label">Nama Pelanggan:</span><br /><strong
+            >{{customer_name}}</strong
           >
         </div>
         <div class="info-item">
           <span class="label">Nomor Pesanan:</span><br /><strong
-            >#{{order_id}}</strong
-          >
-        </div>
-        <div class="info-item">
-          <span class="label">Nama Pelanggan:</span><br /><strong
-            >{{customer_name}}</strong
+            >{{order_id}}</strong
           >
         </div>
         <div class="info-item">
