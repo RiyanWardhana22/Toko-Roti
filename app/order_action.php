@@ -52,7 +52,7 @@ try {
                                     $order_details_html .= '<tr><td>' . htmlspecialchars($item['name']) . '</td><td>' . $item['quantity'] . 'x</td><td>Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
                         }
                         if ($discount_amount > 0) {
-                                    $order_details_html .= '<tr><td colspan="2">Diskon (' . $voucher_code . ')</td><td>- Rp ' . number_format($discount_amount, 0, ',', '.') . '</td></tr>';
+                                    $order_details_html .= '<tr><td colspan="2">Diskon </td><td>- Rp ' . number_format($discount_amount, 0, ',', '.') . '</td></tr>';
                         }
                         $order_details_html .= '<tr><td colspan="2">Ongkos Kirim</td><td>Rp ' . number_format($shipping_cost, 0, ',', '.') . '</td></tr>';
                         $order_details_html .= '</tbody></table>';
@@ -67,6 +67,7 @@ try {
                                                 '{{total_amount}}' => number_format($total_amount, 0, ',', '.'),
                                                 '{{website_name}}' => $website_name,
                                                 '{{payment_method}}' => htmlspecialchars($payment_method),
+                                                '{{shipping_method}}' => htmlspecialchars($shipping_method),
                                                 '{{order_details_table}}' => $order_details_html,
                                     ];
                                     $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);

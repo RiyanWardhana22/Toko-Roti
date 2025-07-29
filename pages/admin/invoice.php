@@ -1,6 +1,6 @@
 <?php
 if (!isset($_GET['id'])) {
-            die("ID Pesanan tidak valid atau tidak ditemukan.");
+            die("ID Pesanan tidak valid.");
 }
 $order_id = (int)$_GET['id'];
 
@@ -37,53 +37,125 @@ $items_res = mysqli_query($conn, "SELECT oi.*, p.name as product_name FROM order
                                     margin: 30px auto;
                                     padding: 40px;
                                     background-color: #ffffff;
-                                    border: 1px solid #dee2e6;
-                                    border-radius: 0.25rem;
-                                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+                                    border-radius: 8px;
+                                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05);
                         }
 
                         .invoice-header {
-                                    border-bottom: 2px solid #dee2e6;
-                                    margin-bottom: 30px;
+                                    text-align: center;
+                                    border-bottom: 2px solid #eee;
                                     padding-bottom: 20px;
+                                    margin-bottom: 30px;
+                        }
+
+                        .invoice-header .brand-logo {
+                                    max-height: 60px;
+                                    margin-bottom: 15px;
+                        }
+
+                        .invoice-header .status {
+                                    font-size: 1.5rem;
+                                    font-weight: 700;
+                                    color: #198754;
+                        }
+
+                        .invoice-header .total-amount {
+                                    font-size: 2rem;
+                                    font-weight: 700;
+                                    color: #212529;
+                        }
+
+                        .invoice-header .order-date {
+                                    color: #6c757d;
+                        }
+
+                        .info-section {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-bottom: 30px;
+                        }
+
+                        .info-section div {
+                                    width: 48%;
+                        }
+
+                        .info-section h5 {
+                                    color: #6c757d;
+                                    font-size: 1rem;
+                                    margin-bottom: 10px;
+                        }
+
+                        .info-section address {
+                                    font-style: normal;
+                                    line-height: 1.6;
+                        }
+
+                        .items-table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                        }
+
+                        .items-table th,
+                        .items-table td {
+                                    padding: 12px 0;
+                                    border-bottom: 1px solid #eee;
+                        }
+
+                        .items-table thead th {
+                                    color: #6c757d;
+                                    font-weight: 500;
+                                    text-align: left;
+                        }
+
+                        .items-table .text-end {
+                                    text-align: right;
+                        }
+
+                        .totals-section {
+                                    margin-top: 20px;
+                                    display: flex;
+                                    justify-content: flex-end;
+                        }
+
+                        .totals-section table {
+                                    width: 50%;
+                                    max-width: 350px;
+                        }
+
+                        .totals-section td {
+                                    padding: 8px 0;
+                        }
+
+                        .totals-section .grand-total {
+                                    font-size: 1.2rem;
+                                    font-weight: 700;
+                                    border-top: 2px solid #333;
+                                    padding-top: 10px;
                         }
 
                         .invoice-footer {
-                                    border-top: 2px solid #dee2e6;
-                                    margin-top: 30px;
-                                    padding-top: 20px;
                                     text-align: center;
+                                    margin-top: 40px;
                                     font-size: 0.9em;
                                     color: #6c757d;
                         }
 
-                        .table th,
-                        .table td {
-                                    vertical-align: middle;
-                        }
-
-                        .total-section .table {
-                                    max-width: 300px;
-                                    float: right;
-                        }
-
-                        .brand-logo {
-                                    max-height: 60px;
+                        .print-button {
+                                    position: fixed;
+                                    top: 20px;
+                                    right: 20px;
                         }
 
                         @media print {
                                     body {
-                                                background-color: #ffffff;
+                                                background-color: #fff;
                                     }
 
                                     .invoice-container {
-                                                width: 100%;
-                                                max-width: 100%;
                                                 margin: 0;
                                                 padding: 0;
-                                                border: none;
-                                                border-radius: 0;
                                                 box-shadow: none;
+                                                border: none;
                                     }
 
                                     .no-print {
@@ -94,100 +166,102 @@ $items_res = mysqli_query($conn, "SELECT oi.*, p.name as product_name FROM order
 </head>
 
 <body>
-            <div class="invoice-container">
-                        <div class="invoice-header row align-items-center">
-                                    <div class="col-sm-6">
-                                                <?php
-                                                $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
-                                                if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
-                                                            echo '<img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" class="brand-logo">';
-                                                } else {
-                                                            $brand_text = $site_settings['navbar_brand_text'] ?? 'Toko Roti';
-                                                            echo '<h2 class="mb-0">' . htmlspecialchars($brand_text) . '</h2>';
-                                                }
-                                                ?>
-                                    </div>
-                                    <div class="col-sm-6 text-sm-end">
-                                                <h2 class="mb-0">INVOICE</h2>
-                                                <p class="mb-0">No: #<?= $order['id'] ?></p>
-                                                <button class="btn btn-primary mt-2 no-print" onclick="window.print()">
-                                                            <i class="fas fa-print"></i> Cetak / Simpan PDF
-                                                </button>
-                                    </div>
+            <div class="container no-print">
+                        <div class="d-flex justify-content-end pt-3">
+                                    <button class="btn btn-primary print-button" onclick="window.print()">
+                                                <i class="fas fa-print me-2"></i>Cetak / Simpan PDF
+                                    </button>
                         </div>
+            </div>
+            <div class="invoice-container">
+                        <header class="invoice-header">
+                                    <?php
+                                    $brand_type = $site_settings['navbar_brand_type'] ?? 'text';
+                                    if ($brand_type == 'logo' && !empty($site_settings['navbar_brand_logo'])) {
+                                                echo '<img src="' . BASE_URL . 'assets/images/' . htmlspecialchars($site_settings['navbar_brand_logo']) . '" alt="Logo Toko" class="brand-logo">';
+                                    } else {
+                                                echo '<h3>' . htmlspecialchars($site_settings['navbar_brand_text'] ?? 'Toko Roti') . '</h3>';
+                                    }
+                                    ?>
+                                    <div class="status">Pembayaran Berhasil</div>
+                                    <div class="total-amount">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></div>
+                                    <div class="order-date"><?= date('d F Y, H:i', strtotime($order['created_at'])) ?> WIB</div>
+                        </header>
 
-                        <div class="row mb-4">
-                                    <div class="col-sm-6">
-                                                <strong>Ditagihkan Kepada:</strong>
-                                                <address class="mt-2">
-                                                            Nama: <?= htmlspecialchars($order['customer_name']) ?><br>
-                                                            Alamat: <?= nl2br(htmlspecialchars($order['shipping_address'])) ?><br>
-                                                            Email: <?= htmlspecialchars($order['customer_email']) ?><br>
-                                                            Telepon: <?= htmlspecialchars($order['customer_phone']) ?>
+                        <section class="info-section">
+                                    <div>
+                                                <h5>Ditagihkan Kepada:</h5>
+                                                <address>
+                                                            <strong>Nama Pelanggan: </strong><?= htmlspecialchars($order['customer_name']) ?><br>
+                                                            <strong>Nomor HP: </strong><?= htmlspecialchars($order['customer_phone']) ?><br>
+                                                            <strong>Alamat: </strong><?= nl2br(htmlspecialchars($order['shipping_address'])) ?><br>
                                                 </address>
                                     </div>
-                                    <div class="col-sm-6 text-sm-end">
-                                                <strong>Tanggal Pesanan:</strong>
-                                                <p><?= date('d F Y', strtotime($order['created_at'])) ?></p>
-                                                <strong>Status Pembayaran:</strong>
-                                                <p><span class="badge bg-success">LUNAS</span></p>
+                                    <div>
+                                                <h5>Detail Pesanan:</h5>
+                                                <address>
+                                                            <strong>No. Pesanan:</strong> <?= $order['id'] ?><br>
+                                                            <strong>Metode Pembayaran:</strong> <?= htmlspecialchars($order['payment_method']) ?><br>
+                                                            <strong>Metode Pengiriman:</strong> <?= htmlspecialchars($order['shipping_method']) ?>
+                                                </address>
                                     </div>
-                        </div>
+                        </section>
 
-                        <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                                <thead class="table-light">
+                        <section>
+                                    <table class="items-table">
+                                                <thead>
                                                             <tr>
-                                                                        <th class="text-center">#</th>
-                                                                        <th>Produk</th>
+                                                                        <th>Deskripsi Produk</th>
                                                                         <th class="text-center">Jumlah</th>
-                                                                        <th class="text-end">Harga Satuan</th>
-                                                                        <th class="text-end">Subtotal</th>
+                                                                        <th class="text-end">Total</th>
                                                             </tr>
                                                 </thead>
                                                 <tbody>
-                                                            <?php $no = 1;
+                                                            <?php mysqli_data_seek($items_res, 0);
                                                             while ($item = mysqli_fetch_assoc($items_res)): ?>
                                                                         <tr>
-                                                                                    <td class="text-center"><?= $no++ ?></td>
-                                                                                    <td><?= htmlspecialchars($item['product_name']) ?></td>
+                                                                                    <td>
+                                                                                                <?= htmlspecialchars($item['product_name']) ?>
+                                                                                                <?php if (!empty($item['customization_details'])): ?>
+                                                                                                            <br><small class="text-muted"><em>"<?= htmlspecialchars($item['customization_details']) ?>"</em></small>
+                                                                                                <?php endif; ?>
+                                                                                    </td>
                                                                                     <td class="text-center"><?= $item['quantity'] ?></td>
-                                                                                    <td class="text-end">Rp <?= number_format($item['price'], 0, ',', '.') ?></td>
                                                                                     <td class="text-end">Rp <?= number_format($item['price'] * $item['quantity'], 0, ',', '.') ?></td>
                                                                         </tr>
                                                             <?php endwhile; ?>
                                                 </tbody>
                                     </table>
-                        </div>
+                        </section>
 
-                        <div class="row">
-                                    <div class="col-md-6">
-                                                <p><strong>Metode Pengiriman:</strong> <?= htmlspecialchars($order['shipping_method']) ?></p>
-                                    </div>
-                                    <div class="col-md-6 total-section">
-                                                <table class="table">
-                                                            <tbody>
+                        <section class="totals-section">
+                                    <table>
+                                                <tbody>
+                                                            <tr>
+                                                                        <td class="text-muted">Subtotal</td>
+                                                                        <td class="text-end">Rp <?= number_format($order['total_amount'] + $order['discount_amount'] - $order['shipping_cost'], 0, ',', '.') ?></td>
+                                                            </tr>
+                                                            <?php if ($order['discount_amount'] > 0): ?>
                                                                         <tr>
-                                                                                    <td><strong>Subtotal Produk</strong></td>
-                                                                                    <td class="text-end">Rp <?= number_format($order['total_amount'] - $order['shipping_cost'], 0, ',', '.') ?></td>
+                                                                                    <td class="text-muted">Diskon (<?= htmlspecialchars($order['voucher_code']) ?>)</td>
+                                                                                    <td class="text-end">- Rp <?= number_format($order['discount_amount'], 0, ',', '.') ?></td>
                                                                         </tr>
-                                                                        <tr>
-                                                                                    <td><strong>Ongkos Kirim</strong></td>
-                                                                                    <td class="text-end">Rp <?= number_format($order['shipping_cost'], 0, ',', '.') ?></td>
-                                                                        </tr>
-                                                                        <tr class="fw-bold fs-5 table-light">
-                                                                                    <td><strong>TOTAL</strong></td>
-                                                                                    <td class="text-end"><strong>Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></strong></td>
-                                                                        </tr>
-                                                            </tbody>
-                                                </table>
-                                    </div>
-                        </div>
+                                                            <?php endif; ?>
+                                                            <tr>
+                                                                        <td class="text-muted">Ongkos Kirim</td>
+                                                                        <td class="text-end">Rp <?= number_format($order['shipping_cost'], 0, ',', '.') ?></td>
+                                                            </tr>
+                                                            <tr class="grand-total">
+                                                                        <td>Total</td>
+                                                                        <td class="text-end">Rp <?= number_format($order['total_amount'], 0, ',', '.') ?></td>
+                                                            </tr>
+                                                </tbody>
+                                    </table>
+                        </section>
 
-                        <div class="invoice-footer">
-                                    <p>Terima kasih telah berbelanja di toko kami. Jika ada pertanyaan mengenai invoice ini, silakan hubungi kami.</p>
-                                    <p><?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti Lezat') ?></p>
-                        </div>
+                        <footer class="invoice-footer">
+                                    <p>Terima kasih telah berbelanja di <?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti Anda') ?>!</p>
+                        </footer>
             </div>
 </body>
 
