@@ -37,7 +37,7 @@ $result = mysqli_query($conn, "SELECT id, name, email, phone, created_at FROM us
                                     <table class="table table-hover">
                                                 <thead>
                                                             <tr>
-                                                                        <th>#ID</th>
+                                                                        <th>No</th>
                                                                         <th>Nama Pelanggan</th>
                                                                         <th>Email</th>
                                                                         <th>Telepon</th>
@@ -46,10 +46,12 @@ $result = mysqli_query($conn, "SELECT id, name, email, phone, created_at FROM us
                                                             </tr>
                                                 </thead>
                                                 <tbody>
-                                                            <?php if (mysqli_num_rows($result) > 0): ?>
+                                                            <?php
+                                                            $no = $offset + 1;
+                                                            if (mysqli_num_rows($result) > 0): ?>
                                                                         <?php while ($customer = mysqli_fetch_assoc($result)): ?>
                                                                                     <tr>
-                                                                                                <td><?= $customer['id'] ?></td>
+                                                                                                <td><?= $no++ ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['name']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['email']) ?></td>
                                                                                                 <td><?= htmlspecialchars($customer['phone']) ?></td>
