@@ -39,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                 require_once __DIR__ . '/../../app/mailer.php';
 
                                                 $items_res_mail = mysqli_query($conn, "SELECT oi.quantity, oi.price, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
-                                                $order_details_html = '<table class="order-details-table"><thead><tr><th>Nama Item</th><th>Jumlah</th><th>Harga</th></tr></thead><tbody>';
+                                                $order_details_html = '<table class="order-details-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px"><thead><tr><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Nama Item</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Jumlah</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Harga</th></tr></thead><tbody>';
                                                 while ($item = mysqli_fetch_assoc($items_res_mail)) {
-                                                            $order_details_html .= '<tr><td>' . htmlspecialchars($item['product_name']) . '</td><td>' . $item['quantity'] . 'x</td><td>Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
+                                                            $order_details_html .= '<tr><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">' . htmlspecialchars($item['product_name']) . '</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">' . $item['quantity'] . 'x</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
                                                 }
                                                 if ($order['discount_amount'] > 0) {
-                                                            $order_details_html .= '<tr><td colspan="2">Diskon </td><td>- Rp ' . number_format($order['discount_amount'], 0, ',', '.') . '</td></tr>';
+                                                            $order_details_html .= '<tr><td colspan="2" style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Diskon </td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">- Rp ' . number_format($order['discount_amount'], 0, ',', '.') . '</td></tr>';
                                                 }
-                                                $order_details_html .= '<tr><td colspan="2">Ongkos Kirim</td><td>Rp ' . number_format($order['shipping_cost'], 0, ',', '.') . '</td></tr>';
+                                                $order_details_html .= '<tr><td colspan="2" style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Ongkos Kirim</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Rp ' . number_format($order['shipping_cost'], 0, ',', '.') . '</td></tr>';
                                                 $order_details_html .= '</tbody></table>';
 
                                                 $template_path = realpath(__DIR__ . '/../../templates/email/ereceipt_template.html');
@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                             $email_body = file_get_contents($template_path);
                                                             $placeholders = [
                                                                         '{{customer_name}}' => $order['customer_name'],
+                                                                        '{{tahun_ini}}' => date('Y'),
                                                                         '{{order_id}}' => $order_id,
                                                                         '{{status}}' => htmlspecialchars($order['status']),
                                                                         '{{order_date}}' => date('d F Y, H:i', strtotime($order['created_at'])),

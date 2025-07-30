@@ -47,14 +47,14 @@ try {
                         $settings_res = mysqli_query($conn, "SELECT setting_value FROM settings WHERE setting_key = 'website_title'");
                         $website_name = mysqli_fetch_assoc($settings_res)['setting_value'] ?? 'Toko Anda';
 
-                        $order_details_html = '<table class="order-details-table"><thead><tr><th>Nama Item</th><th>Jumlah</th><th>Harga</th></tr></thead><tbody>';
+                        $order_details_html = '<table class="order-details-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px"><thead><tr><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Nama Item</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Jumlah</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Harga</th></tr></thead><tbody>';
                         foreach ($_SESSION['cart'] as $item) {
-                                    $order_details_html .= '<tr><td>' . htmlspecialchars($item['name']) . '</td><td>' . $item['quantity'] . 'x</td><td>Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
+                                    $order_details_html .= '<tr><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">' . htmlspecialchars($item['name']) . '</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">' . $item['quantity'] . 'x</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Rp ' . number_format($item['price'] * $item['quantity'], 0, ',', '.') . '</td></tr>';
                         }
                         if ($discount_amount > 0) {
-                                    $order_details_html .= '<tr><td colspan="2">Diskon </td><td>- Rp ' . number_format($discount_amount, 0, ',', '.') . '</td></tr>';
+                                    $order_details_html .= '<tr><td colspan="2" style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Diskon </td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">- Rp ' . number_format($discount_amount, 0, ',', '.') . '</td></tr>';
                         }
-                        $order_details_html .= '<tr><td colspan="2">Ongkos Kirim</td><td>Rp ' . number_format($shipping_cost, 0, ',', '.') . '</td></tr>';
+                        $order_details_html .= '<tr><td colspan="2" style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Ongkos Kirim</td><td style="padding: 10px; text-align: left; border-bottom: 1px solid #eee">Rp ' . number_format($shipping_cost, 0, ',', '.') . '</td></tr>';
                         $order_details_html .= '</tbody></table>';
 
                         $template_path = realpath(__DIR__ . '/../templates/email/ereceipt_template.html');
