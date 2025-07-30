@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                             $placeholders = [
                                                                         '{{customer_name}}' => $order['customer_name'],
                                                                         '{{order_id}}' => $order_id,
+                                                                        '{{status}}' => htmlspecialchars($order['status']),
                                                                         '{{order_date}}' => date('d F Y, H:i', strtotime($order['created_at'])),
                                                                         '{{total_amount}}' => number_format($order['total_amount'], 0, ',', '.'),
                                                                         '{{website_name}}' => $website_name,

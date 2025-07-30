@@ -63,6 +63,7 @@ try {
                                     $placeholders = [
                                                 '{{customer_name}}' => $customer_data['name'],
                                                 '{{order_id}}' => $order_id,
+                                                '{{status}}' => htmlspecialchars($initial_status),
                                                 '{{order_date}}' => date('d F Y, H:i'),
                                                 '{{total_amount}}' => number_format($total_amount, 0, ',', '.'),
                                                 '{{website_name}}' => $website_name,
