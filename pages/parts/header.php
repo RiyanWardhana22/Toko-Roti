@@ -60,7 +60,7 @@ $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                                                                                                 <?= htmlspecialchars($_SESSION['user_name']) ?>
                                                                                     </a>
                                                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                                                                <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
+                                                                                                <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin' || 'pegawai'): ?>
                                                                                                             <li><a class="dropdown-item" href="<?= BASE_URL ?>admin">Dashboard</a></li>
                                                                                                 <?php endif; ?>
                                                                                                 <li><a class="dropdown-item" href="<?= BASE_URL ?>akun">Akun Saya</a></li>

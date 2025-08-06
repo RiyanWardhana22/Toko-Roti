@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_res = mysqli_query($conn, "SELECT * FROM users WHERE id = $user_id");
 $user = mysqli_fetch_assoc($user_res);
-if (!$user || $user['role'] !== 'admin') {
+if (!isset($_SESSION['user_role']) || !in_array($_SESSION['user_role'], ['admin', 'pegawai'])) {
             header('Location: ' . BASE_URL);
             exit();
 }

@@ -4,7 +4,9 @@ require_once 'config.php';
 if (!isset($_SESSION['user_id'])) exit();
 $admin_check = mysqli_query($conn, "SELECT role FROM users WHERE id = " . $_SESSION['user_id']);
 $admin_role = mysqli_fetch_assoc($admin_check)['role'];
-if ($admin_role !== 'admin') exit();
+if ($admin_role !== 'admin') {
+            exit('Akses ditolak.');
+}
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'update_role') {
@@ -16,7 +18,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update_role') {
                         exit();
             }
 
-            if ($new_role == 'admin' || $new_role == 'customer') {
+            if ($new_role == 'admin' || $new_role == 'customer' || $new_role == 'pegawai') {
                         $stmt = mysqli_prepare($conn, "UPDATE users SET role = ? WHERE id = ?");
                         mysqli_stmt_bind_param($stmt, "si", $new_role, $user_id_to_update);
                         mysqli_stmt_execute($stmt);
