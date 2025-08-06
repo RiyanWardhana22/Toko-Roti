@@ -38,6 +38,7 @@ $admin_standalone_pages = ['invoice'];
             <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
             <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin_style.css">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="admin-body">
