@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
             $code = strtoupper(mysqli_real_escape_string($conn, $_POST['code']));

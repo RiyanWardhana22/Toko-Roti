@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 if (isset($_GET['action']) && $_GET['action'] == 'view' && isset($_GET['id'])) {
             include 'customer_detail.php';
             return;

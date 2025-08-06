@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 $message = '';
 if (isset($_GET['action']) && isset($_GET['id'])) {
             $review_id = (int)$_GET['id'];

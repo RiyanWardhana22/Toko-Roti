@@ -34,6 +34,7 @@ if (!$user_data) {
                                                 <label for="role" class="form-label">Role</label>
                                                 <select class="form-select" name="role" id="role">
                                                             <option value="customer" <?= $user_data['role'] == 'customer' ? 'selected' : '' ?>>Customer</option>
+                                                            <option value="pegawai" <?= $user_data['role'] == 'pegawai' ? 'selected' : '' ?>>Pegawai</option>
                                                             <option value="admin" <?= $user_data['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
                                                 </select>
                                     </div>

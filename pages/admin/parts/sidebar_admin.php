@@ -56,36 +56,38 @@ function is_active(string $page_name, string $current_page): string
                         <li class="nav-item">
                                     <a class="nav-link <?= is_active('products', $current_page) ?>" href="<?= BASE_URL ?>admin?page=products"><i class="fas fa-box"></i> Produk</a>
                         </li>
-                        <li class="nav-item">
-                                    <a class="nav-link <?= is_active('reports', $current_page) ?>" href="<?= BASE_URL ?>admin?page=reports"><i class="fas fa-chart-line"></i> Laporan</a>
-                        </li>
+                        <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
+                                    <li class="nav-item">
+                                                <a class="nav-link <?= is_active('reports', $current_page) ?>" href="<?= BASE_URL ?>admin?page=reports"><i class="fas fa-chart-line"></i> Laporan</a>
+                                    </li>
 
-                        <li class="nav-item">
-                                    <a class="nav-link <?= $is_customer_service_page ? 'active' : '' ?>" href="#customer-service-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_customer_service_page ? 'true' : 'false' ?>">
-                                                <i class="fa-solid fa-address-card"></i> Layanan Pelanggan
-                                    </a>
-                                    <div class="collapse <?= $is_customer_service_page ? 'show' : '' ?>" id="customer-service-submenu">
-                                                <ul class="nav flex-column ms-3 ps-3 border-start border-2 my-1">
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('customers', $current_page) ?>" href="<?= BASE_URL ?>admin?page=customers">Pelanggan</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('reviews', $current_page) ?>" href="<?= BASE_URL ?>admin?page=reviews">Ulasan</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('vouchers', $current_page) ?>" href="<?= BASE_URL ?>admin?page=vouchers">Voucher</a></li>
-                                                </ul>
-                                    </div>
-                        </li>
+                                    <li class="nav-item">
+                                                <a class="nav-link <?= $is_customer_service_page ? 'active' : '' ?>" href="#customer-service-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_customer_service_page ? 'true' : 'false' ?>">
+                                                            <i class="fa-solid fa-address-card"></i> Layanan Pelanggan
+                                                </a>
+                                                <div class="collapse <?= $is_customer_service_page ? 'show' : '' ?>" id="customer-service-submenu">
+                                                            <ul class="nav flex-column ms-3 ps-3 border-start border-2 my-1">
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('customers', $current_page) ?>" href="<?= BASE_URL ?>admin?page=customers">Pelanggan</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('reviews', $current_page) ?>" href="<?= BASE_URL ?>admin?page=reviews">Ulasan</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('vouchers', $current_page) ?>" href="<?= BASE_URL ?>admin?page=vouchers">Voucher</a></li>
+                                                            </ul>
+                                                </div>
+                                    </li>
 
-                        <li class="nav-item">
-                                    <a class="nav-link <?= $is_settings_page ? 'active' : '' ?>" href="#settings-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_settings_page ? 'true' : 'false' ?>">
-                                                <i class="fas fa-cog"></i> Settings
-                                    </a>
-                                    <div class="collapse <?= $is_settings_page ? 'show' : '' ?>" id="settings-submenu">
-                                                <ul class="nav flex-column ms-3 ps-3 border-start border-2 my-1">
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_website', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_website">Website</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_payment', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_payment">Payment</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_slider', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_slider">Slider</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_about', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_about">Tentang Kami</a></li>
-                                                            <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_users', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_users">User</a></li>
-                                                </ul>
-                                    </div>
-                        </li>
+                                    <li class="nav-item">
+                                                <a class="nav-link <?= $is_settings_page ? 'active' : '' ?>" href="#settings-submenu" data-bs-toggle="collapse" role="button" aria-expanded="<?= $is_settings_page ? 'true' : 'false' ?>">
+                                                            <i class="fas fa-cog"></i> Settings
+                                                </a>
+                                                <div class="collapse <?= $is_settings_page ? 'show' : '' ?>" id="settings-submenu">
+                                                            <ul class="nav flex-column ms-3 ps-3 border-start border-2 my-1">
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_website', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_website">Website</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_payment', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_payment">Payment</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_slider', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_slider">Slider</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_about', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_about">Tentang Kami</a></li>
+                                                                        <li class="nav-item"><a class="nav-link py-1 <?= is_active('settings_users', $current_page) ?>" href="<?= BASE_URL ?>admin?page=settings_users">User</a></li>
+                                                            </ul>
+                                                </div>
+                                    </li>
+                        <?php endif ?>
             </ul>
 </nav>

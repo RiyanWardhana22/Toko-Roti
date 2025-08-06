@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 function handle_logo_upload($file_input_name)
 {
             if (isset($_FILES[$file_input_name]) && $_FILES[$file_input_name]['error'] == 0) {

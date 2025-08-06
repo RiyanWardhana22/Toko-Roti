@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
             $slide_id = (int)$_GET['id'];
             $res = mysqli_query($conn, "SELECT image_url FROM sliders WHERE id = $slide_id");

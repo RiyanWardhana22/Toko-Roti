@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+            echo '<div class="alert alert-danger text-center">Anda tidak memiliki hak akses untuk melihat halaman ini.</div>';
+            return;
+}
+
 if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['id'])) {
             include 'user_form.php';
             return;
@@ -78,7 +83,15 @@ $users_result = mysqli_query($conn, "SELECT id, name, email, role, created_at FR
                                                                                                 <td><?= htmlspecialchars($user['name']) ?></td>
                                                                                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                                                                                 <td>
-                                                                                                            <span class="badge <?= $user['role'] == 'admin' ? 'text-bg-success' : 'text-bg-secondary' ?>">
+                                                                                                            <?php
+                                                                                                            $role_badge_class = 'text-bg-secondary';
+                                                                                                            if ($user['role'] == 'admin') {
+                                                                                                                        $role_badge_class = 'text-bg-success';
+                                                                                                            } elseif ($user['role'] == 'pegawai') {
+                                                                                                                        $role_badge_class = 'text-bg-info';
+                                                                                                            }
+                                                                                                            ?>
+                                                                                                            <span class="badge <?= $role_badge_class ?>">
                                                                                                                         <?= ucfirst($user['role']) ?>
                                                                                                             </span>
                                                                                                 </td>
