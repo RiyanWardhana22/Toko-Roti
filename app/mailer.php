@@ -27,8 +27,8 @@ function send_email($to, $recipient_name, $subject, $body)
                         $mail->SMTPAuth   = true;                             // Aktifkan otentikasi SMTP
 
                         // GANTI DENGAN KREDENSIAL GMAIL ANDA
-                        $mail->Username   = 'riyanwardhana2@gmail.com';           // Alamat email Gmail Anda
-                        $mail->Password   = 'svje ycpz axjr mobm'; // Gunakan App Password 16 digit yang sudah Anda buat
+                        $mail->Username   = 'silmarils2025@gmail.com';           // Alamat email Gmail Anda
+                        $mail->Password   = 'qaal otje dear fskb'; // Gunakan App Password 16 digit yang sudah Anda buat
 
                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;    // Aktifkan enkripsi TLS
                         $mail->Port       = 587;                              // Port TCP untuk koneksi (587 untuk TLS, 465 untuk SSL)
@@ -36,7 +36,7 @@ function send_email($to, $recipient_name, $subject, $body)
                         // PENERIMA (RECIPIENTS)
                         // ----------------------------------------------------
                         // Set alamat "Dari" (From)
-                        $mail->setFrom('riyanwardhana2@gmail.com', 'Silmarils Cookies Dessert'); // Ganti 'Toko Roti Anda' dengan nama toko Anda
+                        $mail->setFrom('silmarils2025@gmail.com', 'Silmarils Cookies Dessert'); // Ganti 'Toko Roti Anda' dengan nama toko Anda
                         // Tambahkan alamat "Ke" (To)
                         $mail->addAddress($to, $recipient_name);              // Email dan nama penerima
 
