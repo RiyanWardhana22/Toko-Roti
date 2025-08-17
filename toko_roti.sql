@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 16, 2025 at 06:38 AM
+-- Generation Time: Aug 17, 2025 at 07:40 AM
 -- Server version: 8.0.42
 -- PHP Version: 8.3.22
 
@@ -66,15 +66,6 @@ CREATE TABLE `orders` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `status`, `shipping_address`, `shipping_method`, `payment_method`, `shipping_cost`, `shipped_at`, `voucher_code`, `discount_amount`, `created_at`) VALUES
-(1, 3, '24000.00', 'Selesai', 'Toko Riyan, Jalan Mangaan 2 Link XII Lorong Wisnu Ujung, Mabar, Medan Deli MEDAN DELI, KOTA MEDAN, SUMATERA UTARA, ID, 20242', 'Gosend Instant', 'Transfer Bank/E-Wallet', '18000.00', '2025-08-06 12:47:22', '0', '9000.00', '2025-07-30 07:42:11'),
-(2, 3, '12000.00', 'Diproses', 'Toko Riyan, Jalan Mangaan 2 Link XII Lorong Wisnu Ujung, Mabar, Medan Deli MEDAN DELI, KOTA MEDAN, SUMATERA UTARA, ID, 20242', 'Ambil di Toko', 'Bayar di Toko', '0.00', '2025-08-06 13:08:03', NULL, '0.00', '2025-08-06 06:00:18'),
-(3, 3, '95000.00', 'Diproses', 'Toko Riyan, Jalan Mangaan 2 Link XII Lorong Wisnu Ujung, Mabar, Medan Deli MEDAN DELI, KOTA MEDAN, SUMATERA UTARA, ID, 20242', 'Ambil di Toko', 'Transfer Bank/E-Wallet', '0.00', NULL, NULL, '0.00', '2025-08-15 08:13:48');
-
 -- --------------------------------------------------------
 
 --
@@ -90,15 +81,6 @@ CREATE TABLE `order_items` (
   `customization_details` text,
   `has_reviewed` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=belum review, 1=sudah'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `order_items`
---
-
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `customization_details`, `has_reviewed`) VALUES
-(1, 1, 1, 1, '15000.00', '', 0),
-(2, 2, 2, 1, '12000.00', '', 0),
-(3, 3, 4, 1, '95000.00', '', 0);
 
 -- --------------------------------------------------------
 
@@ -269,9 +251,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `role`, `created_at`) VALUES
-(3, 'Riyan Wardhana', 'riyanwardhana2@gmail.com', '$2y$10$dbxPZ2y1Sea6UM5uSwvReuQbesvz.mG1YUnmfCAZNw/saSk6eQWRK', '081260426431', 'Toko Riyan, Jalan Mangaan 2 Link XII Lorong Wisnu Ujung, Mabar, Medan Deli MEDAN DELI, KOTA MEDAN, SUMATERA UTARA, ID, 20242', 'admin', '2025-06-23 08:31:15'),
-(7, 'Riyan Wkwk', 'riyanwardhana55@gmail.com', '$2y$10$4XkuCk1l5bdd4SzCwy39XOBrlzkE7SeIjg2oyiiv87bSG.BANn.le', '081260426431', 'Jl. Mangaan III Ps. II 167, M A B A R, Kec. Medan Deli, Kota Medan, Sumatera Utara 20241', 'pegawai', '2025-08-06 07:30:51'),
-(8, 'Silmar', 'silmarils2025@gmail.com', '$2y$10$MXUvMdmZG2UnIu9sWj8YVeOIs3bZPUq62Uj2iSXIv6e6O.q4YRx1u', '081260426431', 'Jalan Kenangan', 'customer', '2025-08-15 08:16:49');
+(8, 'Admin', 'silmarils2025@gmail.com', '$2y$10$Pe41.u6lXpx0.ON40GL/yes0.b1ZBc8XK4JGxgbDNEDspEnoWqZQ6', '081260426431', 'Jalan Kenangan', 'admin', '2025-08-15 08:16:49');
 
 -- --------------------------------------------------------
 
@@ -387,13 +367,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payment_confirmations`
