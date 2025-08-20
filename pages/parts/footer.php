@@ -36,7 +36,26 @@
                                                 </div>
                                     </div>
                         </div>
+
                         <hr>
+
+                        <div class="row justify-content-center text-center my-4">
+                                    <div class="col-lg-10">
+                                                <div class="mb-3">
+                                                            <img src="<?= BASE_URL ?>assets/images/footer/kampus_merdeka.png" alt="Kampus Merdeka" style="height: 50px; margin: 0 10px; vertical-align: middle;">
+                                                            <img src="<?= BASE_URL ?>assets/images/footer/unimed.png" alt="Logo Universitas" style="height: 50px; margin: 0 10px; vertical-align: middle;">
+                                                            <img src="<?= BASE_URL ?>assets/images/footer/bima.png" alt="BIMA" style="height: 50px; margin: 0 10px; vertical-align: middle;">
+                                                </div>
+                                                <div>
+                                                            <h6 style="font-weight: bold;">Pengabdian Kepada Masyarakat - Pemberdayaan Kemitraan Masyarakat</h6>
+                                                            <p class="mb-1" style="font-size: 0.9em;">
+                                                                        HIBAH DRTPM – Direktorat Riset, Teknologi, dan Pengabdian kepada Masyarakat Anggaran Tahun 2025 Bekerja Sama Dengan Lembaga Pengabdian Kepada Masyarakat Universitas Negeri Medan
+                                                            </p>
+                                                </div>
+                                    </div>
+                        </div>
+                        <hr>
+
                         <div class="text-center">
                                     <p class="mb-0">&copy; <?= date('Y') ?> <?= htmlspecialchars($site_settings['website_title'] ?? 'Toko Roti Anda') ?>. All Rights Reserved.</p>
                         </div>
