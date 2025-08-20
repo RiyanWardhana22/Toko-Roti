@@ -102,6 +102,9 @@ $statuses = ['Menunggu Pembayaran', 'Menunggu Verifikasi', 'Diproses', 'Dikirim'
                                     <div class="card content-card">
                                                 <div class="card-header">Detail Konfirmasi Pembayaran</div>
                                                 <div class="card-body">
+                                                            <a href="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" target="_blank">
+                                                                        <img src="<?= BASE_URL ?>assets/images/proofs/<?= htmlspecialchars($confirmation_data['proof_image_url']) ?>" class="img-fluid rounded border" alt="Bukti Transfer">
+                                                            </a>
                                                 </div>
                                     </div>
                         <?php endif; ?>
