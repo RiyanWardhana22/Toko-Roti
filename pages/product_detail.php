@@ -68,15 +68,6 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
 
 <main>
             <div class="container py-5">
-                        <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Beranda</a></li>
-                                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>produk">Produk</a></li>
-                                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>produk?kategori=<?= $product['category_slug'] ?>"><?= htmlspecialchars($product['category_name']) ?></a></li>
-                                                <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($product['name']) ?></li>
-                                    </ol>
-                        </nav>
-
                         <div class="product-detail-container">
                                     <div class="row g-5">
                                                 <div class="col-lg-6 product-gallery">
@@ -127,7 +118,7 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                         </div>
                                                                         <div class="mb-3">
                                                                                     <label for="custom_text" class="form-label">Catatan untuk Produk (Opsional)</label>
-                                                                                    <textarea class="form-control" name="customization_details" id="custom_text" rows="2" placeholder="Contoh: Tolong bungkus dengan rapi."></textarea>
+                                                                                    <textarea class="form-control" name="customization_details" id="custom_text" rows="2"></textarea>
                                                                         </div>
                                                                         <div class="d-grid">
                                                                                     <?php if (isset($_SESSION['user_id'])): ?>
@@ -136,7 +127,7 @@ $rating_summary = mysqli_fetch_assoc($rating_summary_result);
                                                                                                 </button>
                                                                                     <?php else: ?>
                                                                                                 <a href="<?= BASE_URL ?>login" class="btn btn-primary btn-lg <?= $product['stock'] < 1 ? 'disabled' : '' ?>">
-                                                                                                            <i class="fas fa-sign-in-alt me-2"></i> Login untuk Membeli
+                                                                                                            Login untuk Membeli
                                                                                                 </a>
                                                                                     <?php endif; ?>
                                                                         </div>
