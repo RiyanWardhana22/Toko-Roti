@@ -2,137 +2,131 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Status Pesanan #{{order_id}}</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
-      body {
-        font-family: "Poppins", Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-      }
-
-      .container {
+    <title>Update Status Pesanan {{order_id}}</title>
+  </head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    "
+  >
+    <div
+      class="container"
+      style="
         max-width: 600px;
         margin: 20px auto;
-        background-color: #ffffff;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        border: 1px solid #a1623b;
-      }
-
-      .header {
-        background-color: #f5eadd;
-        padding: 30px 20px;
-        text-align: center;
-        border-bottom: 1px solid #dee2e6;
-      }
-
-      .header h2 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: 600;
-        color: #333;
-      }
-
-      .header p {
-        margin: 5px 0 0;
-        color: #6c757d;
-      }
-
-      .content {
-        padding: 30px 40px;
-      }
-
-      .status-box {
-        background-color: #e9f5ff;
-        border: 1px solid #bde0fe;
+        padding: 20px;
+        border: 1px solid #eee;
         border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        margin-bottom: 30px;
-      }
-
-      .status-box p {
-        margin: 0;
-        font-size: 16px;
-        color: #0353a4;
-      }
-
-      .status-box .status-text {
-        font-size: 20px;
-        font-weight: 700;
-        margin-top: 5px;
-        color: #023e7d;
-      }
-
-      .content p {
-        font-size: 16px;
-        color: #555;
-        text-align: center;
-      }
-
-      .cta-button {
-        display: inline-block;
-        background-color: #0d6efd;
-        color: white;
-        padding: 15px 35px;
-        text-decoration: none;
-        border-radius: 50px;
-        font-size: 16px;
-        font-weight: 600;
-        margin-top: 20px;
-        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
-        transition: all 0.3s ease;
-      }
-
-      .cta-button:hover {
-        background-color: #0b5ed7;
-        box-shadow: 0 6px 15px rgba(13, 110, 253, 0.5);
-      }
-
-      .footer {
-        background-color: #f5eadd;
-        padding: 20px;
-        font-size: 12px;
-        text-align: center;
-        color: #777;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h2>Update Status Pesanan Anda</h2>
-        <p>Order ID: #{{order_id}}</p>
-      </div>
-      <div class="content">
-        <p>Halo, <strong>{{customer_name}}</strong>,</p>
-        <p>Ada pembaruan untuk pesanan Anda.</p>
-
-        <div class="status-box">
-          <p>Status pesanan Anda sekarang adalah:</p>
-          <p class="status-text">{{new_status}}</p>
+        background-color: #ffffff;
+      "
+    >
+      <div
+        class="header"
+        style="
+          text-align: center;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 20px;
+          margin-bottom: 20px;
+        "
+      >
+        <h2 style="text-transform: uppercase; margin: 0; font-size: 22px">
+          {{website_name}}
+        </h2>
+        <div
+          class="subtitle"
+          style="margin-top: 8px; font-size: 16px; color: #555"
+        >
+          Update Status Pesanan
         </div>
+        <div
+          class="order-id"
+          style="font-size: 14px; color: #777; margin-top: 5px"
+        >
+          Nomor Pesanan: {{order_id}}
+        </div>
+      </div>
 
-        <p>
-          Kami akan memberitahu Anda lagi jika ada perkembangan selanjutnya.
+      <div class="content" style="padding: 10px 0">
+        <p style="font-size: 16px; line-height: 1.6; color: #555">
+          Halo, <strong>{{customer_name}}</strong>
+        </p>
+        <p style="font-size: 16px; line-height: 1.6; color: #555">
+          Ada pembaruan untuk status pesanan Anda.
+        </p>
+      </div>
+
+      <div class="info-section" style="margin: 20px 0">
+        <div
+          class="status-update"
+          style="
+            background-color: #f4f8ff;
+            border: 1px solid #d6eaff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+          "
+        >
+          <span style="font-size: 16px; color: #555"
+            >Status pesanan Anda sekarang:</span
+          >
+          <div
+            class="status-text"
+            style="
+              font-size: 20px;
+              font-weight: bold;
+              color: #0d6efd;
+              margin-top: 8px;
+            "
+          >
+            {{new_status}}
+          </div>
+        </div>
+      </div>
+
+      <div class="content" style="text-align: center; padding: 10px 0">
+        <p style="font-size: 16px; line-height: 1.6; color: #555">
           Anda dapat melihat detail lengkap pesanan Anda dengan menekan tombol
           di bawah ini.
         </p>
-
-        <p style="text-align: center">
-          <a href="{{order_detail_link}}" class="cta-button"
-            >Lihat Detail Pesanan</a
-          >
-        </p>
+        <a
+          href="{{order_detail_link}}"
+          class="cta-button"
+          style="
+            display: inline-block;
+            background-color: #333;
+            color: #ffffff;
+            padding: 12px 25px;
+            margin-top: 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+          "
+          >Lihat Detail Pesanan</a
+        >
       </div>
-      <div class="footer">
-        <p>&copy; {{current_year}} {{website_name}}. All Rights Reserved.</p>
+
+      <div
+        class="footer"
+        style="
+          text-align: center;
+          font-size: 12px;
+          color: #999;
+          margin-top: 30px;
+          padding-top: 20px;
+          border-top: 1px solid #eee;
+        "
+      >
+        <p style="margin: 0">
+          Terima kasih telah berbelanja di {{website_name}}!
+        </p>
+        <p style="margin: 5px 0 0">
+          &copy; {{current_year}} {{website_name}}. All Rights Reserved.
+        </p>
       </div>
     </div>
   </body>
