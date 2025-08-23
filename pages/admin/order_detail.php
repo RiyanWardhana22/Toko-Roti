@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                 $template_path = realpath(__DIR__ . '/../../templates/email/status_update_template.html');
                                                 if (file_exists($template_path)) {
                                                             $email_body = file_get_contents($template_path);
-                                                            $order_detail_link = BASE_URL . 'member/orders.php?action=view&id=' . $order_id;
+                                                            $order_detail_link = BASE_URL . 'order_detail_customer?id=' . $order_id;
 
                                                             $placeholders = [
                                                                         '{{customer_name}}'   => $order['customer_name'],
