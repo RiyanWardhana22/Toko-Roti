@@ -32,12 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                         mysqli_stmt_bind_param($stmt, $types, ...$params);
 
                         if (mysqli_stmt_execute($stmt)) {
-                                    $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui.</div>";
                                     $order['status'] = $new_status;
-
+                                    require_once __DIR__ . '/../../app/mailer.php';
                                     if ($new_status == 'Diproses' && $old_status == 'Menunggu Verifikasi') {
-                                                require_once __DIR__ . '/../../app/mailer.php';
-
                                                 $items_res_mail = mysqli_query($conn, "SELECT oi.quantity, oi.price, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = $order_id");
                                                 $order_details_html = '<table class="order-details-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px"><thead><tr><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Nama Item</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Jumlah</th><th style="padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px;">Harga</th></tr></thead><tbody>';
                                                 while ($item = mysqli_fetch_assoc($items_res_mail)) {
@@ -69,8 +66,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                             send_email($order['customer_email'], $order['customer_name'], $subject, $email_body);
                                                             $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui dan E-Receipt telah dikirim.</div>";
                                                 }
+                                    } else {
+                                                $template_path = realpath(__DIR__ . '/../../templates/email/status_update_template.html');
+                                                if (file_exists($template_path)) {
+                                                            $email_body = file_get_contents($template_path);
+                                                            $order_detail_link = BASE_URL . 'member/orders.php?action=view&id=' . $order_id;
+
+                                                            $placeholders = [
+                                                                        '{{customer_name}}'   => $order['customer_name'],
+                                                                        '{{order_id}}'        => $order_id,
+                                                                        '{{new_status}}'      => htmlspecialchars($new_status),
+                                                                        '{{order_detail_link}}' => $order_detail_link,
+                                                                        '{{website_name}}'    => $website_name,
+                                                                        '{{current_year}}'    => date('Y'),
+                                                            ];
+
+                                                            $email_body = str_replace(array_keys($placeholders), array_values($placeholders), $email_body);
+                                                            $subject = "Update Status Pesanan #" . $order_id . " - " . $website_name;
+                                                            $emailSent = send_email($order['customer_email'], $order['customer_name'], $subject, $email_body);
+
+                                                            if ($emailSent === true) {
+                                                                        $message = "<div class='alert alert-success'>Status pesanan berhasil diperbarui dan notifikasi telah dikirim ke pelanggan.</div>";
+                                                            } else {
+                                                                        $message = "<div class='alert alert-warning'>Status pesanan diperbarui, tetapi notifikasi email GAGAL dikirim. Error: " . htmlspecialchars($emailSent) . "</div>";
+                                                            }
+                                                } else {
+                                                            $message = "<div class='alert alert-danger'>Status pesanan diperbarui, tetapi template email notifikasi tidak ditemukan.</div>";
+                                                }
                                     }
+                        } else {
+                                    $message = "<div class='alert alert-danger'>Gagal memperbarui status pesanan.</div>";
                         }
+            } else {
+                        $message = "<div class='alert alert-info'>Tidak ada perubahan status yang dilakukan.</div>";
             }
 }
 
