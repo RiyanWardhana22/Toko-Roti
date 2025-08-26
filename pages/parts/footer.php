@@ -49,7 +49,7 @@
                                                 <div>
                                                             <h6 style="font-weight: bold;">Pengabdian Kepada Masyarakat - Pemberdayaan Kemitraan Masyarakat</h6>
                                                             <p class="mb-1" style="font-size: 0.9em;">
-                                                                        HIBAH DRTPM – Direktorat Riset, Teknologi, dan Pengabdian kepada Masyarakat Anggaran Tahun 2025 Bekerja Sama Dengan Lembaga Pengabdian Kepada Masyarakat Universitas Negeri Medan
+                                                                        HIBAH DPPM – Direktorat Penelitian dan Pengabdian Kepada Masyarakat Anggaran Tahun 2025 Bekerja Sama Dengan Lembaga Pengabdian Kepada Masyarakat Universitas Negeri Medan
                                                             </p>
                                                 </div>
                                     </div>
