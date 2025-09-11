@@ -42,7 +42,7 @@
                         <div class="row justify-content-center text-center my-4">
                                     <div class="col-lg-10">
                                                 <div class="mb-3">
-                                                            <img src="<?= BASE_URL ?>assets/images/footer/kampus_merdeka.png" alt="Kampus Merdeka" style="height: 50px; margin: 0 10px; vertical-align: middle;">
+                                                            <img src="<?= BASE_URL ?>assets/images/footer/kampus_berdampak.png" alt="Kampus Merdeka" style="height: 50px; margin: 0 10px; vertical-align: middle;">
                                                             <img src="<?= BASE_URL ?>assets/images/footer/unimed.png" alt="Logo Universitas" style="height: 50px; margin: 0 10px; vertical-align: middle;">
                                                             <img src="<?= BASE_URL ?>assets/images/footer/bima.png" alt="BIMA" style="height: 50px; margin: 0 10px; vertical-align: middle;">
                                                 </div>
